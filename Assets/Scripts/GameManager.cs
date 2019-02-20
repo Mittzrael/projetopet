@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Teste : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+
 }
