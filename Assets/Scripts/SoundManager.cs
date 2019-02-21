@@ -6,11 +6,11 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
     [SerializeField]
-    private AudioSource backgroundAudioSource;
+    private AudioSource backgroundAudioSource = null;
     [SerializeField]
-    private AudioSource sfxAudioSource;
+    private AudioSource sfxAudioSource = null;
     [SerializeField]
-    private AudioSource animalAudioSource;
+    private AudioSource animalAudioSource = null;
 
     private void Awake()
     {
