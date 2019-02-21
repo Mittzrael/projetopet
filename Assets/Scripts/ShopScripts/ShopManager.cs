@@ -47,7 +47,7 @@ public class ShopManager : MonoBehaviour {
 
         // Encontra o indicador do dinheiro do jogador e atualiza para o valor que ele possui
         playerMoney = GameObject.Find("PlayerMoney");
-        playerMoney.GetComponent<Text>().text = SaveManager.player.dinheiro.ToString();
+        //playerMoney.GetComponent<Text>().text = SaveManager.player.dinheiro.ToString();
 
         // Chama a função de acordo com o nome passado (chama como uma coroutine)
         Invoke(string.Concat(toggleSelected, "ShopWindow"), 0);
@@ -101,7 +101,7 @@ public class ShopManager : MonoBehaviour {
             // Se o item já foi vendido, chama a função ItemSold
             // Se o item não foi vendido, verifica se o player tem dinheiro pra comprar
             // Se não tiver dinheiro, muda o valor para vermelho e desabilita o botão
-            if (toggleSelected.Contains("Avatar") && SaveManager.player.avatares[i])
+          /*  if (toggleSelected.Contains("Avatar") && SaveManager.player.avatares[i])
             {
                 shopItemPrefab.ItemSold();
             }
@@ -117,7 +117,7 @@ public class ShopManager : MonoBehaviour {
             {
                 shopItemPrefab.transform.GetChild(3).GetComponent<Text>().color = Color.red;
                 shopItemPrefab.transform.GetChild(5).GetComponent<Button>().interactable = false;
-            }
+            }*/
         }
     }
 
@@ -143,26 +143,26 @@ public class ShopManager : MonoBehaviour {
         if (toggleSelected.Contains("Avatar"))
         {
             chosenItemPrice = avatarsToSell[chosenItem].itemPrice;
-            SaveManager.player.avatares[chosenItem] = true;
+           // SaveManager.player.avatares[chosenItem] = true;
             avatarsToSell[chosenItem].availableToBuy = false;
         }
         else if (toggleSelected.Contains("Cores"))
         {
             chosenItemPrice = colorsToSell[chosenItem].itemPrice;
-            SaveManager.player.cores[chosenItem] = true;
+           // SaveManager.player.cores[chosenItem] = true;
             colorsToSell[chosenItem].availableToBuy = false;
         }
         else if (toggleSelected.Contains("Extras"))
         {
             chosenItemPrice = extrasToSell[chosenItem].itemPrice;
-            SaveManager.player.extras[chosenItem] = true;
+           // SaveManager.player.extras[chosenItem] = true;
             extrasToSell[chosenItem].availableToBuy = false;
         }
 
         // Reduz o dinheiro que o player possui pelo valor do item comprado
-        SaveManager.player.dinheiro = SaveManager.player.dinheiro - chosenItemPrice;
+       // SaveManager.player.dinheiro = SaveManager.player.dinheiro - chosenItemPrice;
         // Atualiza na janela da loja o dinheiro atual do player e com a indicação que o item foi comprado
-        playerMoney.GetComponent<Text>().text = SaveManager.player.dinheiro.ToString();
+      //  playerMoney.GetComponent<Text>().text = SaveManager.player.dinheiro.ToString();
         Invoke(string.Concat(toggleSelected, "ShopWindow"), 0);
         // Destroi a janela de confirmação de compra
         Destroy(GameObject.Find("ConfirmMenuLoja(Clone)"));

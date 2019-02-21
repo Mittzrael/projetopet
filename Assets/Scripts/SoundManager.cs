@@ -22,12 +22,74 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SoundManagerOnTransition()
+    public void StopAllSounds()
     {
         backgroundAudioSource.Stop();
         sfxAudioSource.Stop();
         animalAudioSource.Stop();
     }
+
+    public void PlayBackgroundMusic(AudioClip backgroundMusic)
+    {
+        backgroundAudioSource.clip = backgroundMusic;
+        backgroundAudioSource.Play();
+    }
+
+    public void PlaySFX(AudioClip sfx)
+    {
+        sfxAudioSource.clip = sfx;
+        sfxAudioSource.Play();
+    }
+
+    public void PlayAnimalSound(AudioClip animalSound)
+    {
+        animalAudioSource.clip = animalSound;
+        animalAudioSource.Play();
+    }
+
+    public void MuteBackgroundMusic()
+    {
+        backgroundAudioSource.mute = true;
+    }
+
+    public void MuteSFX()
+    {
+        sfxAudioSource.mute = true;
+        animalAudioSource.mute = true;
+    }
+
+    public void ChangeBackgroundVolume(float volume)
+    {
+        backgroundAudioSource.volume = volume;
+    }
+
+    public void StopBackgroundMusic()
+    {
+        backgroundAudioSource.Stop();
+    }
+
+    public void StopAnimalSound()
+    {
+        animalAudioSource.Stop();
+    }
+
+    public void StopSFXSound()
+    {
+        sfxAudioSource.Stop();
+    }
+
+    public bool IsBackgroundPlaying()
+    {
+        if (backgroundAudioSource.isPlaying)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
     /* Fazer função para mudar o volume.
      * Função de cada play, recebendo um audioClip

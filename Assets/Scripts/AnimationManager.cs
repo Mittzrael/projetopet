@@ -61,7 +61,7 @@ public class AnimationManager : MonoBehaviour {
             {
                 animation = animBackward;
             }
-            SoundManager.instance.PlaySfx(audio);
+           // SoundManager.instance.PlaySfx(audio);
         }
         else
         {
