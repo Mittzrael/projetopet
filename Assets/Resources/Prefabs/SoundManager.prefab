@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 82078948308550364}
   - component: {fileID: 82454443153812940}
   - component: {fileID: 82813521887397058}
-  - component: {fileID: 114109300759426674}
+  - component: {fileID: 2766775502633934965}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -322,7 +322,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &114109300759426674
+--- !u!114 &2766775502633934965
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -335,5 +335,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundAudioSource: {fileID: 82078948308550364}
-  sfxAudioSource: {fileID: 82078948308550364}
-  animalAudioSource: {fileID: 82078948308550364}
+  sfxAudioSource: {fileID: 82454443153812940}
+  animalAudioSource: {fileID: 82813521887397058}
