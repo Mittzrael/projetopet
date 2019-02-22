@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         //SilabaControl silabaControl = SilabaControl.instance;
         //silabaControl.StopCoroutines();
         //StopAllCoroutines();
-        soundManager.StopAllSounds();
+        //soundManager.StopAllSounds();
         animManager = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationManager>();
         StartCoroutine(animManager.Fade(scene));
     }   
