@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+public class MenuManager : MonoBehaviour, IDeselectHandler
 {
     public Transform contentPanel;
     public GameObject itemPrefab;
@@ -13,11 +13,16 @@ public class MenuManager : MonoBehaviour
     protected int listSize;
 
     protected static Button continueButton;
+    public static InputField playerName;
+
+    public Player player;
 
     void Start()
     {
         ShowItens(listSize);
         continueButton = GameObject.FindGameObjectWithTag("ReadyToGoButton").GetComponent<Button>();
+        
+        player = SaveManager.player;
     }
 
     private void ShowItens(int listSize)
@@ -37,8 +42,21 @@ public class MenuManager : MonoBehaviour
         return 0;
     }
 
+    public void OnDeselect(BaseEventData eventData)
+    {
+        SaveManager.player.nome = playerName.text;
+        ReadyToGo();
+    }
+
     public static void ReadyToGo()
     {
-        continueButton.interactable = true;
+        if (SaveManager.player.avatarSelecionado != -1 && SaveManager.player.nome != "")
+        {
+            continueButton.interactable = true;
+        }
+        else
+        {
+            continueButton.interactable = false;
+        }
     }
 }

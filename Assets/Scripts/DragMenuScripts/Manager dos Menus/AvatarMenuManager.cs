@@ -11,6 +11,7 @@ public class AvatarMenuManager : MenuManager
     private void Awake()
     {
         listSize = avatarList.avatar.Length;
+        playerName = GameObject.FindGameObjectWithTag("InputBox").GetComponent<InputField>();
     }
 
     public override void DisplayItemInfo(int i)
