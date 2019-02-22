@@ -5,6 +5,7 @@ using UnityEngine;
 public class LogosScreen : MonoBehaviour
 {
     private GameObject logo2;
+    public string nextScene;
 
     void Start()
     {
@@ -17,7 +18,7 @@ public class LogosScreen : MonoBehaviour
     {
         yield return new WaitForSeconds(4);
         logo2.SetActive(true);
-        yield return new WaitForSeconds(5);
-        //chamar proxima cena
+        yield return new WaitForSeconds(5);        
+        GameManager.instance.LoadSceneWithFade(nextScene);        
     }    
 }

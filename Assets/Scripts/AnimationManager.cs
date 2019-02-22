@@ -33,13 +33,13 @@ public class AnimationManager : MonoBehaviour {
         fade = Resources.Load("Prefabs/Animations/Fade") as GameObject;
 
         // Instancia as animações carregadas
-        animForward = Instantiate(animForward);
-        animBackward = Instantiate(animBackward);
+        //animForward = Instantiate(animForward);
+        //animBackward = Instantiate(animBackward);
         fade = Instantiate(fade);
 
         // Coloca as animações como filhas do AnimationManager
-        animForward.transform.SetParent(GameObject.FindGameObjectWithTag("AnimationManager").transform, false);
-        animBackward.transform.SetParent(GameObject.FindGameObjectWithTag("AnimationManager").transform, false);
+        //animForward.transform.SetParent(GameObject.FindGameObjectWithTag("AnimationManager").transform, false);
+        //animBackward.transform.SetParent(GameObject.FindGameObjectWithTag("AnimationManager").transform, false);
         fade.transform.SetParent(GameObject.FindGameObjectWithTag("AnimationManager").transform, false);
     }
 

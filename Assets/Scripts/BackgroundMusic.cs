@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
-    private SoundManager soundManager;
     [Tooltip("Música para tocar.")]
     public AudioClip song; //Qual música você quer que toque ao iniciar a tela?
 
     void Start()
     {
-        soundManager = SoundManager.instance;
-        soundManager.PlayBackgroundMusic(song);
+       SoundManager.instance.PlayBackgroundMusic(song);
     }
+
+    public void LoadScene(string scene)
+    {
+        GameManager.instance.LoadSceneWithFade(scene);
+    }
+
 }
