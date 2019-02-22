@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 275418de488f9bf4db36f8bcddb29a94, type: 3}
+  m_Name: HomeList
+  m_EditorClassIdentifier: 
+  listName: 
+  residencia:
+  - itemImage: {fileID: 2800000, guid: ba7b9b76494c3e24d8b7fde7eafbab82, type: 3}
+    residenciaInfo: Casa
+  - itemImage: {fileID: 2800000, guid: ad35d0106d3dde541abd81aafbb0065b, type: 3}
+    residenciaInfo: Apartamento
+  - itemImage: {fileID: 2800000, guid: 44a6a427431d02b4387bd7b3e5bebcf6, type: 3}
+    residenciaInfo: "Ch\xE1cara"
