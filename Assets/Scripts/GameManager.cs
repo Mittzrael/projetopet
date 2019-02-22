@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public static void InitializeManagers()
     {
         GameObject videoManager, gameManager, animManager, soundManager;
-
+        
         videoManager = Resources.Load("Prefabs/VideoManager") as GameObject;
         gameManager = Resources.Load("Prefabs/GameManager") as GameObject;
         animManager = Resources.Load("Prefabs/AnimationManager") as GameObject;
@@ -63,11 +63,8 @@ public class GameManager : MonoBehaviour
     {
         animManager = AnimationManager.instance;
         soundManager = SoundManager.instance;
-        //SilabaControl silabaControl = SilabaControl.instance;
-        //silabaControl.StopCoroutines();
-        //StopAllCoroutines();
         soundManager.StopAllSounds();
         animManager = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationManager>();
         StartCoroutine(animManager.Fade(scene));
-    }
+    }   
 }

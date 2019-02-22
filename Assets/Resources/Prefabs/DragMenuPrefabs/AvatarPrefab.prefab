@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5134279340518509931}
   - component: {fileID: 5134279340518509929}
   - component: {fileID: 5134279340518509930}
+  - component: {fileID: 3102205666598457884}
   m_Layer: 0
   m_Name: AvatarPrefab
   m_TagString: Untagged
@@ -72,3 +73,15 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &3102205666598457884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5134279340518509924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42c999ba7e5d374f9814e19c6a3458b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
