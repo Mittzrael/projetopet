@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class MenuItem
+public class Pet : Item
 {
-    public Sprite itemSprite;
-    public Texture itemTexture;
-    public string itemName;
+    public string petInfo;
 }
