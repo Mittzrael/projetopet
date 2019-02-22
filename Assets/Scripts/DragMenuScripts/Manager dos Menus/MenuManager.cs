@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public ItemList itemList;
     public Transform contentPanel;
     public GameObject itemPrefab;
     protected GameObject itemInstance;
@@ -24,8 +23,6 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void DisplayItemInfo(int i)
-    {
-
-    }
+    // Cada "filho" possui a sua própria função DisplayItemInfo que substitui esta (permitido através do virtual e override)
+    public virtual void DisplayItemInfo(int i) { }
 }

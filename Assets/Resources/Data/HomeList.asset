@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listName: 
   residencia:
-  - itemImage: {fileID: 0}
-    residenciaInfo: 
-  - itemImage: {fileID: 0}
-    residenciaInfo: 
-  - itemImage: {fileID: 0}
-    residenciaInfo: 
+  - itemImage: {fileID: 2800000, guid: ba7b9b76494c3e24d8b7fde7eafbab82, type: 3}
+    residenciaInfo: Casa
+  - itemImage: {fileID: 2800000, guid: ad35d0106d3dde541abd81aafbb0065b, type: 3}
+    residenciaInfo: Apartamento
+  - itemImage: {fileID: 2800000, guid: 44a6a427431d02b4387bd7b3e5bebcf6, type: 3}
+    residenciaInfo: "Ch\xE1cara"
