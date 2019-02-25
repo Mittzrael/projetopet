@@ -5,11 +5,9 @@ using UnityEngine.EventSystems;
 
 public class HomeBehaviour : ItemBehaviour
 {
-    public void Start()
-    {
-        gridOffset = 2;
-    }
-
+    /// <summary>
+    /// Salva o indice do objeto selecionado como residencia
+    /// </summary>
     public override void SaveIndexOnPlayer()
     {
         SaveManager.player.residenciaSelecionada = index;

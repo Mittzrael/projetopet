@@ -895,6 +895,12 @@ MonoBehaviour:
   contentPanel: {fileID: 2140648212}
   itemPrefab: {fileID: 6298493927494200054, guid: 307f935177c45f04fbea9e74ca0019b6,
     type: 3}
+  player:
+    slot: 0
+    nome: 
+    avatarSelecionado: -1
+    residenciaSelecionada: -1
+    petSelecionado: -1
   residenciaList: {fileID: 11400000, guid: 82893ce40e454bb4a9128d5eccfca475, type: 2}
 --- !u!1 &2140648211
 GameObject:
@@ -929,11 +935,11 @@ RectTransform:
   m_Father: {fileID: 1543142955}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213
 MonoBehaviour:
   m_ObjectHideFlags: 0

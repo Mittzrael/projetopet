@@ -5,11 +5,9 @@ using UnityEngine.EventSystems;
 
 public class PetBehaviour : ItemBehaviour
 {
-    public void Start()
-    {
-        gridOffset = 2;
-    }
-
+    /// <summary>
+    /// Salva o indice do objeto selecionado como pet
+    /// </summary>
     public override void SaveIndexOnPlayer()
     {
         SaveManager.player.petSelecionado = index;
