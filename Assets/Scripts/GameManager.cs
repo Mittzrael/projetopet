@@ -5,10 +5,16 @@ using UnityEngine;
 // Ola
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager instance = null;
-    GameManager gameManager;
-    SoundManager soundManager;
-    AnimationManager animManager;
+    private bool blockSwipe = false; //Bloqueia o CameraSwipe
+
+#region Loader
+    private GameManager gameManager;
+    private SoundManager soundManager;
+    private AnimationManager animManager;
+
+    public bool BlockSwipe { get => blockSwipe; set => blockSwipe = value; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitializeManagers()
@@ -40,6 +46,7 @@ public class GameManager : MonoBehaviour
             Instantiate(soundManager);
         }
     }
+    #endregion
 
     private void Awake()
     {
@@ -69,5 +76,5 @@ public class GameManager : MonoBehaviour
         //soundManager.StopAllSounds();
         animManager = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationManager>();
         StartCoroutine(animManager.Fade(scene));
-    }   
+    }
 }

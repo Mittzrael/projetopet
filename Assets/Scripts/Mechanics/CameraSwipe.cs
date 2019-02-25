@@ -12,10 +12,17 @@ public class Bondaries
 public class CameraSwipe : MonoBehaviour
 {
     public Bondaries xPosition;
-    public float speed = 0.1F;
+    public float speed = 0.05F;
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+    }
+
     void Update()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved && !gameManager.BlockSwipe)
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
             transform.Translate(-touchDeltaPosition.x * speed, 0, 0);
