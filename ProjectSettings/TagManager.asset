@@ -8,6 +8,7 @@ TagManager:
   - PauseMenu
   - ReadyToGoButton
   - InputBox
+  - fixables
   layers:
   - Default
   - TransparentFX
