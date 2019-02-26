@@ -166,7 +166,7 @@ public class ShopManager : MonoBehaviour {
         Invoke(string.Concat(toggleSelected, "ShopWindow"), 0);
         // Destroi a janela de confirmação de compra
         Destroy(GameObject.Find("ConfirmMenuLoja(Clone)"));
-        SaveManager.Save();
+        SaveManager.instance.Save();
     }
 
     /// <summary>

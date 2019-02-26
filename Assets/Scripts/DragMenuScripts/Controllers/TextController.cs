@@ -7,7 +7,7 @@ public class TextController : ScriptableObject
 {
     public void EndTextEdit()
     {
-        SaveManager.player.nome = MenuManager.playerName.text;
+        SaveManager.instance.player.nome = MenuManager.playerName.text;
         MenuManager.ReadyToGo();
     }
 }

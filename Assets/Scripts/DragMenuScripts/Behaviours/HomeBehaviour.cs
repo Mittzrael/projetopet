@@ -12,6 +12,6 @@ public class HomeBehaviour : ItemBehaviour
 
     public override void SaveIndexOnPlayer()
     {
-        SaveManager.player.residenciaSelecionada = index;
+        SaveManager.instance.player.residenciaSelecionada = index;
     }
 }

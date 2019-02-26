@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Ola
 public class GameManager : MonoBehaviour
 {
 
@@ -13,18 +12,20 @@ public class GameManager : MonoBehaviour
     private GameManager gameManager;
     private SoundManager soundManager;
     private AnimationManager animManager;
+    private SaveManager saveManager;
 
     public bool BlockSwipe { get => blockSwipe; set => blockSwipe = value; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitializeManagers()
     {
-        GameObject videoManager, gameManager, animManager, soundManager;
+        GameObject videoManager, gameManager, animManager, soundManager, saveManager;
         
         videoManager = Resources.Load("Prefabs/VideoManager") as GameObject;
         gameManager = Resources.Load("Prefabs/GameManager") as GameObject;
         animManager = Resources.Load("Prefabs/AnimationManager") as GameObject;
         soundManager = Resources.Load("Prefabs/SoundManager") as GameObject;
+        saveManager = Resources.Load("Prefabs/SaveManager") as GameObject;
 
         if (VideoManager.instance == null)
         {
@@ -44,6 +45,11 @@ public class GameManager : MonoBehaviour
         if(SoundManager.instance == null)
         {
             Instantiate(soundManager);
+        }
+
+        if(SaveManager.instance == null)
+        {
+            Instantiate(saveManager);
         }
     }
     #endregion

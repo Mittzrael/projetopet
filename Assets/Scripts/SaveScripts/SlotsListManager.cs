@@ -50,10 +50,10 @@ public class SlotsListManager : MonoBehaviour {
     /// <param name="n"></param>
     public static void RetiraKey(int n)
     {
-        if (CheckSameNumber(n, SaveManager.list))
+        if (CheckSameNumber(n, SaveManager.instance.list))
         {
-            SaveManager.list.slotsList.Remove(n);
-            SaveSlotsList(SaveManager.slotsDataPath, SaveManager.list);
+            SaveManager.instance.list.slotsList.Remove(n);
+            SaveSlotsList(SaveManager.instance.slotsDataPath, SaveManager.instance.list);
         }
     }
 
@@ -93,7 +93,7 @@ public class SlotsListManager : MonoBehaviour {
 
         else
         {
-            for (int i = 0; i<SaveManager.slotsListSize; i++)
+            for (int i = 0; i<SaveManager.instance.slotsListSize; i++)
             {
                 list.slotsList.Add(i);
             }
@@ -110,8 +110,8 @@ public class SlotsListManager : MonoBehaviour {
     /// <param name="n"></param>
     public static void ReturnSlot(int n)
     {
-        SaveManager.list.slotsList.Add(n);
-        SaveSlotsList(SaveManager.slotsDataPath, SaveManager.list);
+        SaveManager.instance.list.slotsList.Add(n);
+        SaveSlotsList(SaveManager.instance.slotsDataPath, SaveManager.instance.list);
     }
 
 }

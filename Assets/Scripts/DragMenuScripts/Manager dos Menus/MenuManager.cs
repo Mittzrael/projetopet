@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour, IDeselectHandler
         ShowItens(listSize);
         continueButton = GameObject.FindGameObjectWithTag("ReadyToGoButton").GetComponent<Button>();
         
-        player = SaveManager.player;
+        player = SaveManager.instance.player;
     }
 
     private void ShowItens(int listSize)
@@ -44,13 +44,13 @@ public class MenuManager : MonoBehaviour, IDeselectHandler
 
     public void OnDeselect(BaseEventData eventData)
     {
-        SaveManager.player.nome = playerName.text;
+        SaveManager.instance.player.nome = playerName.text;
         ReadyToGo();
     }
 
     public static void ReadyToGo()
     {
-        if (SaveManager.player.avatarSelecionado != -1 && SaveManager.player.nome != "")
+        if (SaveManager.instance.player.avatarSelecionado != -1 && SaveManager.instance.player.nome != "")
         {
             continueButton.interactable = true;
         }

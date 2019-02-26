@@ -11,7 +11,7 @@ public class PetBehaviour : ItemBehaviour
     }
 
     public override void SaveIndexOnPlayer()
-    {
-        SaveManager.player.petSelecionado = index;
+    {   
+        SaveManager.instance.player.petSelecionado = index;
     }
 }
