@@ -31,7 +31,7 @@ public class ItemBehaviour : MonoBehaviour, IPointerClickHandler
         GridtoIndex(cellPosition);
         SaveIndexOnPlayer();
         MenuManager.ReadyToGo();
-        //Debug.Log(cellPosition + " " + index);
+        Debug.Log(cellPosition + " " + index);
     }
 
     /// <summary>

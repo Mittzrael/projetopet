@@ -12,7 +12,7 @@ public class SaveManager : MonoBehaviour {
     public string dataPath; //Caminho onde será salvo os arquivos
     public string slotsDataPath; //Caminho onde será salvo os arquivo concatenado com "listaDeSlots.json"
     public SlotsList list;
-    public Player player = new Player();
+    public Player player;
     // Para indicar o slot selecionado (usado no load)
     public static int selectedSlot;
 
@@ -32,15 +32,17 @@ public class SaveManager : MonoBehaviour {
         dataPath = Application.persistentDataPath;
         slotsDataPath = System.IO.Path.Combine(dataPath, "listaDeSlots.json");
         list = SlotsListManager.StartList(slotsDataPath);
+        player = new Player();
     }
 
     #region Create & Save & Load que será chamada
 
-    public void CreateNewPlayer()///Modificar de acordo com sua primeira tela de save
+    public void CreateNewPlayer(string nome)///Modificar de acordo com sua primeira tela de save
     {
         Player newPlayer = new Player();
         player = newPlayer;
-        player.nome = GameObject.Find("NameInput").transform.GetChild(1).GetComponent<Text>().text;
+        player.nome = nome;
+        player.slot = SlotsListManager.SlotGiver(list);
     }
 
     public void Save()
@@ -48,6 +50,11 @@ public class SaveManager : MonoBehaviour {
         string nomeDoJson = string.Concat(player.slot, ".json");
         string newDataPath = System.IO.Path.Combine(dataPath, nomeDoJson);
         SavePlayerData(newDataPath);
+    }
+
+    private void Update()
+    {
+        Debug.Log(player.slot);
     }
 
     /// <summary>

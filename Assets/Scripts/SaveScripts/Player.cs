@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Player
 {
-    public int slot = 0;
+    public int slot = -1;
     public string nome = "";
 
     public int avatarSelecionado = -1;
