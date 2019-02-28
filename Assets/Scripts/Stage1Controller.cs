@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Stage1Controller : MonoBehaviour
 {
-    public string[] dialogoInicial;
     public Texture texture;
+    public string[] dialogoInicial;
     public string[] dialogoAindaTemErros;
     public string[] dialogoTudoCerto;
-    private bool somethingStillWrong = true;
-    private GameObject[] fixables;
+    private bool somethingStillNotFixed = true;
+    private bool somethingStillNotClean = true;
+    private GameObject[] fixables; //set tag fixables in objects
+    private GameObject[] cleanables; //set tag cleanables in objects
+
+    public GameObject objetos;
 
     void Start()
     {
@@ -19,21 +23,35 @@ public class Stage1Controller : MonoBehaviour
     public void VerificarErros()
     {
         fixables = GameObject.FindGameObjectsWithTag("fixables");
+        cleanables = GameObject.FindGameObjectsWithTag("cleanables");
 
-        foreach (GameObject objeto in fixables)//se houver algum false, set somethingStillWrong = true e sai do loop
+        foreach (GameObject objeto in fixables)//se houver algum false, set somethingStillNotFixed = true e sai do loop
         {
             if (objeto.GetComponent<ChangeSprite>().isFixed == true)
             {
-                somethingStillWrong = false;
+                somethingStillNotFixed = false;
             }
             else
             {
-                somethingStillWrong = true;
+                somethingStillNotFixed = true;
                 break;
-            }           
+            }
         }
 
-        if (somethingStillWrong == true)
+        foreach (GameObject objeto in cleanables)//se houver algum false, set somethingStillNotCleaned = true e sai do loop
+        {
+            if (objeto.GetComponent<DeactivateOnClick>().isCleaned == true)
+            {
+                somethingStillNotClean = false;
+            }
+            else
+            {
+                somethingStillNotClean = true;
+                break;
+            }
+        }
+
+        if (somethingStillNotFixed == true || somethingStillNotClean == true)
         {
             TextPanelController.CreateDialogBox(dialogoAindaTemErros, new Vector3(205, 75, 0), texture);
         }

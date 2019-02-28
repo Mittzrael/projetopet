@@ -54,7 +54,7 @@ public class SaveManager : MonoBehaviour {
 
     private void Update()
     {
-        Debug.Log(player.slot);
+        //Debug.Log(player.slot);
     }
 
     /// <summary>

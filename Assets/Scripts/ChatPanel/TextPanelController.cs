@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TextPanelController : MonoBehaviour {
 
@@ -29,13 +30,23 @@ public class TextPanelController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Chama a caixa de diálogo estilo RPG, com uma string de textos, na posição indicada. Destroi objeto ao finalizar.
+    /// Chama a caixa de diálogo estilo RPG, com uma string de textos, na posição indicada.
+    /// Destroi objeto ao finalizar.
+    /// Esta função cria a caixa sobre o canvas da cena atual, portanto não bloqueia a tela,
+    /// mas desativa todos colliders2D.
     /// </summary>
     /// <param name="dialogs">Vetor String dos dialogos.</param>
     /// <param name="position">Posição na tela (vector3 dentro do canvas).</param>
     /// <param name="charImage">Texture da imagem que vai aparecer no canto da caixa.</param>
     public static void CreateDialogBox(string[] dialogs, Vector3 position, Texture charImage)
     {
+        Collider2D[] Cols;
+        Cols = FindObjectsOfType<Collider2D>();
+
+        foreach (Collider2D c in Cols)
+        {
+            c.enabled = false;
+        }
         GameObject dialogPanel = Resources.Load("Prefabs/ChatPanel") as GameObject;
         TextPanelController dialogBox = dialogPanel.GetComponent<TextPanelController>();
         dialogBox.textString = dialogs;
@@ -49,14 +60,15 @@ public class TextPanelController : MonoBehaviour {
     /// <returns></returns>
     IEnumerator InitialAnimations()
     {               
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.35f);
         charImageAnimator.SetBool("PanelAnimationDone", true);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.35f);
         StartCoroutine(PlayTextMeshProText(textString[0]));
     }
 
     /// <summary>
-    /// Reproduz o texto um caractere por vez e ativa o botão NEXT ao finalizar, ou CLOSE caso seja o último elemento do vetor.
+    /// Reproduz o texto um caractere por vez e ativa o botão NEXT ao finalizar,
+    /// ou CLOSE caso seja o último elemento do vetor.
     /// </summary>
     /// <param name="textToPlay"></param>
     /// <returns></returns>
@@ -76,7 +88,7 @@ public class TextPanelController : MonoBehaviour {
                 break;
             }
             counter += 1;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.02f);//tempo entre mostrar cada letra
         }
 
         stringIndex++;
@@ -103,7 +115,8 @@ public class TextPanelController : MonoBehaviour {
     }
    
     /// <summary>
-    /// Finaliza com animações e destroi objeto;
+    /// Finaliza com animações e destroi objeto.
+    /// Reativa todos colliders;
     /// </summary>
     public void ClosePanel()
     {
@@ -114,11 +127,18 @@ public class TextPanelController : MonoBehaviour {
     {
         closeButton.interactable = false;
         tmproAnimator.SetBool("TextVanish", true);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.25f);
         charImageAnimator.SetBool("EndingAnimation", true);
-        yield return new WaitForSeconds(0.65f);
+        yield return new WaitForSeconds(0.5f);
         panelAnimator.SetBool("PanelVanish", true);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.35f);
+        Collider2D[] Cols;
+        Cols = FindObjectsOfType<Collider2D>();
+
+        foreach (Collider2D c in Cols)
+        {
+            c.enabled = true;
+        }
         Destroy(gameObject);
     }
 }

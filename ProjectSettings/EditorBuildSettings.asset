@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tela dos erros iniciais.unity
     guid: 9268e2f3fa2bb194f8f088794dedd616
+  - enabled: 1
+    path: Assets/Scenes/dialogScene.unity
+    guid: c05c6bdccab47ed4187649a1d372c290
   m_configObjects: {}

@@ -9,6 +9,7 @@ TagManager:
   - ReadyToGoButton
   - InputBox
   - fixables
+  - cleanables
   layers:
   - Default
   - TransparentFX
