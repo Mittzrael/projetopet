@@ -31,7 +31,7 @@ public class IniciarButton : MonoBehaviour
         }
         else
         {
-            GameManager.instance.LoadSceneWithFade("Telas dos erros iniciais");
+            GameManager.instance.LoadSceneWithFade("Tela dos erros iniciais");
         }
     }
 }
