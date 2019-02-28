@@ -298,7 +298,6 @@ GameObject:
   - component: {fileID: 408039203}
   - component: {fileID: 408039202}
   - component: {fileID: 408039201}
-  - component: {fileID: 408039204}
   m_Layer: 5
   m_Name: IniciarButton
   m_TagString: ReadyToGoButton
@@ -366,7 +365,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 408039204}
+      - m_Target: {fileID: 11400000, guid: af5d29ba775e7574c872e80ff1b6d8b6, type: 2}
         m_MethodName: CallSave
         m_Mode: 1
         m_Arguments:
@@ -427,18 +426,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408039199}
   m_CullTransparentMesh: 0
---- !u!114 &408039204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 408039199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0c14a2b7f18d44396cc2b7c8698f3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &655285647
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,7 +948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213
