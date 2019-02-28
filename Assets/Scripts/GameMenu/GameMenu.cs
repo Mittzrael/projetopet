@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class GameMenu : MonoBehaviour
 {
     public GameObject btnInventario, btnPetShop, btnAcaoPet;
+    public GameObject panelInventario;
     bool isMenuOpen = false;
+    bool isInventoryOpen = false;
 
     public void OnClickBtnMenu()
     {
@@ -22,8 +24,22 @@ public class GameMenu : MonoBehaviour
             btnInventario.SetActive(false);
             btnPetShop.SetActive(false);
             btnAcaoPet.SetActive(false);
+            panelInventario.SetActive(false);
             isMenuOpen = false;
         }
     }
 
+    public void OnClickBtnInventario()
+    {
+        if (!isInventoryOpen)
+        {
+            panelInventario.SetActive(true);
+            isInventoryOpen = true;
+        }
+        else
+        {
+            panelInventario.SetActive(false);
+            isInventoryOpen = false;
+        }
+    }
 }
