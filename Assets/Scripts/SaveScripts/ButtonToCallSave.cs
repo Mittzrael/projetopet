@@ -24,6 +24,6 @@ public class ButtonToCallSave : MonoBehaviour
 
     public void CallNewPlayer()
     {
-        saveManager.CreateNewPlayer(GameObject.Find("NameInput").transform.GetChild(1).GetComponent<Text>().text);
+        saveManager.CreateNewPlayer();
     }
 }

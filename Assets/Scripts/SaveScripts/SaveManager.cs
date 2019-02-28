@@ -37,11 +37,10 @@ public class SaveManager : MonoBehaviour {
 
     #region Create & Save & Load que será chamada
 
-    public void CreateNewPlayer(string nome)///Modificar de acordo com sua primeira tela de save
+    public void CreateNewPlayer()///Modificar de acordo com sua primeira tela de save
     {
         Player newPlayer = new Player();
         player = newPlayer;
-        player.nome = nome;
         player.slot = SlotsListManager.SlotGiver(list);
     }
 

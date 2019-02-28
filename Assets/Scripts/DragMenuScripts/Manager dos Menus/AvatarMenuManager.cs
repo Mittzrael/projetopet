@@ -14,6 +14,7 @@ public class AvatarMenuManager : MenuManager
     private void Awake()
     {
         // Informa o tamanho da lista de avatares ao MenuManager
+        SaveManager.instance.CreateNewPlayer();
         listSize = avatarList.avatar.Length;
         playerName = GameObject.FindGameObjectWithTag("InputBox").GetComponent<InputField>();
     }
