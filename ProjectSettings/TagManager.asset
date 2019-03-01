@@ -10,6 +10,7 @@ TagManager:
   - InputBox
   - fixables
   - cleanables
+  - SVInventario
   layers:
   - Default
   - TransparentFX
