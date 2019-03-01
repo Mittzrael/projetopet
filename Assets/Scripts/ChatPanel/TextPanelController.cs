@@ -17,10 +17,8 @@ public class TextPanelController : MonoBehaviour {
     private int stringIndex = 0;
     public Texture charImage;
 
-    public delegate void ChatEnded();
-    public static event ChatEnded chatEnd;
-
-    public TextPanelController() { }
+    public delegate void ChatEnded();//evento para avisar que terminou o dialogo
+    public static event ChatEnded ChatEndNotification;//evento para avisar que terminou o dialogo
 
     private void Start()
     {
@@ -143,7 +141,12 @@ public class TextPanelController : MonoBehaviour {
         {
             c.enabled = true;
         }
-        chatEnd();
+
+        if (ChatEndNotification != null)//verifica se tem alguém ouvindo o evento (se não tiver, é null)
+        {
+            ChatEndNotification();//avisa sobre o evento (terminou o diálogo)
+        }        
+
         Destroy(gameObject);
     }
 }
