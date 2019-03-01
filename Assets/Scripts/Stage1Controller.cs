@@ -17,7 +17,7 @@ public class Stage1Controller : MonoBehaviour
 
     void Start()
     {
-        TextPanelController.CreateDialogBox(dialogoInicial, new Vector3(205, 75, 0), texture);
+        TextPanelController.CreateDialogBox(dialogoInicial, texture);
     }
 
     public void VerificarErros()
@@ -53,11 +53,11 @@ public class Stage1Controller : MonoBehaviour
 
         if (somethingStillNotFixed == true || somethingStillNotClean == true)
         {
-            TextPanelController.CreateDialogBox(dialogoAindaTemErros, new Vector3(205, 75, 0), texture);
+            TextPanelController.CreateDialogBox(dialogoAindaTemErros, texture);
         }
         else
         {
-            TextPanelController.CreateDialogBox(dialogoTudoCerto, new Vector3(205, 75, 0), texture);
+            TextPanelController.CreateDialogBox(dialogoTudoCerto, texture);
         }                
     }
 }

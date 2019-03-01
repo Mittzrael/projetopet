@@ -14,8 +14,13 @@ public class TextPanelController : MonoBehaviour {
     private Animator charImageAnimator;
     private Animator tmproAnimator;
     private Animator panelAnimator;
-    private int stringIndex = 0;   
+    private int stringIndex = 0;
     public Texture charImage;
+
+    public delegate void ChatEnded();
+    public static event ChatEnded chatEnd;
+
+    public TextPanelController() { }
 
     private void Start()
     {
@@ -36,22 +41,21 @@ public class TextPanelController : MonoBehaviour {
     /// mas desativa todos colliders2D.
     /// </summary>
     /// <param name="dialogs">Vetor String dos dialogos.</param>
-    /// <param name="position">Posição na tela (vector3 dentro do canvas).</param>
     /// <param name="charImage">Texture da imagem que vai aparecer no canto da caixa.</param>
-    public static void CreateDialogBox(string[] dialogs, Vector3 position, Texture charImage)
+    public static void CreateDialogBox(string[] dialogs, Texture charImage)
     {
         Collider2D[] Cols;
         Cols = FindObjectsOfType<Collider2D>();
-
         foreach (Collider2D c in Cols)
         {
             c.enabled = false;
         }
+
         GameObject dialogPanel = Resources.Load("Prefabs/ChatPanel") as GameObject;
         TextPanelController dialogBox = dialogPanel.GetComponent<TextPanelController>();
         dialogBox.textString = dialogs;
-        dialogBox.charImage = charImage;
-        Instantiate(dialogPanel, position, Quaternion.identity, GameObject.Find("Canvas").transform);
+        dialogBox.charImage = charImage;        
+        Instantiate(dialogPanel).transform.SetParent(GameObject.Find("Canvas").transform, false);
     }
 
     /// <summary>
@@ -139,6 +143,7 @@ public class TextPanelController : MonoBehaviour {
         {
             c.enabled = true;
         }
+        chatEnd();
         Destroy(gameObject);
     }
 }

@@ -37,7 +37,7 @@ public class SaveManager : MonoBehaviour {
 
     public void Update()
     {
-        Debug.Log(player.slot);
+        //Debug.Log(player.slot);
     }
 
     #region Create & Save & Load que será chamada

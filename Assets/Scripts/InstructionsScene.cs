@@ -9,6 +9,12 @@ public class InstructionsScene : MonoBehaviour
 
     void Start()
     {
-        TextPanelController.CreateDialogBox(dialogos, new Vector3(205, 75, 0), texture);
+        TextPanelController.chatEnd += ChatEnded;
+        TextPanelController.CreateDialogBox(dialogos, texture);
+    }
+
+    public void ChatEnded()
+    {
+        GameManager.instance.LoadSceneWithFade("scene01");
     }
 }
