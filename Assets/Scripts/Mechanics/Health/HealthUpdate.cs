@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Classe para ser colocada nos objetos que serão atualizados de acordo com o valor do dado de saúde no SaveManager.
+/// </summary>
 public class HealthUpdate : MonoBehaviour
 {
     private SaveManager saveManager;
