@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 2037223265}
   - component: {fileID: 2037223264}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PetAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   pee: 0.8
   poop: 0.8
   hygieneTrain: 0.9
-  care: 0.2
+  hapiness: 0.2
   careTrain: 0.9
   player:
     slot: -1
@@ -238,7 +238,7 @@ MonoBehaviour:
       hungry: 1
       thirst: 1
       hygiene: 1
-      care: 1
+      hapiness: 1
       careTrain: 0
       pee: 0
       poop: 0

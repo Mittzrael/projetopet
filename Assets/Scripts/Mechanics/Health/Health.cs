@@ -97,7 +97,7 @@ public class Health
     /// Recebe o valor da felicidade do animal
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1, onde 0 é triste e 1 é feliz</returns>
-    public float Gethapiness()
+    public float GetHapiness()
     {
         return hapiness;
     }
@@ -106,7 +106,7 @@ public class Health
     /// Adiciona um valor a felicidade do animal
     /// </summary>
     /// <param name="i">Valor de felicidade que é adicionado, se for positivo, animal está ficando feliz, se for negativo, animal está ficando triste</param>
-    public void PutInhapiness(float i)
+    public void PutInHapiness(float i)
     {
         hapiness += i;
         hapiness = Mathf.Clamp(hapiness, 0, 1);

@@ -100,7 +100,7 @@ public class BasicPetAI : MonoBehaviour
             if (petHealth.GetHygieneTrain() < hygieneTrain) return 4;
             else return 5;
         }
-        else if (petHealth.GetCare() <= hapiness)
+        else if (petHealth.GetHapiness() <= hapiness)
         {
             if (petHealth.GetCareTrain() < careTrain) return 6;
             else return 7;
