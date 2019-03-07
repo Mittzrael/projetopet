@@ -9,18 +9,20 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class InventoryDragOn : MonoBehaviour
 {
-    GameObject ScrollViewInventory;
+    GameObject panelInventario, scrollViewInventario;
     private float distance = 10;
 
     private void Start()
     {
-        ScrollViewInventory = GameObject.FindGameObjectWithTag("SVInventario");
+        scrollViewInventario = GameObject.FindGameObjectWithTag("SVInventario");
+        panelInventario = GameObject.FindGameObjectWithTag("PanelInventario");
     }
     void OnMouseDown()
     {
         GameManager gameManager = GameManager.instance;
         gameManager.BlockSwipe = true;
-        ScrollViewInventory.GetComponent<ScrollRect>().enabled = false;
+        scrollViewInventario.SetActive(false);
+        transform.SetParent(panelInventario.transform, false);
         OnMouseDrag();
     }
 
@@ -35,7 +37,7 @@ public class InventoryDragOn : MonoBehaviour
     {
         GameManager gameManager = GameManager.instance;
         gameManager.BlockSwipe = false;
-        ScrollViewInventory.GetComponent<ScrollRect>().enabled = true;
-        Destroy(transform.parent.gameObject);
+        scrollViewInventario.SetActive(true);
+        Destroy(gameObject);
     }
 }
