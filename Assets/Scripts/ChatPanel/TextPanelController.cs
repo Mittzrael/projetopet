@@ -16,6 +16,7 @@ public class TextPanelController : MonoBehaviour {
     private Animator panelAnimator;
     private int stringIndex = 0;
     public Texture charImage;
+    GameObject panelBlocker;
 
     public delegate void ChatEnded();//evento para avisar que terminou o dialogo
     public static event ChatEnded ChatEndNotification;//evento para avisar que terminou o dialogo
@@ -23,6 +24,7 @@ public class TextPanelController : MonoBehaviour {
     private void Start()
     {
         tmpro = GameObject.Find("TextMeshPro Text").GetComponent<TextMeshProUGUI>();
+        panelBlocker = GameObject.Find("PanelCanvasBlocker");
         GameObject.Find("CharacterImage").GetComponent<RawImage>().texture = charImage;
         nextButton = GameObject.Find("NextButton").GetComponent<UnityEngine.UI.Button>();
         closeButton = GameObject.Find("CloseButton").GetComponent<UnityEngine.UI.Button>();
@@ -35,8 +37,8 @@ public class TextPanelController : MonoBehaviour {
     /// <summary>
     /// Chama a caixa de diálogo estilo RPG, com uma string de textos, na posição indicada.
     /// Destroi objeto ao finalizar.
-    /// Esta função cria a caixa sobre o canvas da cena atual, portanto não bloqueia a tela,
-    /// mas desativa todos colliders2D.
+    /// Esta função cria a caixa como filho do canvas da cena atual, portanto bloqueia os elementos UI 
+    /// e desativa todos colliders2D.
     /// </summary>
     /// <param name="dialogs">Vetor String dos dialogos.</param>
     /// <param name="charImage">Texture da imagem que vai aparecer no canto da caixa.</param>
@@ -54,6 +56,38 @@ public class TextPanelController : MonoBehaviour {
         dialogBox.textString = dialogs;
         dialogBox.charImage = charImage;        
         Instantiate(dialogPanel).transform.SetParent(GameObject.Find("Canvas").transform, false);
+    }
+
+    /// <summary>
+    /// Chama a caixa de diálogo estilo RPG, com uma string de textos, na posição indicada, SEM bloquear a tela.
+    /// Destroi objeto ao finalizar.
+    /// Esta função cria a caixa dentro do canvas da cena atual, mas não bloqueia a tela nem
+    /// desativa todos colliders2D caso allowIpunt = true.
+    /// </summary>
+    /// <param name="dialogs">Vetor String dos dialogos.</param>
+    /// <param name="charImage">Texture da imagem que vai aparecer no canto da caixa.</param>
+    /// <param name="allowInput">Bool, true para não bloquear a tela.</param>
+    public static void CreateDialogBox(string[] dialogs, Texture charImage, bool allowInput)
+    {       
+        GameObject dialogPanel = Resources.Load("Prefabs/ChatPanel") as GameObject;
+        TextPanelController dialogBox = dialogPanel.GetComponent<TextPanelController>();
+        dialogBox.textString = dialogs;
+        dialogBox.charImage = charImage;
+        Instantiate(dialogPanel).transform.SetParent(GameObject.Find("Canvas").transform, false);
+
+        if (allowInput)
+        {
+            GameObject.Find("PanelCanvasBlocker").SetActive(false);
+        }
+        else
+        {
+            Collider2D[] Cols;
+            Cols = FindObjectsOfType<Collider2D>();
+            foreach (Collider2D c in Cols)
+            {
+                c.enabled = false;
+            }
+        }
     }
 
     /// <summary>

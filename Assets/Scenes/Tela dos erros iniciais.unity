@@ -734,6 +734,7 @@ MonoBehaviour:
   dialogoTudoCerto:
   - "Muito bem amiguinho, est\xE1 tudo certo, podemos trazer o animal para c\xE1.
     Agora, MORRA!"
+  nextScene: Instrucoes2
   objetos: {fileID: 0}
 --- !u!1 &916549628
 GameObject:

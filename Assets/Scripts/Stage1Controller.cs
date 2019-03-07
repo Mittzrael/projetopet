@@ -12,6 +12,7 @@ public class Stage1Controller : MonoBehaviour
     private bool somethingStillNotClean = true;
     private GameObject[] fixables; //set tag fixables in objects
     private GameObject[] cleanables; //set tag cleanables in objects
+    public string nextScene;
 
     public GameObject objetos;
 
@@ -57,7 +58,14 @@ public class Stage1Controller : MonoBehaviour
         }
         else
         {
+            TextPanelController.ChatEndNotification += ErrosCorrigidos;//subscribe to event (avisa ao terminar os dialogos)
             TextPanelController.CreateDialogBox(dialogoTudoCerto, texture);
         }                
+    }
+
+    public void ErrosCorrigidos()
+    {
+        TextPanelController.ChatEndNotification -= ErrosCorrigidos;//unsubscribe from event (para de ouvir o evento, evitar sobrecarga desnecessária)
+        GameManager.instance.LoadSceneWithFade(nextScene);
     }
 }
