@@ -35,6 +35,12 @@ public class SaveManager : MonoBehaviour {
         player = new Player();
     }
 
+    /*
+    public void Update()
+    {
+        //Debug.Log(player.slot);
+    }
+    */
     #region Create & Save & Load que será chamada
 
     public void CreateNewPlayer()///Modificar de acordo com sua primeira tela de save
@@ -51,9 +57,10 @@ public class SaveManager : MonoBehaviour {
         SavePlayerData(newDataPath);
     }
 
-    private void Update()
+    public void ResetSave()
     {
-        //Debug.Log(player.slot);
+        player = new Player();
+        DeletePlayer(0);
     }
 
     /// <summary>
@@ -117,9 +124,9 @@ public class SaveManager : MonoBehaviour {
 
     
     /// Se quiser melhorar no futuro: Fazer esse código ser private, e chamá-lo de outro lugar    
-    public void DeletePlayer()
+    public void DeletePlayer(int slot)
     {
-        string stringSlot = (selectedSlot.ToString() + ".json");
+        string stringSlot = (slot.ToString() + ".json");
 
         System.IO.File.Delete(System.IO.Path.Combine(dataPath, stringSlot));
         //Debug.Log(SaveManager.selectedSlot);

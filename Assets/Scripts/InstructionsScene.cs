@@ -9,6 +9,13 @@ public class InstructionsScene : MonoBehaviour
 
     void Start()
     {
-        TextPanelController.CreateDialogBox(dialogos, new Vector3(205, 75, 0), texture);
+        TextPanelController.ChatEndNotification += ChatEnded;//subscribe to event (avisa ao terminar os dialogos)
+        TextPanelController.CreateDialogBox(dialogos, texture);
+    }
+
+    public void ChatEnded()
+    {
+        TextPanelController.ChatEndNotification -= ChatEnded;//unsubscribe from event (para de ouvir o evento, evitar sobrecarga desnecessária)
+        GameManager.instance.LoadSceneWithFade("scene01");
     }
 }

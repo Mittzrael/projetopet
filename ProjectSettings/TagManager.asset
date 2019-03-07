@@ -10,6 +10,7 @@ TagManager:
   - InputBox
   - fixables
   - cleanables
+  - SVInventario
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Batata
   - 
   - 
   - 
@@ -46,4 +47,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3415901385
+    locked: 0
+  - name: ObjectsBack
+    uniqueID: 1115618315
+    locked: 0
+  - name: ObjectsFront
+    uniqueID: 3971990343
+    locked: 0
+  - name: SignalBack
+    uniqueID: 1467334113
+    locked: 0
+  - name: SignalFront
+    uniqueID: 994862677
     locked: 0
