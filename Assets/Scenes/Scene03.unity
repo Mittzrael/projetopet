@@ -898,6 +898,15 @@ MonoBehaviour:
   player:
     slot: 0
     nome: 
+    health:
+      hungry: 1
+      thirst: 1
+      hygiene: 1
+      care: 1
+      careTrain: 0
+      pee: 0
+      poop: 0
+      hygieneTrain: 0
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
@@ -937,7 +946,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213
