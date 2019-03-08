@@ -38,6 +38,8 @@ public class BasicPetAI : MonoBehaviour
             Destroy(gameObject);
         }
 
+        DontDestroyOnLoad(gameObject);
+
         player = SaveManager.instance.player;
         StartCoroutine(PetActionVerifier());
     }
