@@ -1526,6 +1526,7 @@ GameObject:
   - component: {fileID: 1782136851}
   - component: {fileID: 1782136850}
   - component: {fileID: 1782136853}
+  - component: {fileID: 1782136854}
   m_Layer: 0
   m_Name: dog_mitza
   m_TagString: Untagged
@@ -1628,6 +1629,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedWalk: 100
   speedRun: 300
+--- !u!114 &1782136854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782136849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e778fe709086845ac1d8b20914ec63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenAction: 5
+  hungry: 0.2
+  thristy: 0.2
+  pee: 0.8
+  poop: 0.8
+  hygieneTrain: 0.9
+  hapiness: 0.2
+  careTrain: 0.9
+  player:
+    slot: -1
+    nome: 
+    health:
+      hungry: 1
+      thirst: 1
+      hygiene: 1
+      hapiness: 1
+      careTrain: 0
+      pee: 0
+      poop: 0
+      hygieneTrain: 0
+    avatarSelecionado: -1
+    residenciaSelecionada: -1
+    petSelecionado: -1
+  maxIdleTime: 3
 --- !u!1 &1808680518
 GameObject:
   m_ObjectHideFlags: 0

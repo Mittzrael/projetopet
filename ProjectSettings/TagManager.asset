@@ -11,7 +11,6 @@ TagManager:
   - fixables
   - cleanables
   - SVInventario
-  - PanelInventario
   layers:
   - Default
   - TransparentFX
