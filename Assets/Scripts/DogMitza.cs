@@ -10,11 +10,11 @@ public class DogMitza : MonoBehaviour
     public float speedWalk;
     public float speedRun;
 
-    Vector3 destination;
-    bool isWalking = false;
-    bool isRunning = false;
+    private Vector3 destination;
+    private bool isWalking = false;
+    private bool isRunning = false;
 
-    void Start()
+    void Awake()
     {
         dogMitzaAnimator = GetComponent<Animator>();
         dogMitzaSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -48,10 +48,29 @@ public class DogMitza : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Aciona animação do dog andando e movimenta objeto até o ponto de destino.
+    /// </summary>
+    /// <param name="xPositionDestination">Posição X de destino.</param>
     public void MoveAnimalAndando(float xPositionDestination)
     {
+        FlipXIfNeeded(xPositionDestination);
+        isWalking = true;      
+    }
+
+    /// <summary>
+    /// Aciona animação do dog correndo e movimenta objeto até o ponto de destino.
+    /// </summary>
+    /// <param name="xPositionDestination">Posição X de destino.</param>
+    public void MoveAnimalCorrendo(float xPositionDestination)
+    {
+        FlipXIfNeeded(xPositionDestination);
+        isRunning = true;       
+    }
+
+    public void FlipXIfNeeded(float xPositionDestination)
+    {
         destination.x = xPositionDestination;
-        isWalking = true;
         if (destination.x > transform.position.x)
         {
             dogMitzaSpriteRenderer.flipX = true;
@@ -62,25 +81,17 @@ public class DogMitza : MonoBehaviour
         }
     }
 
-    public void MoveAnimalCorrendo(float xPositionDestination)
-    {
-        destination.x = xPositionDestination;
-        isRunning = true;
-        if (destination.x < transform.position.x)
-        {
-            dogMitzaSpriteRenderer.flipX = true;
-        }
-        else
-        {
-            dogMitzaSpriteRenderer.flipX = false;
-        }
-    }
-
+    /// <summary>
+    /// Aciona animação do dog coçando por 3 segundos (has exit time) (trigger).
+    /// </summary>
     public void Cocando()
     {
         dogMitzaAnimator.SetTrigger("isCocando");
     }
 
+    /// <summary>
+    /// Toggle animação do dog triste (true/false).
+    /// </summary>
     public void ToggleSad()
     {
         dogMitzaAnimator.SetBool("isSad", !dogMitzaAnimator.GetBool("isSad"));
