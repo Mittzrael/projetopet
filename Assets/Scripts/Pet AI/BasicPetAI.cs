@@ -25,11 +25,15 @@ public class BasicPetAI : MonoBehaviour
     public Player player;
 
     protected Health petHealth;
-    protected int maxRandom = 3;
+    protected int maxRandom = 1;
     protected int randomNumber;
 
-    protected int randomActionCountdown = 0;
+    protected float randomActionCountdown = 0;
     public int maxIdleTime = 3;
+
+    public float moveRangeMin = -20;
+    public float moveRangeMax = 20;
+    public float moveRangeMultiplier = 50;
 
     private DogMitza petAnimationScript;
     
@@ -123,7 +127,6 @@ public class BasicPetAI : MonoBehaviour
 
     public void PetRandomMove()
     {
-        Debug.Log(randomActionCountdown);
         if (randomActionCountdown >= maxIdleTime)
         {
             randomActionCountdown = 0;
@@ -135,20 +138,24 @@ public class BasicPetAI : MonoBehaviour
                     petAnimationScript.Cocando();
                     break;
                 case 1:
-                    float move = Random.Range(-5, 5) * 200f;
+                    float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
                     Debug.Log("Movimento Aleátorio - Andando " + move);
                     petAnimationScript.MoveAnimalAndando(move);
-                    break;
-                case 2:
-                    // Idle
-                    Debug.Log("Movimento Aleátorio - Nada");
                     break;
             }
         }
         else
         {
-            randomActionCountdown++;
+            if (petHealth.GetHapiness() < 0.5f)
+            {
+                randomActionCountdown += 0.5f;
+            }
+            else
+            {
+                randomActionCountdown++;
+            }
         }
+        Debug.Log(randomActionCountdown);
     }
 
     /// <summary>
