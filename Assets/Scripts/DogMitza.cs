@@ -14,7 +14,7 @@ public class DogMitza : MonoBehaviour
     bool isWalking = false;
     bool isRunning = false;
 
-    void Start()
+    void Awake()
     {
         dogMitzaAnimator = GetComponent<Animator>();
         dogMitzaSpriteRenderer = GetComponent<SpriteRenderer>();

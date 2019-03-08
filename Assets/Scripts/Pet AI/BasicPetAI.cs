@@ -25,8 +25,14 @@ public class BasicPetAI : MonoBehaviour
     public Player player;
 
     protected Health petHealth;
-    float i = 0;
+    protected int maxRandom = 3;
+    protected int randomNumber;
 
+    protected int randomActionCountdown = 0;
+    public int maxIdleTime = 3;
+
+    private DogMitza petAnimationScript;
+    
     void Start()
     {
         if (instance == null)
@@ -41,20 +47,20 @@ public class BasicPetAI : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         player = SaveManager.instance.player;
+
+        petAnimationScript = gameObject.GetComponent<DogMitza>();
         StartCoroutine(PetActionVerifier());
     }
 
     private IEnumerator PetActionVerifier ()
     {
         petHealth = SaveManager.instance.player.health;
+        int petNeed = VerifyPetNeed();
 
-        i += timeBetweenAction;
-        //Debug.Log("esperando " + i);
-
-        switch (VerifyPetNeed())
+        switch (petNeed)
         {
             case -1:
-                Debug.Log("Movimento Aleátorio");
+                PetRandomMove();
                 break;
             case 0:
                 Debug.Log("Fome");
@@ -75,21 +81,26 @@ public class BasicPetAI : MonoBehaviour
                 Debug.Log("Cocô certo");
                 break;
             case 6:
+                petAnimationScript.ToggleSad();
                 Debug.Log("Brincar errado");
                 break;
             case 7:
+                petAnimationScript.ToggleSad();
                 Debug.Log("Brincar certo");
                 break;
         }
 
         yield return new WaitForSeconds(timeBetweenAction);
+        if (petNeed != 6 || petNeed != 7)
+        {
+            yield return new WaitUntil (() => petAnimationScript.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("dog_mitza_cocando / idle"));
+        }
+
         StartCoroutine(PetActionVerifier());
     }
 
     private int VerifyPetNeed()
     {
-        //int petNeedIndex = (int) Random.Range(-1, 7);
-
         if (petHealth.GetHungry() <= hungry) return 0;
         else if (petHealth.GetThirst() <= thristy) return 1;
         else if (petHealth.GetPee() >= pee)
@@ -108,10 +119,41 @@ public class BasicPetAI : MonoBehaviour
             else return 7;
         }
         else return -1;
-
-        //return petNeedIndex;
     }
 
+    public void PetRandomMove()
+    {
+        Debug.Log(randomActionCountdown);
+        if (randomActionCountdown >= maxIdleTime)
+        {
+            randomActionCountdown = 0;
+            randomNumber = Random.Range(0, maxRandom + 1);
+            switch (randomNumber)
+            {
+                case 0:
+                    Debug.Log("Movimento Aleátorio - Coçando");
+                    petAnimationScript.Cocando();
+                    break;
+                case 1:
+                    float move = Random.Range(-5, 5) * 200f;
+                    Debug.Log("Movimento Aleátorio - Andando " + move);
+                    petAnimationScript.MoveAnimalAndando(move);
+                    break;
+                case 2:
+                    // Idle
+                    Debug.Log("Movimento Aleátorio - Nada");
+                    break;
+            }
+        }
+        else
+        {
+            randomActionCountdown++;
+        }
+    }
+
+    /// <summary>
+    /// Para todas as corrotinas neste script
+    /// </summary>
     public void StoptPetCoroutines()
     {
         StopAllCoroutines();
