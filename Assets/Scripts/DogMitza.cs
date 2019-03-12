@@ -33,8 +33,7 @@ public class DogMitza : MonoBehaviour
                 dogMitzaAnimator.SetBool("isWalking", false);
                 isWalking = false;
             }
-        }
-        if (isRunning){
+        }else if (isRunning){
             if (transform.position.x != destination.x)
             {
                 dogMitzaAnimator.SetBool("isRunning", true);
