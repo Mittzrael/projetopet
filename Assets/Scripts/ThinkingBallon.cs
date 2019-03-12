@@ -13,12 +13,10 @@ public class ThinkingBallon : MonoBehaviour
     /// <param name="content">Conteúdo do balão de pensamento, em uma string com o nome da imagem que irá aparecer</param>
     public static void CreateThinking(GameObject thinker, string content)
     {
-        Debug.Log("Entrou no CreateThiking");
         GameObject thinkingBallon = Resources.Load("Prefabs/ThinkingBallon") as GameObject;
-        Vector3 position = new Vector3(thinker.transform.position.x + 340, thinker.transform.position.y + 340, thinker.transform.position.z);
+        Vector3 position = new Vector3(thinker.transform.position.x + thinker.GetComponent<Renderer>().bounds.size.x, thinker.transform.position.y + thinker.GetComponent<Renderer>().bounds.size.y, thinker.transform.position.z);
         thinkingBallon.GetComponent<ThinkingBallon>().content = Resources.Load<Sprite>(string.Concat("Images/", content));
         thinkingBallon = Instantiate(thinkingBallon, position, Quaternion.identity);
-        Debug.Log("Passou pelo CreateThiking");
     }
 
     private void Awake()
