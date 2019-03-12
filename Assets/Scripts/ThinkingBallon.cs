@@ -6,6 +6,11 @@ public class ThinkingBallon : MonoBehaviour
 {
     public Sprite content;
 
+    /// <summary>
+    /// Cria um pensamento para o gameObject thinker, com o conteúdo do pensamento
+    /// </summary>
+    /// <param name="thinker">GameObject que pensará</param>
+    /// <param name="content">Conteúdo do balão de pensamento, em uma string com o nome da imagem que irá aparecer</param>
     public static void CreateThinking(GameObject thinker, string content)
     {
         Debug.Log("Entrou no CreateThiking");
@@ -20,5 +25,12 @@ public class ThinkingBallon : MonoBehaviour
     {
         transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().sprite = content;
         gameObject.GetComponent<Animator>().SetBool("AnimationOn", true);
+        StartCoroutine(DestroyBallon());
+    }
+
+    private IEnumerator DestroyBallon()
+    {
+        yield return new WaitForSeconds(6f);
+        Destroy(gameObject);
     }
 }

@@ -36,4 +36,9 @@ public class HealthUpdate : MonoBehaviour
     {
         transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetHygiene();
     }
+
+    private void Happiness()
+    {
+        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetHapiness();
+    }
 }
