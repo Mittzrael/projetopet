@@ -2728,25 +2728,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAction: 1
-  hungry: 0.2
-  thristy: 0.2
-  pee: 0.8
-  poop: 0.8
-  hygieneTrain: 0.9
-  hapiness: 0.2
-  careTrain: 0.9
+  healthLimit:
+    hungry: 0.2
+    thirst: 0.2
+    hygiene: 0.8
+    hapiness: 0.8
+    whatToPlay: 0.8
+    pee: 0.9
+    poop: 0.9
+    whereToPP: 0.8
+  hungryWarning: 0.5
+  thirstyWarning: 0.5
   player:
     slot: -1
     nome: 
-    health:
-      hungry: 1
-      thirst: 1
-      hygiene: 1
-      hapiness: 1
-      careTrain: 0
-      pee: 0
-      poop: 0
-      hygieneTrain: 0
+    pet:
+      name: 
+      health:
+        hungry: 1
+        thirst: 1
+        hygiene: 1
+        hapiness: 1
+        whatToPlay: 0
+        pee: 0
+        poop: 0
+        whereToPP: 0
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1

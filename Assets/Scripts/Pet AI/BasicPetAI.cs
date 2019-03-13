@@ -6,20 +6,13 @@ public class BasicPetAI : MonoBehaviour
 {
     [Tooltip("Tempo entre as verificações de ações do Pet (em segundos)")]
     public float timeBetweenAction = 1;
-    [Tooltip("Limite para a fome do Pet (entre 0 e 1)")]
-    public float hungry = 0.2f;
-    [Tooltip("Limite para a sede do Pet (entre 0 e 1)")]
-    public float thristy = 0.2f;
-    [Tooltip("Limite para xixi do Pet (entre 0 e 1)")]
-    public float pee = 0.8f;
-    [Tooltip("Limite para coco do Pet (entre 0 e 1)")]
-    public float poop = 0.8f;
-    [Tooltip("Limite para a educação do Pet (necessidades) (entre 0 e 1)")]
-    public float hygieneTrain = 0.9f;
-    [Tooltip("Limite para a felicidade do Pet (entre 0 e 1)")]
-    public float hapiness = 0.2f;
-    [Tooltip("Limite para a educação do Pet (brinquedos) (entre 0 e 1)")]
-    public float careTrain = 0.9f;
+
+    [Tooltip("Valores limitantes para os atributos do pet")]
+    public Health healthLimit;
+    [Tooltip("Valor para aviso de fome")]
+    public float hungryWarning;
+    [Tooltip("Valor para aviso de sede")]
+    public float thirstyWarning;
 
     public static BasicPetAI instance;
     public Player player;
@@ -53,12 +46,12 @@ public class BasicPetAI : MonoBehaviour
         player = SaveManager.instance.player;
 
         petAnimationScript = gameObject.GetComponent<DogMitza>();
+        petHealth = SaveManager.instance.player.pet.health;
         StartCoroutine(PetActionVerifier());
     }
 
     private IEnumerator PetActionVerifier ()
     {
-        petHealth = SaveManager.instance.player.health;
         int petNeed = VerifyPetNeed();
 
         switch (petNeed)
@@ -94,6 +87,8 @@ public class BasicPetAI : MonoBehaviour
                 break;
         }
 
+        
+
         yield return new WaitForSeconds(timeBetweenAction);
         if (petNeed != 6 || petNeed != 7)
         {
@@ -105,21 +100,29 @@ public class BasicPetAI : MonoBehaviour
 
     private int VerifyPetNeed()
     {
-        if (petHealth.GetHungry() <= hungry) return 0;
-        else if (petHealth.GetThirst() <= thristy) return 1;
-        else if (petHealth.GetPee() >= pee)
+        if (petHealth.GetHungry() <= hungryWarning)
         {
-            if (petHealth.GetHygieneTrain() < hygieneTrain) return 2;
+            ThinkingBallon.CreateThinking(gameObject, "Ration");
+            if (petHealth.GetHungry() <= healthLimit.GetHungry()) return 0;
+        }
+        if (petHealth.GetThirst() <= thirstyWarning)
+        {
+            ThinkingBallon.CreateThinking(gameObject, "Water");
+            if (petHealth.GetThirst() <= healthLimit.GetThirst()) return 1;
+        }
+        if (petHealth.GetPee() >= healthLimit.GetPee())
+        {
+            if (petHealth.GetWhereToPP() < healthLimit.GetWhereToPP()) return 2;
             else return 3;
         }
-        else if (petHealth.GetPoop() >= poop)
+        else if (petHealth.GetPoop() >= healthLimit.GetPoop())
         {
-            if (petHealth.GetHygieneTrain() < hygieneTrain) return 4;
+            if (petHealth.GetWhereToPP() < healthLimit.GetWhereToPP()) return 4;
             else return 5;
         }
-        else if (petHealth.GetHapiness() <= hapiness)
+        else if (petHealth.GetHapiness() <= healthLimit.GetHapiness())
         {
-            if (petHealth.GetCareTrain() < careTrain) return 6;
+            if (petHealth.GetWhatToPlay() < healthLimit.GetWhatToPlay()) return 6;
             else return 7;
         }
         else return -1;

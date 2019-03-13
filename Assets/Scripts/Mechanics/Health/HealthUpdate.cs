@@ -21,24 +21,24 @@ public class HealthUpdate : MonoBehaviour
     {
         Invoke(gameObject.name, 0);
     }
-
+    
     private void Ration()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetHungry();
+        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetHungry();
     }
 
     private void Water()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetThirst();
+        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetThirst();
     }
 
     private void Clean()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetHygiene();
+        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetHygiene();
     }
 
     private void Happiness()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetHapiness();
+        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetHapiness();
     }
 }
