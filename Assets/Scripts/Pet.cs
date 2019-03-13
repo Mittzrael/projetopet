@@ -7,7 +7,7 @@ public class Pet
 {
     [SerializeField]
     private string name;
-    public Health health;
+    public Health health = new Health();
 
     public void Walk()
     {
