@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d270bf98e5f36448ff72e7e9ba1ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollViewInventory: {fileID: 0}
+  item: {fileID: 4076655025784107931, guid: 00d331529d6a81d4f962080cfbfc458a, type: 3}
 --- !u!1 &4250056684128145242
 GameObject:
   m_ObjectHideFlags: 0
