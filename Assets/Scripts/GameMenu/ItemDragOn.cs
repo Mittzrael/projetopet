@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Função para jogar em um objeto para poder arrastá-lo
+/// Script para instanciação de itens através do menu inventário
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
-public class InventoryDragOn : MonoBehaviour
+public class ItemDragOn : MonoBehaviour
 {
     GameObject ScrollViewInventory;
     private float distance = 10;
@@ -19,6 +19,7 @@ public class InventoryDragOn : MonoBehaviour
     void OnMouseDown()
     {
         GameManager gameManager = GameManager.instance;
+        //Desabilita o swipe do inventário
         gameManager.BlockSwipe = true;
         ScrollViewInventory.GetComponent<ScrollRect>().enabled = false;
         OnMouseDrag();
@@ -34,8 +35,15 @@ public class InventoryDragOn : MonoBehaviour
     void OnMouseUp()
     {
         GameManager gameManager = GameManager.instance;
+        //Reabilita o swipe do inventário
         gameManager.BlockSwipe = false;
         ScrollViewInventory.GetComponent<ScrollRect>().enabled = true;
-        Destroy(transform.parent.gameObject);
+        //Destroi o ícone do item
+        Destroy(transform.gameObject);
+        //Instancia o item
+        Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        clickedPosition.z = 0;
+        //Instantiate(item, clickedPosition, Quaternion.identity);
+
     }
 }
