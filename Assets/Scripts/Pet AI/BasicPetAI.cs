@@ -102,7 +102,7 @@ public class BasicPetAI : MonoBehaviour
     {
         if (petHealth.GetHungry() <= hungryWarning)
         {
-           //ThinkingBallon.CreateThinking(gameObject, "Ration");
+           ThinkingBallon.CreateThinking(gameObject, "Ration");
             if (petHealth.GetHungry() <= healthLimit.GetHungry()) return 0;
         }
         if (petHealth.GetThirst() <= thirstyWarning)

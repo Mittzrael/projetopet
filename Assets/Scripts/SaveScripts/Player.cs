@@ -12,4 +12,5 @@ public class Player
     public int avatarSelecionado = -1;
     public int residenciaSelecionada = -1;
     public int petSelecionado = -1;
+    public string lastTimePlayed;
 }

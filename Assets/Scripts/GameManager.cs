@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance = null;
+    public bool petDoingAction = false; //Sempre que o pet realizar uma ação, seta para true;
     private bool blockSwipe = false; //Bloqueia o CameraSwipe
 
 #region Loader
@@ -82,5 +83,14 @@ public class GameManager : MonoBehaviour
         //soundManager.StopAllSounds();
         animManager = GameObject.FindGameObjectWithTag("AnimationManager").GetComponent<AnimationManager>();
         StartCoroutine(animManager.Fade(scene));
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveManager.instance.Load(0);
+        System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
+        System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastTimePlayed); //Tempo atual - tempo da última vez que foi jogado
+        SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager
+        SaveManager.instance.Save();
     }
 }
