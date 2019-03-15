@@ -28,8 +28,18 @@ public class CloseButton : MonoBehaviour
         Destroy(buttonParent);
     }
 
-    public void CarregarCena()
+    public void CarregarCena(string scene)
     {
+        GameManager.instance.LoadSceneWithFade(scene);
+    }
+
+    public void VoltarMenuInicial()
+    {
+        GameObject dog = GameObject.Find("dog_mitza");
+        if (dog != null)
+        {
+            Destroy(dog);
+        }        
         GameManager.instance.LoadSceneWithFade("Scene01");
     }
 
