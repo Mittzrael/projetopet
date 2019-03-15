@@ -158,7 +158,7 @@ public class BasicPetAI : MonoBehaviour
                 randomActionCountdown++;
             }
         }
-        Debug.Log(randomActionCountdown);
+        //Debug.Log(randomActionCountdown);
     }
 
     /// <summary>
