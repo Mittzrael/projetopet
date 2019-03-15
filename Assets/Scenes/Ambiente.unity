@@ -462,7 +462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -64.00003, y: -63.00006}
+  m_AnchoredPosition: {x: -64, y: -63}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &382182549
@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 474818854}
   - component: {fileID: 474818852}
   - component: {fileID: 474818853}
+  - component: {fileID: 474818857}
   - component: {fileID: 474818856}
   m_Layer: 0
   m_Name: magic-8-ball
@@ -707,9 +708,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 474818851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80b37000ccc2804682285596696f029, type: 3}
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
+--- !u!114 &474818857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474818851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565e944146d7ed74a9281c39ca1489ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 5
 --- !u!1 &541066669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,6 +2503,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1764022672 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1363443305235814651, guid: 53d223e9a1f0e5647bcafc588ed763bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1363443305655420276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1764022677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764022672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1690312454, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1774610851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,9 +2770,9 @@ MonoBehaviour:
   timeBetweenAction: 1
   healthLimit:
     hungry: 0.2
-    thirst: 0.2
+    thirsty: 0.3
     hygiene: 0.8
-    hapiness: 0.8
+    happiness: 0.2
     whatToPlay: 0.8
     pee: 0.9
     poop: 0.9
@@ -2748,13 +2786,15 @@ MonoBehaviour:
       name: 
       health:
         hungry: 1
-        thirst: 1
+        thirsty: 1
         hygiene: 1
-        hapiness: 1
+        happiness: 1
         whatToPlay: 0
         pee: 0
         poop: 0
         whereToPP: 0
+      position: {x: 0, y: 0, z: 0}
+      screen: 0
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
