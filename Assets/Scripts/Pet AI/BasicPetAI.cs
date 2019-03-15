@@ -105,10 +105,10 @@ public class BasicPetAI : MonoBehaviour
            ThinkingBallon.CreateThinking(gameObject, "Ration");
             if (petHealth.GetHungry() <= healthLimit.GetHungry()) return 0;
         }
-        if (petHealth.GetThirst() <= thirstyWarning)
+        if (petHealth.GetThirsty() <= thirstyWarning)
         {
             //ThinkingBallon.CreateThinking(gameObject, "Water");
-            if (petHealth.GetThirst() <= healthLimit.GetThirst()) return 1;
+            if (petHealth.GetThirsty() <= healthLimit.GetThirsty()) return 1;
         }
         if (petHealth.GetPee() >= healthLimit.GetPee())
         {
@@ -120,7 +120,7 @@ public class BasicPetAI : MonoBehaviour
             if (petHealth.GetWhereToPP() < healthLimit.GetWhereToPP()) return 4;
             else return 5;
         }
-        else if (petHealth.GetHapiness() <= healthLimit.GetHapiness())
+        else if (petHealth.GetHappiness() <= healthLimit.GetHappiness())
         {
             if (petHealth.GetWhatToPlay() < healthLimit.GetWhatToPlay()) return 6;
             else return 7;
@@ -149,7 +149,7 @@ public class BasicPetAI : MonoBehaviour
         }
         else
         {
-            if (petHealth.GetHapiness() < 0.5f)
+            if (petHealth.GetHappiness() < 0.5f)
             {
                 randomActionCountdown += 0.5f;
             }
