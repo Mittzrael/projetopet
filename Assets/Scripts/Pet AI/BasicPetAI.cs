@@ -15,7 +15,7 @@ public class BasicPetAI : MonoBehaviour
     public float thirstyWarning;
 
     public static BasicPetAI instance;
-    public Player player;
+    public Player player; // Para testes
 
     protected Health petHealth;
     protected int maxRandom = 1;
@@ -29,7 +29,33 @@ public class BasicPetAI : MonoBehaviour
     public float moveRangeMultiplier = 50;
 
     private DogMitza petAnimationScript;
-    
+
+    // Valores minimo e máximo para o tempo aleátorio de verificação das necessidades do pet
+    private float actionMinRandom = 1;
+    private float actionMaxRandom = 5;
+    // Variável que armazena o valor aleátorio gerado
+    private float actionRandom;
+
+    private delegate void PetAction();
+    private PetAction petActionList = null;
+    private System.Delegate[] petDelegateList;
+    public bool hungryOnDelegate = false;
+    public bool thirstyOnDelegate = false;
+    public bool sadOnDelegate = false;
+    public bool peeOnDelegate = false;
+    public bool poopOnDelegate = false;
+
+    private delegate void FeedingAction(Food food);
+    private delegate void IndependentAction();
+    private FeedingAction lastFeedingAction = null;
+    private FeedingAction testFeedingAction = null;
+    private IndependentAction lastIndependentAction = null;
+    private IndependentAction testIndependentAction = null;
+
+    private Pet pet;
+
+    private Food food;
+
     void Start()
     {
         if (instance == null)
@@ -43,14 +69,163 @@ public class BasicPetAI : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        player = SaveManager.instance.player;
+        player = SaveManager.instance.player; // Para testes
 
         petAnimationScript = gameObject.GetComponent<DogMitza>();
         petHealth = SaveManager.instance.player.pet.health;
+        pet = SaveManager.instance.player.pet;
         StartCoroutine(PetActionVerifier());
     }
 
-    private IEnumerator PetActionVerifier ()
+    private IEnumerator PetActionVerifier()
+    {
+        actionRandom = Random.Range(actionMinRandom, actionMaxRandom);
+        
+        //Debug.Log(actionRandom);
+        /*float r = Random.Range(0f, 1f);
+        Debug.Log("min: 0.1, max: 0.5, random: " + r + ", chance: " + ChanceToHappen(0.1f, 0.5f, r));
+        
+        testFeedingAction = pet.Eat;
+        testFeedingAction += pet.Drink;
+
+        Debug.Log(testFeedingAction.ToString());
+        testFeedingAction(food);
+
+        testFeedingAction -= pet.Eat;
+        Debug.Log(testFeedingAction.ToString());
+
+        testFeedingAction(food);
+
+        testFeedingAction -= pet.Drink;
+        if (testFeedingAction == null)
+        {
+            Debug.Log("NULL uhul");
+        }
+        else
+        {
+            Debug.Log(testFeedingAction.ToString());
+            testFeedingAction(food);
+        }*/
+
+        if (petHealth.GetHungry() < healthLimit.GetHungry() && !hungryOnDelegate)
+        {
+            petActionList += PetHungry;
+            hungryOnDelegate = true;
+        }
+        if (petHealth.GetThirst() < healthLimit.GetThirst() && !thirstyOnDelegate)
+        {
+            petActionList += PetThisty;
+            thirstyOnDelegate = true;
+        }
+        if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
+        {
+            petActionList += PetPoop;
+            poopOnDelegate = true;
+        }
+        if (petHealth.GetPee() > healthLimit.GetPee() && !peeOnDelegate)
+        {
+            petActionList += PetPee;
+            peeOnDelegate = true;
+        }
+        if (petHealth.GetHapiness() < healthLimit.GetHapiness() && !sadOnDelegate)
+        {
+            petActionList += PetSad;
+            sadOnDelegate = true;
+        }
+
+        if (petActionList != null)
+        {
+            Debug.Log("O que tinha...");
+            petActionList();
+            Debug.Log("O pet está....");
+            petDelegateList = petActionList.GetInvocationList();
+            petDelegateList[0].DynamicInvoke();
+            Debug.Log("Removi...");
+            petActionList -= petDelegateList[0] as PetAction;
+            //System.Delegate.RemoveAll(petActionList, petDelegateList[0]);
+            petDelegateList[0].DynamicInvoke();
+            Debug.Log("Sobrou...");
+            petActionList();
+        }
+
+        /*
+        if (testFeedingAction != null)
+        {
+            System.Delegate[] lista = testFeedingAction.GetInvocationList();
+            //lista[0].DynamicInvoke(food);
+
+            Debug.Log("Inicio teste");
+            Debug.Log("Primeiro teste");
+            testFeedingAction(food);
+            testFeedingAction -= lista[0] as FeedingAction;
+            Debug.Log("Segundo teste");
+            lastFeedingAction = testFeedingAction;
+            testFeedingAction(food);
+            Debug.Log("Terceiro teste");
+            lista[0].DynamicInvoke(food);
+            Debug.Log("Quarto teste");
+            testFeedingAction += lista[0] as FeedingAction;
+            testFeedingAction(food);
+            Debug.Log("Fim teste");
+            testFeedingAction = null;
+        }
+        if (testIndependentAction != null)
+        {
+            lastIndependentAction = testIndependentAction;
+            testIndependentAction();
+            testIndependentAction = null;
+        }*/
+
+        yield return new WaitForSeconds(actionRandom);
+        StartCoroutine(PetActionVerifier());
+    }
+
+    private void PetHungry()
+    {
+        Debug.Log("Fome");
+        //hungryOnDelegate = false;
+    }
+
+    private void PetThisty()
+    {
+        Debug.Log("Sede");
+        //thirstyOnDelegate = false;
+    }
+
+    private void PetSad()
+    {
+        Debug.Log("Trste");
+        //sadOnDelegate = false;
+    }
+
+    private void PetPee()
+    {
+        Debug.Log("Pee");
+        //peeOnDelegate = false;
+    }
+
+    private void PetPoop()
+    {
+        Debug.Log("Poop");
+       // poopOnDelegate = false;
+    }
+
+    //private void NotNullDelegate(Food food) { }
+    //private void NotNullDelegate() { }
+
+    /// <summary>
+    /// Calcula a chance de algo acontecer, em porcentagem
+    /// </summary>
+    /// <param name="min">Limite inferior do atributo</param>
+    /// <param name="max">Limite superior do atributo</param>
+    /// <param name="value">Valor do atributo para verificar a chance</param>
+    /// <returns>Retorna a chance em porcentagem, entre 0 e 1</returns>
+    private float ChanceToHappen(float min, float max, float value)
+    {
+        return (max - value) / (max - min);
+    }
+
+    private IEnumerator PetActionVerifier_1 ()
     {
         int petNeed = VerifyPetNeed();
 
