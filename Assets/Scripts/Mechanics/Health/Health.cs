@@ -9,12 +9,12 @@ public class Health
     [SerializeField]
     private float hungry; //Quanta fome o animal está sentido, quanto mais alto melhor para a saúde
     [SerializeField]
-    private float thirst; //Quanta sede o animal está sentido, quanto mais alto melhor para a saúde
+    private float thirsty; //Quanta sede o animal está sentido, quanto mais alto melhor para a saúde
     [SerializeField]
     private float hygiene; //Qual é a higiene do animal, quanto mais alto melhor para a saúde
 
     [SerializeField]
-    private float hapiness; // Indica a felicidade do animal (se quer brincar ou não)
+    private float happiness; // Indica a felicidade do animal (se quer brincar ou não)
     [SerializeField]
     private float whatToPlay; // Indica se o pet sabe com o que pode brincar
     [SerializeField]
@@ -27,9 +27,9 @@ public class Health
     public Health()
     {
         hungry = 1;
-        thirst = 1;
+        thirsty = 1;
         hygiene = 1;
-        hapiness = 1;
+        happiness = 1;
         whatToPlay = 0;
         pee = 0;
         poop = 0;
@@ -51,7 +51,7 @@ public class Health
     /// <param name="i">Valor de fome que é adicionado, se for positivo, animal comeu algo, se for negativo, animal está ficando faminto</param>
     public void PutInHungry(float i)
     {
-        hungry += hungry;
+        hungry += i;
         hungry = Mathf.Clamp(hungry, 0, 1);
     }
 
@@ -59,19 +59,19 @@ public class Health
     /// Recebe o valor da sede do animal.
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1 sendo 0, com desidratado, e 1, hidratado</returns>
-    public float GetThirst()
+    public float GetThirsty()
     {
-        return thirst;
+        return thirsty;
     }
 
     /// <summary>
     /// Adiciona um valor a sede do animal.
     /// </summary>
     /// <param name="i">Valor de sede que é adicionado, se for positivo, animal bebeu algo, se for negativo, animal está ficando com sede</param>
-    public void PutInThirst(float i)
+    public void PutInThirsty(float i)
     {
-        thirst += thirst;
-        thirst = Mathf.Clamp(thirst, 0, 1);
+        thirsty += i;
+        thirsty = Mathf.Clamp(thirsty, 0, 1);
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public class Health
     /// <param name="i">Valor de sede que é adicionado, se for positivo, animal está ficando limpo, se for negativo, animal está ficando sujo</param>
     public void PutInHygiene(float i)
     {
-        hygiene += hygiene;
+        hygiene += i;
         hygiene = Mathf.Clamp(hygiene, 0, 1);
     }
 
@@ -97,19 +97,19 @@ public class Health
     /// Recebe o valor da felicidade do animal
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1, onde 0 é triste e 1 é feliz</returns>
-    public float GetHapiness()
+    public float GetHappiness()
     {
-        return hapiness;
+        return happiness;
     }
 
     /// <summary>
     /// Adiciona um valor a felicidade do animal
     /// </summary>
     /// <param name="i">Valor de felicidade que é adicionado, se for positivo, animal está ficando feliz, se for negativo, animal está ficando triste</param>
-    public void PutInHapiness(float i)
+    public void PutInHappiness(float i)
     {
-        hapiness += i;
-        hapiness = Mathf.Clamp(hapiness, 0, 1);
+        happiness += i;
+        happiness = Mathf.Clamp(happiness, 0, 1);
     }
     
     /// <summary>
@@ -187,4 +187,5 @@ public class Health
         whereToPP += i;
         whereToPP = Mathf.Clamp(whereToPP, 0, 1);
     }
+
 }

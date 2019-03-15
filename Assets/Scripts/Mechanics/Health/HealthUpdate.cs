@@ -10,6 +10,8 @@ public class HealthUpdate : MonoBehaviour
 {
     private SaveManager saveManager;
     private float fillAmount;
+    [SerializeField]
+    private float timeToDecrease;
 
     public void Start()
     {
@@ -17,6 +19,9 @@ public class HealthUpdate : MonoBehaviour
         Invoke(gameObject.name, 0);
     }
 
+
+
+    #region Atualização constante das barras
     private void Update()
     {
         Invoke(gameObject.name, 0);
@@ -29,7 +34,7 @@ public class HealthUpdate : MonoBehaviour
 
     private void Water()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetThirst();
+        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetThirsty();
     }
 
     private void Clean()
@@ -39,6 +44,7 @@ public class HealthUpdate : MonoBehaviour
 
     private void Happiness()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetHapiness();
+        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.pet.health.GetHappiness();
     }
+    #endregion
 }

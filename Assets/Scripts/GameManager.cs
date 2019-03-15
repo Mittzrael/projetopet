@@ -8,8 +8,18 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public bool petDoingAction = false; //Sempre que o pet realizar uma ação, seta para true;
     private bool blockSwipe = false; //Bloqueia o CameraSwipe
+    [SerializeField]
+    private float decreaseRate = -0.01f;
+    [SerializeField]
+    private double decreaseTimeHappiness = 30;
+    [SerializeField]
+    private double decreaseTimeHungry = 20;
+    [SerializeField]
+    private double decreaseTimeThirsty = 50;
+    [SerializeField]
+    private double decreaseTimeHygiene = 80;
 
-#region Loader
+    #region Loader
     private GameManager gameManager;
     private SoundManager soundManager;
     private AnimationManager animManager;
@@ -69,6 +79,89 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        SaveManager.instance.Load(0);
+        TimeOffDecrease();
+        StartCoroutine(DecreaseHappiness(decreaseTimeHappiness));
+        StartCoroutine(DecreaseHungry(decreaseTimeHungry));
+        StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
+        StartCoroutine(DecreaseHygiene(decreaseTimeHygiene));
+    }
+
+    #region Diminuição de atributos do Health de acordo com o tempo
+
+    /// <summary>
+    /// Diminui os atributos de acordo com o tempo em que o jogador ficou sem entrar no jogo.
+    /// </summary>
+    private void TimeOffDecrease()
+    {
+        double timeElapsed = TimeSinceYouPlayed.TimeElapsedSeconds();
+        Health health = SaveManager.instance.player.pet.health;
+
+        int timeElapsedForAttribute = (int)(timeElapsed/decreaseTimeHappiness);
+        health.PutInHappiness(decreaseRate * timeElapsedForAttribute);
+
+        timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHungry);
+        health.PutInHungry(decreaseRate * timeElapsedForAttribute);
+
+        timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeThirsty);
+        health.PutInThirsty(decreaseRate * timeElapsedForAttribute);
+
+        timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHygiene);
+        health.PutInHygiene(decreaseRate * timeElapsedForAttribute);
+    }
+
+    /// <summary>
+    /// Diminui a fome de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    private IEnumerator DecreaseHungry(double s)
+    {
+        SaveManager.instance.player.pet.health.PutInHungry(decreaseRate);
+        yield return new WaitForSeconds((float)s);
+        StartCoroutine(DecreaseHungry(s));
+    }
+
+    /// <summary>
+    /// Diminui a sede de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    private IEnumerator DecreaseThirsty(double s)
+    {
+        SaveManager.instance.player.pet.health.PutInThirsty(decreaseRate);
+        yield return new WaitForSeconds((float)s);
+        StartCoroutine(DecreaseThirsty(s));
+    }
+
+    /// <summary>
+    /// Diminui a felicidade de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    private IEnumerator DecreaseHappiness(double s)
+    {
+        SaveManager.instance.player.pet.health.PutInHappiness(decreaseRate);
+        yield return new WaitForSeconds((float)s);
+        StartCoroutine(DecreaseHappiness(s));
+    }
+
+    /// <summary>
+    /// Diminui a higiene de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    private IEnumerator DecreaseHygiene(double s)
+    {
+        SaveManager.instance.player.pet.health.PutInHygiene(decreaseRate);
+        yield return new WaitForSeconds((float)s);
+        StartCoroutine(DecreaseHygiene(s));
+    }
+
+    #endregion
+
     /// <summary>
     /// Função para carregar uma nova fase com fade - em construção
     /// </summary>
@@ -85,11 +178,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(animManager.Fade(scene));
     }
 
-    private void OnApplicationQuit()
+    private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
         SaveManager.instance.Load(0);
-        System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
-        System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastTimePlayed); //Tempo atual - tempo da última vez que foi jogado
         SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager
         SaveManager.instance.Save();
     }

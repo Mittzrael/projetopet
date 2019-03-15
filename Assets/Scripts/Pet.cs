@@ -8,6 +8,10 @@ public class Pet
     [SerializeField]
     private string name;
     public Health health = new Health();
+    [SerializeField]
+    private Vector3 position;
+    [SerializeField]
+    private int screen;
 
     public void Walk()
     {
@@ -21,7 +25,7 @@ public class Pet
 
     public void Drink(Food food)
     {
-        health.PutInThirst(food.GetNutrionalValor());
+        health.PutInThirsty(food.GetNutrionalValor());
     }
 
     public void Pee()
