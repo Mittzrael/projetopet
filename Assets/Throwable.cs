@@ -17,39 +17,21 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private float copyMass;
     private float copyAngularDrag;
     private Rigidbody2D rb2D;
-    /*
-    public void OnMouseDown()
-    {
-        GameManager gameManager = GameManager.instance;
-        gameManager.BlockSwipe = true;
-        actualPosition = transform.position;
-        isDragged = true;
-        StartCoroutine(ForceApplied());
-    }
-
-    public void OnMouseUp()
-    {
-        GameManager gameManager = GameManager.instance;
-        gameManager.BlockSwipe = false;
-        force = new Vector2((actualPosition.x - pastPosition.x), (actualPosition.y - pastPosition.y));
-        Debug.Log(force.x);
-        Debug.Log(force.y);
-        gameObject.GetComponent<Rigidbody2D>().AddForce(force*multiplier, ForceMode2D.Impulse);
-        isDragged = false;
-    }*/
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         GameManager gameManager = GameManager.instance;
         TakeOutPhysics();
         gameManager.BlockSwipe = true;
-        actualPosition = transform.position;
+        actualPosition = transform.position; //Primeira vez que pega a posição atual
         isDragged = true;
         StartCoroutine(ForceApplied());
     }
 
 
-
+    /// <summary>
+    /// Retira as propriedades físicas do objeto
+    /// </summary>
     private void TakeOutPhysics()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -65,6 +47,9 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         rb2D.angularVelocity = 0;
     }
 
+    /// <summary>
+    /// Devolve as propriedas físicas que foram retiradas no TakeOutPhysics()
+    /// </summary>
     private void GiveAgainPhysics()
     {
         rb2D.drag = copyDrag;
@@ -77,9 +62,13 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        transform.position = objPosition;
+        transform.position = objPosition; //Fica atualizando o objeto para ele seguir o mouse
     }
 
+    /// <summary>
+    /// Enquanto a flag "isDragged" está ativa, ele calcula a posição atual e a posição em que o objeto estava a x segundos (antiga posição atual).
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator ForceApplied()
     {
         while (isDragged)
@@ -95,9 +84,8 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         GameManager gameManager = GameManager.instance;
         gameManager.BlockSwipe = false;
         force = new Vector2((actualPosition.x - pastPosition.x), (actualPosition.y - pastPosition.y));
-        Debug.Log(force.x);
-        Debug.Log(force.y);
         GiveAgainPhysics();
+        ForceApplied();
         gameObject.GetComponent<Rigidbody2D>().AddForce(force * multiplier, ForceMode2D.Impulse);
         isDragged = false;
     }
