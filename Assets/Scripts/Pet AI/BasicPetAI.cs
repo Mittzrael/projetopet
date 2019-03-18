@@ -18,42 +18,46 @@ public class BasicPetAI : MonoBehaviour
     public Player player; // Para testes
 
     protected Health petHealth;
-    protected int maxRandom = 1;
     protected int randomNumber;
 
     protected float randomActionCountdown = 0;
-    public int maxIdleTime = 3;
+    [Tooltip("Quantidade de vezes que o pet verifica que não há nada mais importante para fazer antes de fazer algum movimento aleatório")]
+    public int maxIdleTime = 5;
 
+    [Tooltip("Range de liberdade de movimento do pet (min = esquerda)")]
     public float moveRangeMin = -20;
+    [Tooltip("Range de liberdade de movimento do pet (max = direita)")]
     public float moveRangeMax = 20;
+    [Tooltip("Multiplicador para o range do movimento")]
     public float moveRangeMultiplier = 50;
 
+    // Nome do script com as animações do pet - para poder acessar as animações
     private DogMitza petAnimationScript;
 
-    // Valores minimo e máximo para o tempo aleátorio de verificação das necessidades do pet
+    // Valores minimo e máximo para o tempo aleatório de verificação das necessidades do pet
     private float actionMinRandom = 1;
     private float actionMaxRandom = 5;
-    // Variável que armazena o valor aleátorio gerado
+    // Variável que armazena o valor aleatório gerado
     private float actionRandom;
 
+    // DELEGATE: variável que pode armazenar funções
+    // Utilizada para armazenar as funções correspondentes as ações que o pet quer realizar
+    // As funções serão chamadas através do inicializador da DELEGATE, de modo genérico
     private delegate void PetAction();
     private PetAction petActionList = null;
+    // Vetor de delegates (utilizado para chamar uma delegate de cada vez no pacote de delegates)
     private System.Delegate[] petDelegateList;
-    public bool hungryOnDelegate = false;
-    public bool thirstyOnDelegate = false;
-    public bool sadOnDelegate = false;
-    public bool peeOnDelegate = false;
-    public bool poopOnDelegate = false;
 
-    private delegate void FeedingAction(Food food);
-    private delegate void IndependentAction();
-    private FeedingAction lastFeedingAction = null;
-    private FeedingAction testFeedingAction = null;
-    private IndependentAction lastIndependentAction = null;
-    private IndependentAction testIndependentAction = null;
+    // Variáveis utilizadas para bloquear uma ação que já está armazenada na delegate e ainda não foi chamada
+    private bool hungryOnDelegate = false;
+    private bool hungryWarningOnDelegate = false;
+    private bool thirstyOnDelegate = false;
+    private bool thirstyWarningOnDelegate = false;
+    private bool sadOnDelegate = false;
+    private bool peeOnDelegate = false;
+    private bool poopOnDelegate = false;
 
     private Pet pet;
-
     private Food food;
 
     void Start()
@@ -66,56 +70,48 @@ public class BasicPetAI : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        // Para o pet poder continuar a realizar suas ações mesmo quando o jogador não estiver na cena com o pet
         DontDestroyOnLoad(gameObject);
 
         player = SaveManager.instance.player; // Para testes
 
         petAnimationScript = gameObject.GetComponent<DogMitza>();
-        petHealth = SaveManager.instance.player.pet.health;
         pet = SaveManager.instance.player.pet;
+        petHealth = pet.health;
         StartCoroutine(PetActionVerifier());
     }
 
+    /// <summary>
+    /// Função que verifica que ação o pet irá realizar baseado no estado atual do pet e no que ele já realizou anteriormente
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator PetActionVerifier()
     {
+        // Número aleatório gerado para definir quando ocorrerá a próxima verificação
         actionRandom = Random.Range(actionMinRandom, actionMaxRandom);
-        
-        //Debug.Log(actionRandom);
-        /*float r = Random.Range(0f, 1f);
-        Debug.Log("min: 0.1, max: 0.5, random: " + r + ", chance: " + ChanceToHappen(0.1f, 0.5f, r));
-        
-        testFeedingAction = pet.Eat;
-        testFeedingAction += pet.Drink;
 
-        Debug.Log(testFeedingAction.ToString());
-        testFeedingAction(food);
-
-        testFeedingAction -= pet.Eat;
-        Debug.Log(testFeedingAction.ToString());
-
-        testFeedingAction(food);
-
-        testFeedingAction -= pet.Drink;
-        if (testFeedingAction == null)
-        {
-            Debug.Log("NULL uhul");
-        }
-        else
-        {
-            Debug.Log(testFeedingAction.ToString());
-            testFeedingAction(food);
-        }*/
-
+        // VERIFICAÇÃO DO ESTADO DO PET
+        // Verifica se um status específico está fora do limite aceitável para o pet e se a ação já está na lista
+        // Se estiver fora do limite e não estiver na lista de ações, adiciona na lista (delegate) e sinaliza como adicionado
         if (petHealth.GetHungry() < healthLimit.GetHungry() && !hungryOnDelegate)
         {
             petActionList += PetHungry;
             hungryOnDelegate = true;
         }
+        if (petHealth.GetHungry() < hungryWarning && !hungryWarningOnDelegate)
+        {
+            petActionList += PetHungryWarnig;
+            hungryWarningOnDelegate = true;
+        }
         if (petHealth.GetThirst() < healthLimit.GetThirst() && !thirstyOnDelegate)
         {
             petActionList += PetThisty;
             thirstyOnDelegate = true;
+        }
+        if (petHealth.GetThirst() < thirstyWarning && !thirstyWarningOnDelegate)
+        {
+            petActionList += PetThirstyWarning;
+            thirstyWarningOnDelegate = true;
         }
         if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
         {
@@ -133,85 +129,93 @@ public class BasicPetAI : MonoBehaviour
             sadOnDelegate = true;
         }
 
+        // Se a lista de ações do pet não estiver vazia, realiza a primeira ação da lista e a remove da lista
         if (petActionList != null)
         {
-            Debug.Log("O que tinha...");
-            petActionList();
-            Debug.Log("O pet está....");
+            // Discretiza a lista de ações da delegate em um vetor de delegates
             petDelegateList = petActionList.GetInvocationList();
+            // Chama a função que está armazenada na primeira posição do vetor de delegates
             petDelegateList[0].DynamicInvoke();
-            Debug.Log("Removi...");
+            // Remove esta função da lista de funções da delegate
             petActionList -= petDelegateList[0] as PetAction;
-            //System.Delegate.RemoveAll(petActionList, petDelegateList[0]);
-            petDelegateList[0].DynamicInvoke();
-            Debug.Log("Sobrou...");
-            petActionList();
         }
-
-        /*
-        if (testFeedingAction != null)
+        // Caso contrário, chama a função que realiza movimentos aleatórios
+        else
         {
-            System.Delegate[] lista = testFeedingAction.GetInvocationList();
-            //lista[0].DynamicInvoke(food);
-
-            Debug.Log("Inicio teste");
-            Debug.Log("Primeiro teste");
-            testFeedingAction(food);
-            testFeedingAction -= lista[0] as FeedingAction;
-            Debug.Log("Segundo teste");
-            lastFeedingAction = testFeedingAction;
-            testFeedingAction(food);
-            Debug.Log("Terceiro teste");
-            lista[0].DynamicInvoke(food);
-            Debug.Log("Quarto teste");
-            testFeedingAction += lista[0] as FeedingAction;
-            testFeedingAction(food);
-            Debug.Log("Fim teste");
-            testFeedingAction = null;
+            PetRandomMove();
         }
-        if (testIndependentAction != null)
-        {
-            lastIndependentAction = testIndependentAction;
-            testIndependentAction();
-            testIndependentAction = null;
-        }*/
-
+        
+        // Aguarda o tempo aleatório gerado anteriormente
         yield return new WaitForSeconds(actionRandom);
+        // Chama a mesma função (para uma nova verificação do estado do pet)
         StartCoroutine(PetActionVerifier());
     }
 
+    #region Funções específicas de controle de cada ação do PET
+    /// <summary>
+    /// Função que comanda o pet quando ele está com fome
+    /// </summary>
     private void PetHungry()
     {
         Debug.Log("Fome");
-        //hungryOnDelegate = false;
+        hungryOnDelegate = false;
     }
 
+    /// <summary>
+    /// Função que gera um aviso visual de fome quando entra na zona de aviso de fome
+    /// </summary>
+    private void PetHungryWarnig()
+    {
+        Debug.Log("Msg fome");
+        hungryWarningOnDelegate = false;
+    }
+
+    /// <summary>
+    /// Função que comanda o pet quando ele está com sede
+    /// </summary>
     private void PetThisty()
     {
         Debug.Log("Sede");
-        //thirstyOnDelegate = false;
+        thirstyOnDelegate = false;
     }
 
+    /// <summary>
+    /// Função que gera um aviso visual de sede quando entra na zona de aviso de sede
+    /// </summary>
+    private void PetThirstyWarning()
+    {
+        Debug.Log("Msg sede");
+        thirstyWarningOnDelegate = false;
+    }
+
+    /// <summary>
+    /// Função que comanda o pet quando ele está triste/carente
+    /// </summary>
     private void PetSad()
     {
         Debug.Log("Trste");
-        //sadOnDelegate = false;
+        sadOnDelegate = false;
     }
 
+    /// <summary>
+    /// Função que controla o pet quando ele está com vontade de fazer xixi
+    /// </summary>
     private void PetPee()
     {
         Debug.Log("Pee");
-        //peeOnDelegate = false;
+        peeOnDelegate = false;
     }
 
+    /// <summary>
+    /// Função que controla o pet quando ele está com vontade de fazer coco
+    /// </summary>
     private void PetPoop()
     {
         Debug.Log("Poop");
-       // poopOnDelegate = false;
+        poopOnDelegate = false;
     }
 
-    //private void NotNullDelegate(Food food) { }
-    //private void NotNullDelegate() { }
+    #endregion
 
     /// <summary>
     /// Calcula a chance de algo acontecer, em porcentagem
@@ -222,102 +226,24 @@ public class BasicPetAI : MonoBehaviour
     /// <returns>Retorna a chance em porcentagem, entre 0 e 1</returns>
     private float ChanceToHappen(float min, float max, float value)
     {
-        return (max - value) / (max - min);
+        return Mathf.Clamp01((max - value) / (max - min));
     }
-
-    private IEnumerator PetActionVerifier_1 ()
-    {
-        int petNeed = VerifyPetNeed();
-
-        switch (petNeed)
-        {
-            case -1:
-                PetRandomMove();
-                break;
-            case 0:
-                Debug.Log("Fome");
-                break;
-            case 1:
-                Debug.Log("Sede");
-                break;
-            case 2:
-                Debug.Log("Xixi errado");
-                break;
-            case 3:
-                Debug.Log("Xixi certo");
-                break;
-            case 4:
-                Debug.Log("Cocô errado");
-                break;
-            case 5:
-                Debug.Log("Cocô certo");
-                break;
-            case 6:
-                petAnimationScript.ToggleSad();
-                Debug.Log("Brincar errado");
-                break;
-            case 7:
-                petAnimationScript.ToggleSad();
-                Debug.Log("Brincar certo");
-                break;
-        }
-
-        
-
-        yield return new WaitForSeconds(timeBetweenAction);
-        if (petNeed != 6 || petNeed != 7)
-        {
-            yield return new WaitUntil (() => petAnimationScript.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("dog_mitza_cocando / idle"));
-        }
-
-        StartCoroutine(PetActionVerifier());
-    }
-
-    private int VerifyPetNeed()
-    {
-        if (petHealth.GetHungry() <= hungryWarning)
-        {
-            ThinkingBallon.CreateThinking(gameObject, "Ration");
-            if (petHealth.GetHungry() <= healthLimit.GetHungry()) return 0;
-        }
-        if (petHealth.GetThirst() <= thirstyWarning)
-        {
-            ThinkingBallon.CreateThinking(gameObject, "Water");
-            if (petHealth.GetThirst() <= healthLimit.GetThirst()) return 1;
-        }
-        if (petHealth.GetPee() >= healthLimit.GetPee())
-        {
-            if (petHealth.GetWhereToPP() < healthLimit.GetWhereToPP()) return 2;
-            else return 3;
-        }
-        else if (petHealth.GetPoop() >= healthLimit.GetPoop())
-        {
-            if (petHealth.GetWhereToPP() < healthLimit.GetWhereToPP()) return 4;
-            else return 5;
-        }
-        else if (petHealth.GetHapiness() <= healthLimit.GetHapiness())
-        {
-            if (petHealth.GetWhatToPlay() < healthLimit.GetWhatToPlay()) return 6;
-            else return 7;
-        }
-        else return -1;
-    }
-
+    
     public void PetRandomMove()
     {
         if (randomActionCountdown >= maxIdleTime)
         {
             randomActionCountdown = 0;
-            randomNumber = Random.Range(0, maxRandom + 1);
+            randomNumber = Random.Range(0, 2);
             switch (randomNumber)
             {
                 case 0:
-                    Debug.Log("Movimento Aleátorio - Coçando");
+                    Debug.Log("Movimento aleatório - Coçando");
                     petAnimationScript.Cocando();
                     break;
                 case 1:
                     float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
-                    Debug.Log("Movimento Aleátorio - Andando " + move);
+                    Debug.Log("Movimento aleatório - Andando " + move);
                     petAnimationScript.MoveAnimalAndando(move);
                     break;
             }
@@ -333,7 +259,6 @@ public class BasicPetAI : MonoBehaviour
                 randomActionCountdown++;
             }
         }
-        Debug.Log(randomActionCountdown);
     }
 
     /// <summary>
