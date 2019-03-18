@@ -20,12 +20,14 @@ public class Pet
 
     public void Eat(Food food)
     {
-        health.PutInHungry(food.GetNutrionalValor());
+        //health.PutInHungry(food.GetNutrionalValor());
+        Debug.Log("comi");
     }
 
     public void Drink(Food food)
     {
         health.PutInThirsty(food.GetNutrionalValor());
+        Debug.Log("bebi");
     }
 
     public void Pee()
