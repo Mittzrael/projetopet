@@ -9,19 +9,30 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class ItemDragOn : MonoBehaviour
 {
-    GameObject ScrollViewInventory;
+    public GameObject item;
+    GameObject scrollViewInventory;
+    GameObject panelDragItems;
+    GameObject panelInventory;
+    public GameObject slot;
     private float distance = 10;
 
-    private void Start()
+    void Start()
     {
-        ScrollViewInventory = GameObject.FindGameObjectWithTag("SVInventario");
+        scrollViewInventory = GameObject.FindGameObjectWithTag("SVInventario");
+        panelDragItems = GameObject.FindGameObjectWithTag("PanelDragItems");
+        panelInventory = GameObject.FindGameObjectWithTag("PanelInventory");
     }
     void OnMouseDown()
     {
         GameManager gameManager = GameManager.instance;
         //Desabilita o swipe do inventário
         gameManager.BlockSwipe = true;
-        ScrollViewInventory.GetComponent<ScrollRect>().enabled = false;
+        scrollViewInventory.GetComponent<ScrollRect>().enabled = false;
+        //Desativa o menu inventário
+        transform.parent = panelDragItems.transform;
+        panelInventory.SetActive(false);
+        GameMenu.isInventoryOpen = false;
+        //Drag
         OnMouseDrag();
     }
 
@@ -37,13 +48,16 @@ public class ItemDragOn : MonoBehaviour
         GameManager gameManager = GameManager.instance;
         //Reabilita o swipe do inventário
         gameManager.BlockSwipe = false;
-        ScrollViewInventory.GetComponent<ScrollRect>().enabled = true;
+        scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
         //Destroi o ícone do item
         Destroy(transform.gameObject);
+        Destroy(slot);
         //Instancia o item
         Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         clickedPosition.z = 0;
-        //Instantiate(item, clickedPosition, Quaternion.identity);
-
+        Instantiate(item, clickedPosition, Quaternion.identity);
+        //Ativa o menu inventário
+        panelInventory.SetActive(true);
+        GameMenu.isInventoryOpen = true;
     }
 }

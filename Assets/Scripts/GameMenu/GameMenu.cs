@@ -11,7 +11,7 @@ public class GameMenu : MonoBehaviour
     public GameObject btnInventario, btnPetShop, btnAcaoPet;
     public GameObject panelInventario, panelAcao;
     bool isMenuOpen = false;
-    bool isInventoryOpen = false;
+    public static bool isInventoryOpen = false;
     bool isActionOpen = false;
 
     //Click no botão menu
