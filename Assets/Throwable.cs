@@ -12,8 +12,11 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private Vector3 actualPosition;
     private bool isDragged = false;
     private float distance = 0;
+    private float copyGravityScale;
+    private float copyDrag;
+    private float copyMass;
+    private float copyAngularDrag;
     private Rigidbody2D rb2D;
-    private Rigidbody2D rb2DTemp;
     /*
     public void OnMouseDown()
     {
@@ -45,23 +48,29 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         StartCoroutine(ForceApplied());
     }
 
+
+
     private void TakeOutPhysics()
     {
-        rb2DTemp = new Rigidbody2D();
         rb2D = GetComponent<Rigidbody2D>();
-        rb2DTemp.gravityScale = rb2D.gravityScale;
-        rb2DTemp.drag = rb2D.drag;
-        rb2DTemp.mass = rb2D.mass;
+        copyGravityScale = rb2D.gravityScale;
+        copyDrag = rb2D.drag;
+        copyMass = rb2D.mass;
+        copyAngularDrag = rb2D.angularDrag;
         rb2D.gravityScale = 0;
         rb2D.drag = 0;
         rb2D.mass = 0;
+        rb2D.angularDrag = 0;
+        rb2D.velocity = new Vector2(0,0);
+        rb2D.angularVelocity = 0;
     }
 
     private void GiveAgainPhysics()
     {
-        rb2D.drag = rb2DTemp.drag;
-        rb2D.gravityScale = rb2DTemp.gravityScale;
-        rb2D.mass = rb2DTemp.mass;
+        rb2D.drag = copyDrag;
+        rb2D.gravityScale = copyGravityScale;
+        rb2D.mass = copyMass;
+        rb2D.angularDrag = copyAngularDrag;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -77,7 +86,7 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         {
             pastPosition = actualPosition;
             actualPosition = transform.position;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
@@ -88,6 +97,7 @@ public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         force = new Vector2((actualPosition.x - pastPosition.x), (actualPosition.y - pastPosition.y));
         Debug.Log(force.x);
         Debug.Log(force.y);
+        GiveAgainPhysics();
         gameObject.GetComponent<Rigidbody2D>().AddForce(force * multiplier, ForceMode2D.Impulse);
         isDragged = false;
     }
