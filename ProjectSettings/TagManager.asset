@@ -63,3 +63,6 @@ TagManager:
   - name: SignalFront
     uniqueID: 994862677
     locked: 0
+  - name: Canvas
+    uniqueID: 995514885
+    locked: 0
