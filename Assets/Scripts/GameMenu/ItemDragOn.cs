@@ -16,6 +16,9 @@ public class ItemDragOn : MonoBehaviour
     public GameObject slot;
     private float distance = 10;
 
+    public string[] allowedZones;
+    string currentZone;
+
     void Start()
     {
         scrollViewInventory = GameObject.FindGameObjectWithTag("SVInventario");
@@ -43,21 +46,33 @@ public class ItemDragOn : MonoBehaviour
         transform.position = objPosition;
     }
 
-    void OnMouseUp()
+    public void OnMouseUp ()
     {
-        GameManager gameManager = GameManager.instance;
         //Reabilita o swipe do inventário
+        GameManager gameManager = GameManager.instance;
         gameManager.BlockSwipe = false;
-        scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
         //Destroi o ícone do item
         Destroy(transform.gameObject);
         Destroy(slot);
-        //Instancia o item
-        Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        clickedPosition.z = 0;
-        Instantiate(item, clickedPosition, Quaternion.identity);
         //Ativa o menu inventário
         panelInventory.SetActive(true);
         GameMenu.isInventoryOpen = true;
+        scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
+
+        currentZone = PlaceableZone.GetCurrentZone();
+
+        //Verifica se zona atual é permitida para o item
+        foreach(string allowedZone in allowedZones)
+        {
+            if(allowedZone == currentZone)
+            {
+                //Instancia o item
+                Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                clickedPosition.z = 0;
+                Instantiate(item, clickedPosition, Quaternion.identity);
+                
+                break;
+            }
+        }
     }
 }
