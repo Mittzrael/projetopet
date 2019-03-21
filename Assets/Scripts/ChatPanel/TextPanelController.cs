@@ -16,7 +16,9 @@ public class TextPanelController : MonoBehaviour {
     private Animator panelAnimator;
     private int stringIndex = 0;
     public Texture charImage;
+    private bool screenClicked = false;
     GameObject panelBlocker;
+    int visibleCount;
 
     public delegate void ChatEnded();//evento para avisar que terminou o dialogo
     public static event ChatEnded ChatEndNotification;//evento para avisar que terminou o dialogo
@@ -90,6 +92,22 @@ public class TextPanelController : MonoBehaviour {
         }
     }
 
+    private void OnMouseUpAsButton()//verifica se foi clicado na tela para avançar o texto rápido
+    {
+        if (nextButton.interactable == false && closeButton.interactable == false)
+        {
+            screenClicked = true;
+        }
+        else if (nextButton.interactable == true)
+        {
+            NextText();
+        }
+        else if (closeButton.interactable == true)
+        {
+            ClosePanel();
+        }        
+    }
+
     /// <summary>
     /// Reproduz as animações iniciais e chama a função que exibe o texto.
     /// </summary>
@@ -117,7 +135,12 @@ public class TextPanelController : MonoBehaviour {
         while (true)
         {
             nextButton.interactable = false;
-            int visibleCount = counter % (totalVisibleChars + 1);
+            visibleCount = counter % (totalVisibleChars + 1);
+            if (screenClicked)
+            {
+                screenClicked = false;
+                visibleCount = totalVisibleChars;
+            }            
             tmpro.maxVisibleCharacters = visibleCount;
             if (visibleCount >= totalVisibleChars)
             {
