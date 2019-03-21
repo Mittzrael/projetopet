@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager instance = null;
     public bool petDoingAction = false; //Sempre que o pet realizar uma ação, seta para true;
     private bool blockSwipe = false; //Bloqueia o CameraSwipe
@@ -18,6 +17,19 @@ public class GameManager : MonoBehaviour
     private double decreaseTimeThirsty = 50;
     [SerializeField]
     private double decreaseTimeHygiene = 80;
+
+    // Localização das portas que pet tem acesso
+    public float doorKitchenToYard = -2700;
+    public float doorYardToKitchen = 2400;
+
+    // Localização dos itens que o pet tem acesso
+    public string foodScene;
+    public float foodPosition;
+    public string waterScene;
+    public float waterPosition;
+    public string bathroomScene;
+    public float bathroomPosition;
+    public string[] petAccessScenes;
 
     #region Loader
     private GameManager gameManager;

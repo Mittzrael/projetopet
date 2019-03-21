@@ -16,8 +16,6 @@ public class ButtonController : ScriptableObject
         GameManager.instance.LoadSceneWithFade(scene);
     }
 
-
-
     public void CallSave()
     {
         saveManager = SaveManager.instance;

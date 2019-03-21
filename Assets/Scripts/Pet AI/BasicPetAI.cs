@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicPetAI : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class BasicPetAI : MonoBehaviour
 
     protected float randomActionCountdown = 0;
     [Tooltip("Quantidade de vezes que o pet verifica que não há nada mais importante para fazer antes de fazer algum movimento aleatório")]
-    public int maxIdleTime = 5;
+    public int maxIdleTime = 3;
 
     [Tooltip("Range de liberdade de movimento do pet (min = esquerda)")]
     public float moveRangeMin = -20;
@@ -98,20 +99,10 @@ public class BasicPetAI : MonoBehaviour
             petActionList += PetHungry;
             hungryOnDelegate = true;
         }
-        if (petHealth.GetHungry() < hungryWarning && !hungryWarningOnDelegate)
-        {
-            petActionList += PetHungryWarnig;
-            hungryWarningOnDelegate = true;
-        }
         if (petHealth.GetThirsty() < healthLimit.GetThirsty() && !thirstyOnDelegate)
         {
             petActionList += PetThisty;
             thirstyOnDelegate = true;
-        }
-        if (petHealth.GetThirsty() < thirstyWarning && !thirstyWarningOnDelegate)
-        {
-            petActionList += PetThirstyWarning;
-            thirstyWarningOnDelegate = true;
         }
         if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
         {
@@ -157,6 +148,23 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private void PetHungry()
     {
+        /*
+        if (SceneManager.GetActiveScene().name == GameManager.instance.foodScene)
+        {
+            petAnimationScript.MoveAnimalAndando(GameManager.instance.foodPosition);
+        }
+        else
+        {
+            for (int i = 0; i < SaveManager.instance.player.petAccessScenes.sceneName.Length; i++)
+            {
+                if (SaveManager.instance.player.petAccessScenes.sceneName[i] == GameManager.instance.foodScene)
+                {
+                    petAnimationScript.MoveAnimalAndando(SaveManager.instance.player.petAccessScenes.doorDistance[i]);
+                    break;
+                }
+            }
+        }
+        */
         Debug.Log("Fome");
         hungryOnDelegate = false;
     }

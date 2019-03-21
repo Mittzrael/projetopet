@@ -13,4 +13,6 @@ public class Player
     public int residenciaSelecionada = -1;
     public int petSelecionado = -1;
     public string lastTimePlayed;
+
+    public PetAccessScenes petAccessScenes;
 }
