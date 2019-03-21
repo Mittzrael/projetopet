@@ -2525,6 +2525,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &1764022678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764022672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edbb51fc74d6da4c93634361403395b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1774610851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,10 +2663,11 @@ GameObject:
   - component: {fileID: 1782136850}
   - component: {fileID: 1782136853}
   - component: {fileID: 1782136854}
+  - component: {fileID: 1782136856}
   - component: {fileID: 1782136855}
   - component: {fileID: 1782136857}
   m_Layer: 0
-  m_Name: dog_mitza
+  m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2735,7 +2748,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782136849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: -199, z: 300}
+  m_LocalPosition: {x: -27, y: -400, z: 300}
   m_LocalScale: {x: 50, y: 50, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2782,23 +2795,21 @@ MonoBehaviour:
   player:
     slot: -1
     nome: 
-    pet:
-      name: 
-      health:
-        hungry: 1
-        thirsty: 1
-        hygiene: 1
-        happiness: 1
-        whatToPlay: 0
-        pee: 0
-        poop: 0
-        whereToPP: 0
-      position: {x: 0, y: 0, z: 0}
-      screen: 0
+    health:
+      hungry: 1
+      thirsty: 1
+      hygiene: 1
+      happiness: 1
+      whatToPlay: 0
+      pee: 0
+      poop: 0
+      whereToPP: 0
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
     lastTimePlayed: 
+    poopLocation:
+      location: []
   maxIdleTime: 10
   moveRangeMin: -20
   moveRangeMax: 20
@@ -2824,6 +2835,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1782136856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782136849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413b740ce4a2c92438a06debfa7897d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
 --- !u!70 &1782136857
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4375,8 +4399,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1191733087282092771}
-        m_MethodName: OnClickBtnAddItem
+      - m_Target: {fileID: 1782136856}
+        m_MethodName: Poop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6556,7 +6580,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 'Add Item
+  m_Text: 'Add Poop
 
 '
 --- !u!222 &1191733088121685592

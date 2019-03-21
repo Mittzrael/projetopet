@@ -14,7 +14,7 @@ public class ThinkingBallon : MonoBehaviour
     public static void CreateThinking(GameObject thinker, string content)
     {
         GameObject thinkingBallon = Resources.Load("Prefabs/ThinkingBallon") as GameObject;
-        Vector3 position = new Vector3(thinker.transform.position.x + thinker.GetComponent<Renderer>().bounds.size.x, thinker.transform.position.y + thinker.GetComponent<Renderer>().bounds.size.y, thinker.transform.position.z);
+        Vector3 position = new Vector3(thinker.transform.position.x + thinker.GetComponent<Renderer>().bounds.size.x/2, thinker.transform.position.y + thinker.GetComponent<Renderer>().bounds.size.y/2, thinker.transform.position.z);
         thinkingBallon.GetComponent<ThinkingBallon>().content = Resources.Load<Sprite>(string.Concat("Images/", content));
         thinkingBallon = Instantiate(thinkingBallon, position, Quaternion.identity);
     }
