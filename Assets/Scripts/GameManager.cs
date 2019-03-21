@@ -94,11 +94,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SaveManager.instance.Load(0);
-        TimeOffDecrease();
-        StartCoroutine(DecreaseHappiness(decreaseTimeHappiness));
-        StartCoroutine(DecreaseHungry(decreaseTimeHungry));
-        StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
-        StartCoroutine(DecreaseHygiene(decreaseTimeHygiene));
+        DecreaseStats();
     }
 
     #region Diminuição de atributos do Health de acordo com o tempo
@@ -106,10 +102,20 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Diminui os atributos de acordo com o tempo em que o jogador ficou sem entrar no jogo.
     /// </summary>
+
+    private void DecreaseStats()
+    {
+        TimeOffDecrease();
+        StartCoroutine(DecreaseHappiness(decreaseTimeHappiness));
+        StartCoroutine(DecreaseHungry(decreaseTimeHungry));
+        StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
+        StartCoroutine(DecreaseHygiene(decreaseTimeHygiene));
+    }
+
     private void TimeOffDecrease()
     {
         double timeElapsed = TimeSinceYouPlayed.TimeElapsedSeconds();
-        Health health = SaveManager.instance.player.pet.health;
+        Health health = SaveManager.instance.player.health;
 
         int timeElapsedForAttribute = (int)(timeElapsed/decreaseTimeHappiness);
         health.PutInHappiness(decreaseRate * timeElapsedForAttribute);
@@ -131,7 +137,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator DecreaseHungry(double s)
     {
-        SaveManager.instance.player.pet.health.PutInHungry(decreaseRate);
+        SaveManager.instance.player.health.PutInHungry(decreaseRate);
         yield return new WaitForSeconds((float)s);
         StartCoroutine(DecreaseHungry(s));
     }
@@ -143,7 +149,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator DecreaseThirsty(double s)
     {
-        SaveManager.instance.player.pet.health.PutInThirsty(decreaseRate);
+        SaveManager.instance.player.health.PutInThirsty(decreaseRate);
         yield return new WaitForSeconds((float)s);
         StartCoroutine(DecreaseThirsty(s));
     }
@@ -155,7 +161,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator DecreaseHappiness(double s)
     {
-        SaveManager.instance.player.pet.health.PutInHappiness(decreaseRate);
+        SaveManager.instance.player.health.PutInHappiness(decreaseRate);
         yield return new WaitForSeconds((float)s);
         StartCoroutine(DecreaseHappiness(s));
     }
@@ -167,7 +173,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator DecreaseHygiene(double s)
     {
-        SaveManager.instance.player.pet.health.PutInHygiene(decreaseRate);
+        SaveManager.instance.player.health.PutInHygiene(decreaseRate);
         yield return new WaitForSeconds((float)s);
         StartCoroutine(DecreaseHygiene(s));
     }

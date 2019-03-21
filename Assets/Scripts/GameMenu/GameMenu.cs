@@ -76,4 +76,11 @@ public class GameMenu : MonoBehaviour
     {
         Debug.Log("Vai para o pet shop");
     }
+
+    //Click fora do menu (fecha menu)
+    public void OnClickGameArea()
+    {
+        if (isMenuOpen)
+            OnClickBtnMenu();
+    }
 }

@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Throwable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-
     private Vector2 force;
     public float multiplier = 5;
     private Vector3 pastPosition;

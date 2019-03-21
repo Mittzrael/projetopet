@@ -121,6 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 4076655025784107931, guid: 00d331529d6a81d4f962080cfbfc458a, type: 3}
   slot: {fileID: 4250056684128145242}
+  allowedZones:
+  - Zone
 --- !u!1 &4250056684128145242
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class Pet
+public class Pet: MonoBehaviour
 {
     [SerializeField]
     private string name;
-    public Health health = new Health();
-    [SerializeField]
     private Vector3 position;
-    [SerializeField]
     private int screen;
+    private GameObject poop;
 
     public void Walk()
     {
@@ -22,22 +21,30 @@ public class Pet
     {
         //health.PutInHungry(food.GetNutrionalValor());
         Debug.Log("comi");
+        SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor()/2);
     }
 
     public void Drink(Food food)
     {
-        health.PutInThirsty(food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInThirsty(food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInPee(food.GetNutrionalValor()/2);
         Debug.Log("bebi");
     }
 
     public void Pee()
     {
-        health.PutInPee(0);
+        SaveManager.instance.player.health.PutInPee(-0.5f); //Esvazia pela metade a vontade do animal de fazer xixi
     }
-
+    /// <summary>
+    /// Chamado quando o animal evacua.
+    /// </summary>
     public void Poop()
     {
-        health.PutInPoop(0);
+        poop = Resources.Load("Prefabs/Items/Poop") as GameObject;
+        Vector3 position = new Vector3(transform.position.x, transform.position.y - GetComponent<Renderer>().bounds.size.y/2, transform.position.z);
+        Instantiate(poop, position, Quaternion.identity);
+        SaveManager.instance.player.health.PutInPoop(-0.5f); //Esvazia pela metade a vontade do animal de fazer cocô
+        SaveManager.instance.player.poopLocation.Add(SceneManager.GetActiveScene().name, position);
     }
 
     public void Play()

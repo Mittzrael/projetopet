@@ -13,6 +13,7 @@ TagManager:
   - SVInventario
   - PanelInventory
   - PanelDragItems
+  - PlaceableZones
   layers:
   - Default
   - TransparentFX

@@ -77,8 +77,8 @@ public class BasicPetAI : MonoBehaviour
         player = SaveManager.instance.player; // Para testes
 
         petAnimationScript = gameObject.GetComponent<DogMitza>();
-        pet = SaveManager.instance.player.pet;
-        petHealth = pet.health;
+        //pet = SaveManager.instance.player.pet;
+        petHealth = SaveManager.instance.player.health;
         StartCoroutine(PetActionVerifier());
     }
 

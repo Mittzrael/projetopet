@@ -30,6 +30,7 @@ public class CloseButton : MonoBehaviour
 
     public void CarregarCena(string scene)
     {
+        SaveManager.instance.Save();
         GameManager.instance.LoadSceneWithFade(scene);
     }
 
