@@ -5,16 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Teste : MonoBehaviour
 {
-    public GameObject pensante;
-    // Start is called before the first frame update
-    void Start()
+    public void Poop()
     {
-        StartCoroutine(teste());
+
     }
 
-    public IEnumerator teste()
+    public void Pee()
     {
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene("kitchen", LoadSceneMode.Additive);
     }
 }

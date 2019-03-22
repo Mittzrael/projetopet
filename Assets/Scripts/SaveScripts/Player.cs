@@ -14,4 +14,5 @@ public class Player
     public int petSelecionado = -1;
     public string lastTimePlayed; //Horário de saída da última seção do jogador em forma de string
     public PoopLocation poopLocation = new PoopLocation(); //Locais onde estão os cocôs do animal
+    public PeeLocation peeLocation = new PeeLocation(); //Locais onde estão os xixis do animal
 }
