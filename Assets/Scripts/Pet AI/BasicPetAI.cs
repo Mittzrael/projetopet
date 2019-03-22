@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicPetAI : MonoBehaviour
 {
+    #region Declaração das Variáveis
     [Tooltip("Tempo entre as verificações de ações do Pet (em segundos)")]
     public float timeBetweenAction = 1;
 
@@ -22,7 +24,7 @@ public class BasicPetAI : MonoBehaviour
 
     protected float randomActionCountdown = 0;
     [Tooltip("Quantidade de vezes que o pet verifica que não há nada mais importante para fazer antes de fazer algum movimento aleatório")]
-    public int maxIdleTime = 5;
+    public int maxIdleTime = 3;
 
     [Tooltip("Range de liberdade de movimento do pet (min = esquerda)")]
     public float moveRangeMin = -20;
@@ -59,6 +61,7 @@ public class BasicPetAI : MonoBehaviour
 
     private Pet pet;
     private Food food;
+    #endregion
 
     void Start()
     {
@@ -98,20 +101,10 @@ public class BasicPetAI : MonoBehaviour
             petActionList += PetHungry;
             hungryOnDelegate = true;
         }
-        if (petHealth.GetHungry() < hungryWarning && !hungryWarningOnDelegate)
-        {
-            petActionList += PetHungryWarnig;
-            hungryWarningOnDelegate = true;
-        }
         if (petHealth.GetThirsty() < healthLimit.GetThirsty() && !thirstyOnDelegate)
         {
             petActionList += PetThisty;
             thirstyOnDelegate = true;
-        }
-        if (petHealth.GetThirsty() < thirstyWarning && !thirstyWarningOnDelegate)
-        {
-            petActionList += PetThirstyWarning;
-            thirstyWarningOnDelegate = true;
         }
         if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
         {
@@ -157,6 +150,22 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private void PetHungry()
     {
+        //if (SceneManager.GetActiveScene().name == GameManager.instance.foodScene)
+        //{
+        //    petAnimationScript.MoveAnimalAndando(GameManager.instance.foodPosition);
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < SaveManager.instance.player.petAccessScenes.sceneName.Length; i++)
+        //    {
+        //        if (SaveManager.instance.player.petAccessScenes.sceneName[i] == GameManager.instance.foodScene)
+        //        {
+        //            petAnimationScript.MoveAnimalAndando(SaveManager.instance.player.petAccessScenes.doorDistance[i]);
+        //            break;
+        //        }
+        //    }
+        //}
+        
         Debug.Log("Fome");
         hungryOnDelegate = false;
     }
@@ -229,27 +238,34 @@ public class BasicPetAI : MonoBehaviour
         return Mathf.Clamp01((max - value) / (max - min));
     }
     
+    /// <summary>
+    /// Função que controla os movimentos aleatórios do pet
+    /// Movimentos que ocorrem quando o pet não possui nenhuma outra necessidade
+    /// </summary>
     public void PetRandomMove()
     {
+        // Verifica se o limite de vezes que a função deve ser chamada foi atingido
         if (randomActionCountdown >= maxIdleTime)
         {
             randomActionCountdown = 0;
+            // Escolhe um valor aleatório para selecionar qual ação o pet irá realizar
             randomNumber = Random.Range(0, 2);
             switch (randomNumber)
             {
-                case 0:
+                case 0: // Pet se coça
                     Debug.Log("Movimento aleatório - Coçando");
                     petAnimationScript.Cocando();
                     break;
-                case 1:
+                case 1: // Pet se move até um ponto aleatório na scene
                     float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
                     Debug.Log("Movimento aleatório - Andando " + move);
                     petAnimationScript.MoveAnimalAndando(move);
                     break;
             }
         }
-        else
+        else // Caso contrário, incrementa o contador
         {
+            // Se o pet não está feliz, o contador cresce mais lentamente
             if (petHealth.GetHappiness() < 0.5f)
             {
                 randomActionCountdown += 0.5f;
