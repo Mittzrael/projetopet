@@ -198,11 +198,17 @@ public class Graph<T> : IEnumerable<T>
             path.Add(target);
             target = nodeSet.FindByValue(target).prevNode.Value;
         }
-        
+
         // Adiciono o nó inicial
         path.Add(start);
 
         return path;
         //return visited;
+    }
+
+    public int teste(T start, T next)
+    {
+        int index = nodeSet.FindByValue(start).Neighbors.IndexOf(nodeSet.FindByValue(next));
+        return nodeSet.FindByValue(start).Costs[index];
     }
 }

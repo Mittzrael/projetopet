@@ -67,7 +67,13 @@ public class Test : MonoBehaviour
         var path = petAccess.BFS(yard.Value, kitchen.Value);
         string pathS = HasHSetToString(path);
         PrintPath(pathS.Split(','));
+        string[] name = pathS.Split(',');
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            Debug.Log(name[i] + " -> " + petAccess.teste(name[i], name[i - 1]));
+        }
 
+        /*
         Debug.LogWarning("Caminho da sala até a cozinha");
         path = petAccess.BFS(livingRoom.Value, kitchen.Value);
         pathS = HasHSetToString(path);
@@ -77,7 +83,7 @@ public class Test : MonoBehaviour
         path = petAccess.BFS(yard.Value, livingRoom.Value);
         pathS = HasHSetToString(path);
         PrintPath(pathS.Split(','));
-
+        */
         #endregion
     }
 
