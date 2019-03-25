@@ -11,6 +11,7 @@ public class AvatarBehaviour : ItemBehaviour
     /// </summary>
     public override void SaveIndexOnPlayer()
     {
+        Debug.Log(index);
         SaveManager.instance.player.avatarSelecionado = index;
     }
 }

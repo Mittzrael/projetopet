@@ -71,4 +71,4 @@ MonoBehaviour:
       location: []
     flag:
     - name: Concluiu Tutorial
-      state: 0
+      state: 1

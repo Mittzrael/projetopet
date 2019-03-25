@@ -47,7 +47,16 @@ public class SaveManager : MonoBehaviour {
     {
         Player newPlayer = new Player();
         player = newPlayer;
+        SpecificFromGame();
         player.slot = SlotsListManager.SlotGiver(list);
+    }
+
+    /// <summary>
+    /// Detalhes do create new player especificas do jogos
+    /// </summary>
+    public void SpecificFromGame()
+    {
+        player.flag = SaveManager.instance.player.flag;
     }
 
     public void Save()
