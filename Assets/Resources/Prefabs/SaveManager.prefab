@@ -51,6 +51,24 @@ MonoBehaviour:
   player:
     slot: 0
     nome: 
+    health:
+      hungry: 1
+      thirsty: 1
+      hygiene: 1
+      happiness: 1
+      whatToPlay: 0
+      pee: 0
+      poop: 0
+      whereToPP: 0
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
+    petAccessScenes: {fileID: 0}
+    lastTimePlayed: 
+    poopLocation:
+      location: []
+    peeLocation:
+      location: []
+    flag:
+    - name: Concluiu Tutorial
+      state: 0

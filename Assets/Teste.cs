@@ -5,12 +5,4 @@ using UnityEngine.SceneManagement;
 
 public class Teste : MonoBehaviour
 {
-    public void Poop()
-    {
-
-    }
-
-    public void Pee()
-    {
-    }
 }
