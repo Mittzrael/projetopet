@@ -10,7 +10,7 @@ public class TimeSinceYouPlayed
     /// <returns></returns>
     public static double TimeElapsedSeconds()
     {
-        SaveManager.instance.Load(0);
+        //SaveManager.instance.Load(0);
         System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
         System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastTimePlayed); //Tempo atual - tempo da última vez que foi jogado
         return timeElapsed.TotalSeconds;
@@ -22,7 +22,7 @@ public class TimeSinceYouPlayed
     /// <returns></returns>
     public static double TimeElapsedMinutes()
     {
-        SaveManager.instance.Load(0);
+        //SaveManager.instance.Load(0);
         System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
         System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastTimePlayed); //Tempo atual - tempo da última vez que foi jogado
         return timeElapsed.TotalMinutes;
@@ -34,7 +34,7 @@ public class TimeSinceYouPlayed
     /// <returns></returns>
     public static double TimeElapsedHours()
     {
-        SaveManager.instance.Load(0);
+        //SaveManager.instance.Load(0);
         System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
         System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastTimePlayed); //Tempo atual - tempo da última vez que foi jogado
         return timeElapsed.TotalHours;
@@ -46,7 +46,7 @@ public class TimeSinceYouPlayed
     /// <returns></returns>
     public static double TimeElapsedDays()
     {
-        SaveManager.instance.Load(0);
+        //SaveManager.instance.Load(0);
         System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
         System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastTimePlayed); //Tempo atual - tempo da última vez que foi jogado
         return timeElapsed.TotalDays;

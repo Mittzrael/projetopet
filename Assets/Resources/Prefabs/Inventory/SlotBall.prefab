@@ -196,6 +196,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 3978735200507008600, guid: 6b74901f4c5588b43a45ddfe9c77476f, type: 3}
   slot: {fileID: 7445619139142570752}
-  allowedZones:
-  - Zone
-  - Zone (1)
+  allowedDropAreas:
+  - DropArea (0)
+  - DropArea (1)
+  - DropArea (2)
+  - DropArea (3)
+  - DropArea (4)
