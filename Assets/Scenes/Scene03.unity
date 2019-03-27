@@ -900,16 +900,23 @@ MonoBehaviour:
     nome: 
     health:
       hungry: 1
-      thirst: 1
+      thirsty: 1
       hygiene: 1
-      hapiness: 1
-      careTrain: 0
+      happiness: 1
+      whatToPlay: 0
       pee: 0
       poop: 0
-      hygieneTrain: 0
+      whereToPP: 0
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
+    petAccessScenes: {fileID: 0}
+    lastTimePlayed: 
+    poopLocation:
+      location: []
+    peeLocation:
+      location: []
+    flag: []
   residenciaList: {fileID: 11400000, guid: 82893ce40e454bb4a9128d5eccfca475, type: 2}
 --- !u!1 &2140648211
 GameObject:
@@ -946,7 +953,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213
