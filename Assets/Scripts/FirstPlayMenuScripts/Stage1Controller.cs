@@ -66,6 +66,7 @@ public class Stage1Controller : MonoBehaviour
     public void ErrosCorrigidos()
     {
         TextPanelController.ChatEndNotification -= ErrosCorrigidos;//unsubscribe from event (para de ouvir o evento, evitar sobrecarga desnecessária)
+        SaveManager.instance.player.flag[0].state = true;
         GameManager.instance.LoadSceneWithFade(nextScene);
     }
 }

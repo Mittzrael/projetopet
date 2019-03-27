@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 408039203}
   - component: {fileID: 408039202}
   - component: {fileID: 408039201}
+  - component: {fileID: 408039204}
   m_Layer: 5
   m_Name: IniciarButton
   m_TagString: ReadyToGoButton
@@ -365,17 +366,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: af5d29ba775e7574c872e80ff1b6d8b6, type: 2}
-        m_MethodName: CallSave
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 4683431f7dd3e174580d08b2f3027dea, type: 2}
         m_MethodName: SetPetHomeInfo
         m_Mode: 1
@@ -387,9 +377,9 @@ MonoBehaviour:
           m_StringArgument: Instrucoes1
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: af5d29ba775e7574c872e80ff1b6d8b6, type: 2}
-        m_MethodName: ChangeScene
-        m_Mode: 5
+      - m_Target: {fileID: 408039204}
+        m_MethodName: ChooseTutorial
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -437,6 +427,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408039199}
   m_CullTransparentMesh: 0
+--- !u!114 &408039204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408039199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebe3be8da3707c46bb51299adc9ce7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qtyAnimal: 6
+  qtyHome: 3
 --- !u!1 &655285647
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,24 +924,25 @@ MonoBehaviour:
   player:
     slot: 0
     nome: 
-    pet:
-      name: 
-      health:
-        hungry: 1
-        thirsty: 1
-        hygiene: 1
-        happiness: 1
-        whatToPlay: 0
-        pee: 0
-        poop: 0
-        whereToPP: 0
-      position: {x: 0, y: 0, z: 0}
-      screen: 0
+    health:
+      hungry: 1
+      thirsty: 1
+      hygiene: 1
+      happiness: 1
+      whatToPlay: 0
+      pee: 0
+      poop: 0
+      whereToPP: 0
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
-    lastTimePlayed: 
     petAccessScenes: {fileID: 0}
+    lastTimePlayed: 
+    poopLocation:
+      location: []
+    peeLocation:
+      location: []
+    flag: []
   petList: {fileID: 11400000, guid: 1c535a37bfe6a5042a4ecf38a76c2c6b, type: 2}
 --- !u!1 &2140648211
 GameObject:
@@ -974,7 +979,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213

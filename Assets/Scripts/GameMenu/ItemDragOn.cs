@@ -16,8 +16,10 @@ public class ItemDragOn : MonoBehaviour
     public GameObject slot;
     private float distance = 10;
 
-    public string[] allowedZones;
-    string currentZone;
+    public string[] allowedDropAreas;
+    string currentDropArea;
+    Color colorTransparent = new Color(1, 1, 1, 0.5f);
+    Color colorStandard = new Color(1, 1, 1, 1);
 
     void Start()
     {
@@ -44,6 +46,13 @@ public class ItemDragOn : MonoBehaviour
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objPosition;
+
+        currentDropArea = DropArea.GetCurrentDropArea();
+        
+        if(currentDropArea != "null")
+            this.GetComponent<SpriteRenderer>().color = colorStandard;
+        else
+            this.GetComponent<SpriteRenderer>().color = colorTransparent;
     }
 
     public void OnMouseUp ()
@@ -51,28 +60,34 @@ public class ItemDragOn : MonoBehaviour
         //Reabilita o swipe do inventário
         GameManager gameManager = GameManager.instance;
         gameManager.BlockSwipe = false;
-        //Destroi o ícone do item
-        Destroy(transform.gameObject);
-        Destroy(slot);
+        
+        currentDropArea = DropArea.GetCurrentDropArea();
+
+        //Verifica se area atual é permitida para o item
+        foreach (string allowedDropArea in allowedDropAreas)
+        {
+            if (allowedDropArea == currentDropArea)
+            {
+                //Destroi o ícone do item
+                Destroy(transform.gameObject);
+                Destroy(slot);
+
+                //Instancia o item
+                Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                clickedPosition.z = item.transform.position.z;
+                Instantiate(item, clickedPosition, Quaternion.identity);
+
+                return;
+            }
+        }
+        //Caso item tenha sido colocado em área não permitida
+        //Retorna item ao inventário,
+        this.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1) ;
+        transform.parent = slot.transform;
+        this.GetComponent<SpriteRenderer>().color = colorStandard;
         //Ativa o menu inventário
         panelInventory.SetActive(true);
         GameMenu.isInventoryOpen = true;
         scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
-
-        currentZone = PlaceableZone.GetCurrentZone();
-
-        //Verifica se zona atual é permitida para o item
-        foreach(string allowedZone in allowedZones)
-        {
-            if(allowedZone == currentZone)
-            {
-                //Instancia o item
-                Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                clickedPosition.z = 0;
-                Instantiate(item, clickedPosition, Quaternion.identity);
-                
-                break;
-            }
-        }
     }
 }

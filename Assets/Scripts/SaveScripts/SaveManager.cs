@@ -32,7 +32,6 @@ public class SaveManager : MonoBehaviour {
         dataPath = Application.persistentDataPath;
         slotsDataPath = System.IO.Path.Combine(dataPath, "listaDeSlots.json");
         list = SlotsListManager.StartList(slotsDataPath);
-        player = new Player();
     }
 
     /*
@@ -45,9 +44,19 @@ public class SaveManager : MonoBehaviour {
 
     public void CreateNewPlayer()///Modificar de acordo com sua primeira tela de save
     {
+        List<Flag> flagTemp = this.player.flag;
         Player newPlayer = new Player();
         player = newPlayer;
+        SpecificFromGame(flagTemp);
         player.slot = SlotsListManager.SlotGiver(list);
+    }
+
+    /// <summary>
+    /// Detalhes do create new player especificas do jogos
+    /// </summary>
+    public void SpecificFromGame(List<Flag> flag)
+    {
+        player.flag = flag;
     }
 
     public void Save()

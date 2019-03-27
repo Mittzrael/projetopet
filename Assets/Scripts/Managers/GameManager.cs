@@ -199,6 +199,9 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
         SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager
-        SaveManager.instance.Save();
+        if (SaveManager.instance.player.flag[0].state)
+        {
+            SaveManager.instance.Save();
+        }
     }
 }
