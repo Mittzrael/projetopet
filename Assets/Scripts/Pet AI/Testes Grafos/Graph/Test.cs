@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    public GraphCreator petAccess;
+    public Graph<string> petAccessG = new Graph<string>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,32 +49,32 @@ public class Test : MonoBehaviour
 
         #region Teste ProjectPet
 
-        Graph<string> petAccess = new Graph<string>();
+        //Graph<string> petAccess = new Graph<string>();
 
-        GraphNode<string> kitchen = new GraphNode<string>("Kitchen");
-        GraphNode<string> yard = new GraphNode<string>("Yard");
-        GraphNode<string> livingRoom= new GraphNode<string>("LivingRoom");
+        //GraphNode<string> kitchen = new GraphNode<string>("Kitchen");
+        //GraphNode<string> yard = new GraphNode<string>("Yard");
+        //GraphNode<string> livingRoom = new GraphNode<string>("LivingRoom");
 
-        petAccess.AddNode(kitchen);
-        petAccess.AddNode(yard);
-        petAccess.AddNode(livingRoom);
+        //petAccess.AddNode(kitchen);
+        //petAccess.AddNode(yard);
+        //petAccess.AddNode(livingRoom);
 
-        petAccess.AddDirectedEdge(livingRoom, yard, -2723);
-        petAccess.AddDirectedEdge(livingRoom, kitchen, 2708);
+        //petAccess.AddDirectedEdge(livingRoom, yard, -2723);
+        //petAccess.AddDirectedEdge(livingRoom, kitchen, 2708);
 
-        petAccess.AddDirectedEdge(kitchen, livingRoom, 812);
+        //petAccess.AddDirectedEdge(kitchen, livingRoom, 812);
 
-        petAccess.AddDirectedEdge(yard, livingRoom, 2431);
+        //petAccess.AddDirectedEdge(yard, livingRoom, 2431);
 
-        Debug.LogWarning("Caminho do quintal até a cozinha");
-        var path = petAccess.BFS(yard.Value, kitchen.Value);
-        string pathS = HasHSetToString(path);
-        PrintPath(pathS.Split(','));
-        string[] name = pathS.Split(',');
-        for (int i = name.Length - 1; i > 0; i--)
-        {
-            Debug.Log(name[i] + " -> " + petAccess.teste(name[i], name[i - 1]));
-        }
+        //Debug.LogWarning("Caminho do quintal até a cozinha");
+        //var path = petAccess.BFS(yard.Value, kitchen.Value);
+        //string pathS = HasHSetToString(path);
+        ////PrintPath(pathS.Split(','));
+        //string[] name = pathS.Split(',');
+        //for (int i = name.Length - 1; i > 0; i--)
+        //{
+        //    Debug.Log(name[i] + " -> " + petAccess.teste(name[i], name[i - 1]));
+        //}
 
         /*
         Debug.LogWarning("Caminho da sala até a cozinha");
@@ -85,6 +88,16 @@ public class Test : MonoBehaviour
         PrintPath(pathS.Split(','));
         */
         #endregion
+
+        petAccess.CreateGraph();
+        var path = petAccess.petAccessGraph.BFS("Yard", "Kitchen");
+        string pathS = HasHSetToString(path);
+        //PrintPath(pathS.Split(','));
+        string[] name = pathS.Split(',');
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            Debug.Log(name[i] + " -> " + petAccess.petAccessGraph.teste(name[i], name[i - 1]));
+        }
     }
 
     // Update is called once per frame

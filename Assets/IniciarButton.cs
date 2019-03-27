@@ -31,7 +31,7 @@ public class IniciarButton : MonoBehaviour
         }
         else
         {
-            GameManager.instance.LoadSceneWithFade("Ambiente");
+            GameManager.instance.LoadSceneWithFade("LivingRoom");
         }
     }
 }

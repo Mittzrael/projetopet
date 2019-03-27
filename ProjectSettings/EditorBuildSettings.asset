@@ -14,9 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene02.unity
     guid: 80ab493ad9281cd40aa549175ec028a1
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Scene03.unity
+    guid: a0a2da78ec3b0664993d8c1de82eac35
   - enabled: 1
     path: Assets/Scenes/Scene04.unity
     guid: f9960ca99210e3f449bf7ae0353e809b
@@ -27,27 +27,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Instrucoes1.unity
     guid: 8f63ce43dffc7384c8d3786d7c827faf
   - enabled: 1
-    path: Assets/Scenes/LivingRoom.unity
-    guid: 994e6e7dfde8950498757bf337c0af41
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
     path: Assets/Scenes/Historia.unity
     guid: 53706f3cd01c695488e690772c9b968b
   - enabled: 1
     path: Assets/Scenes/Instrucoes2.unity
     guid: 942a1fdb8a5e0c34a9f3a68d6508d9d6
   - enabled: 1
-    path: Assets/Scenes/Scene03.unity
-    guid: a0a2da78ec3b0664993d8c1de82eac35
+    path: Assets/Scenes/LivingRoom.unity
+    guid: 994e6e7dfde8950498757bf337c0af41
   - enabled: 1
     path: Assets/Scenes/Yard.unity
     guid: 8eac2128c0797f2469db151427a6002c
   - enabled: 1
     path: Assets/Scenes/Kitchen.unity
     guid: 1c5ad9346d140fb4498bcd77f4ffb1e9
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

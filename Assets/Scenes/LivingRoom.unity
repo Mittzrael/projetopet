@@ -2561,7 +2561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1561673989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2574,6 +2574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f46882f66a4ff54bb568b9bf8047db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  petAccess: {fileID: 11400000, guid: 36b8a2f379f8c8d4e8dcd2d763ae1ab9, type: 2}
 --- !u!4 &1561673990
 Transform:
   m_ObjectHideFlags: 0
@@ -3220,31 +3221,33 @@ MonoBehaviour:
     whereToPP: 0.8
   hungryWarning: 0.5
   thirstyWarning: 0.5
-  player:
-    slot: -1
-    nome: 
-    pet:
-      name: 
-      health:
-        hungry: 1
-        thirsty: 1
-        hygiene: 1
-        happiness: 1
-        whatToPlay: 0
-        pee: 0
-        poop: 0
-        whereToPP: 0
-      position: {x: 0, y: 0, z: 0}
-      screen: 0
-    avatarSelecionado: -1
-    residenciaSelecionada: -1
-    petSelecionado: -1
-    lastTimePlayed: 
-    petAccessScenes: {fileID: 0}
   maxIdleTime: 10
   moveRangeMin: -20
   moveRangeMax: 20
   moveRangeMultiplier: 50
+  petAccessInfo:
+  - {fileID: 11400000, guid: 36b8a2f379f8c8d4e8dcd2d763ae1ab9, type: 2}
+  player:
+    slot: -1
+    nome: 
+    health:
+      hungry: 1
+      thirsty: 1
+      hygiene: 1
+      happiness: 1
+      whatToPlay: 0
+      pee: 0
+      poop: 0
+      whereToPP: 0
+    avatarSelecionado: -1
+    residenciaSelecionada: -1
+    petSelecionado: -1
+    foodLocationSceneName: Kitchen
+    lastTimePlayed: 
+    poopLocation:
+      location: []
+    peeLocation:
+      location: []
 --- !u!50 &1782136855
 Rigidbody2D:
   serializedVersion: 4

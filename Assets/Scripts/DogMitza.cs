@@ -11,7 +11,7 @@ public class DogMitza : MonoBehaviour
     public float speedRun;
 
     private Vector3 destination;
-    private bool isWalking = false;
+    public bool isWalking = false;
     private bool isRunning = false;
 
     void Awake()

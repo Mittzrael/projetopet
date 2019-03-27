@@ -13,7 +13,8 @@ public class Player
     public int residenciaSelecionada = -1;
     public int petSelecionado = -1;
 
-    public PetAccessScenes petAccessScenes;
+    public string foodLocationSceneName = "Kitchen";
+    public Vector3 foodLocationPosition = new Vector3();
 
     public string lastTimePlayed; //Horário de saída da última seção do jogador em forma de string
     public PoopLocation poopLocation = new PoopLocation(); //Locais onde estão os cocôs do animal

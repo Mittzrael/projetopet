@@ -56,9 +56,9 @@ public class Graph<T> : IEnumerable<T>
     /// </summary>
     /// <param name="from"></param>
     /// <param name="to"></param>
-    public void AddDirectedEdge(T from, T to)
+    public void AddDirectedEdge(T from, T to, int d)
     {
-        AddDirectedEdge(nodeSet.FindByValue(from), new GraphNode<T>(to), 0);
+        AddDirectedEdge(nodeSet.FindByValue(from), nodeSet.FindByValue(to), d);
     }
 
     /// <summary>
@@ -169,16 +169,15 @@ public class Graph<T> : IEnumerable<T>
         {
             // Pega o primeiro nó da fila
             var vertex = queue.Dequeue();
-
             // Se ele já existir no conjunto dos visitados, passa para o próximo nó
             if (visited.Contains(vertex))
                 continue;
 
             // Se não estiver no conjunto, adiciona
             visited.Add(vertex);
-
             // Para cada vizinho do nó vertex, verifica se o vizinho já está no conjunto dos visitados
             foreach (var neighbor in nodeSet.FindByValue(vertex).Neighbors)
+            {
                 if (!visited.Contains(neighbor.Value))
                 {
                     // Se não estiver, coloca ele na lista
@@ -186,6 +185,7 @@ public class Graph<T> : IEnumerable<T>
                     // E indica que o antecessor dele é o nó vertex
                     nodeSet.FindByValue(neighbor.Value).prevNode = nodeSet.FindByValue(vertex);
                 }
+            }
         }
 
         // Elaboração do caminho
@@ -196,6 +196,8 @@ public class Graph<T> : IEnumerable<T>
         {
             // Vou adicionando o nó ao conjunto de nós do caminho
             path.Add(target);
+            Debug.Log(target);
+            Debug.Log(nodeSet.FindByValue(target).prevNode.Value);
             target = nodeSet.FindByValue(target).prevNode.Value;
         }
 
