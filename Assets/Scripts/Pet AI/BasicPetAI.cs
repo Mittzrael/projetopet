@@ -70,8 +70,9 @@ public class BasicPetAI : MonoBehaviour
     // Variável que indica se o pet já está realizando alguma ação (não permite que várias ações sejam execurtadas em paralelo)
     private bool isPetDoingSometring = false;
 
-    #region Para testes
     private Pet pet;
+
+    #region Para testes
     private Food food;
     public Player player;
     #endregion
@@ -91,11 +92,13 @@ public class BasicPetAI : MonoBehaviour
         // Para o pet poder continuar a realizar suas ações mesmo quando o jogador não estiver na cena com o pet
         DontDestroyOnLoad(gameObject);
 
+        // Alterar para filho quando atualizar a scene
+        pet = gameObject.GetComponent<Pet>();
+
         #region Para testes
         player = SaveManager.instance.player;
-        player.petLocation.elementName = "pet";
-        player.petLocation.sceneName = SceneManager.GetActiveScene().name;
-        player.petLocation.elementPosition = gameObject.transform.position;
+        pet.SetPetLocation(new ElementLocation("Pet", SceneManager.GetActiveScene().name, gameObject.transform.position));
+        player.petElementsLocations.Clear();
         player.petElementsLocations.Add(new ElementLocation("Pote de Comida", "Kitchen", new Vector3()));
         player.petElementsLocations.Add(new ElementLocation("Pote de Água", "Yard", new Vector3()));
         #endregion
@@ -105,7 +108,6 @@ public class BasicPetAI : MonoBehaviour
 
         petAccessInfoIndex = PetAccessListSelection();
         petAccessGraph = petAccessInfo[petAccessInfoIndex].CreateGraph();
-
 
         StartCoroutine(PetActionVerifier());
     }
@@ -184,19 +186,29 @@ public class BasicPetAI : MonoBehaviour
     {
         Debug.Log("Fome");
 
-        string currentScene = player.petLocation.sceneName;
+        string currentScene = pet.GetPetLocation().sceneName;
         float movePosition;
         string temp_name = currentScene;
-        int temp = 0;
+        bool keepSearching = false;
+        int elementIndex = 0;
 
-        if (currentScene == player.petElementsLocations[0].sceneName)
+        foreach(ElementLocation element in player.petElementsLocations)
         {
-            movePosition = player.petElementsLocations[0].elementPosition.x;
+            if (element.elementName == "Pote de Comida")
+            {
+                elementIndex = player.petElementsLocations.IndexOf(element);
+                break;
+            }
+        }
+
+        if (currentScene == player.petElementsLocations[elementIndex].sceneName)
+        {
+            movePosition = player.petElementsLocations[elementIndex].elementPosition.x;
         }
         else
         {
             //Debug.Log(player.foodLocationSceneName);
-            var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[0].sceneName);
+            var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[elementIndex].sceneName);
             string[] name = HasHSetToString(path).Split(',');
             //for (int i = name.Length - 1; i > 0; i--)
             //{
@@ -205,7 +217,7 @@ public class BasicPetAI : MonoBehaviour
 
             Debug.Log(name[0] + " " + name[1]);
             temp_name = name[name.Length - 2];
-            temp = name.Length;
+            keepSearching = true;
             movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
         }
 
@@ -213,10 +225,10 @@ public class BasicPetAI : MonoBehaviour
 
         yield return new WaitUntil(() => !petAnimationScript.isWalking);
 
-        if (temp >= 2)
+        if (keepSearching)
         {
             Debug.Log("Pet muda de scene e continua a busca...");
-            player.petLocation.sceneName = temp_name;
+            pet.SetPetScene(temp_name);
             StartCoroutine(PetHungry());
         }
         else

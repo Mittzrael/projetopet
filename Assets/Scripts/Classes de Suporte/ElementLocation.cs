@@ -9,6 +9,7 @@ public class ElementLocation
     public string sceneName;
     public Vector3 elementPosition = new Vector3();
 
+    public ElementLocation() { }
     public ElementLocation(string name, string scene, Vector3 pos)
     {
         elementName = name;

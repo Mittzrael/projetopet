@@ -12,6 +12,22 @@ public class Pet: MonoBehaviour
     private int screen;
     private GameObject poop;
     private GameObject pee;
+    private ElementLocation petActualLocation;
+
+    public ElementLocation GetPetLocation()
+    {
+        return petActualLocation;
+    }
+
+    public void SetPetLocation(ElementLocation newPetLocation)
+    {
+        petActualLocation = newPetLocation;
+    }
+
+    public void SetPetScene(string sceneName)
+    {
+        petActualLocation.sceneName = sceneName;
+    }
 
     public void Walk()
     {
