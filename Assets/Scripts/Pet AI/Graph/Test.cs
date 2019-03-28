@@ -96,7 +96,7 @@ public class Test : MonoBehaviour
         string[] name = pathS.Split(',');
         for (int i = name.Length - 1; i > 0; i--)
         {
-            Debug.Log(name[i] + " -> " + petAccess.petAccessGraph.teste(name[i], name[i - 1]));
+            Debug.Log(name[i] + " -> " + petAccess.petAccessGraph.GetGraphCost(name[i], name[i - 1]));
         }
     }
 

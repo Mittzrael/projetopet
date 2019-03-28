@@ -196,8 +196,8 @@ public class Graph<T> : IEnumerable<T>
         {
             // Vou adicionando o nó ao conjunto de nós do caminho
             path.Add(target);
-            Debug.Log(target);
-            Debug.Log(nodeSet.FindByValue(target).prevNode.Value);
+            //Debug.Log(target);
+            //Debug.Log(nodeSet.FindByValue(target).prevNode.Value);
             target = nodeSet.FindByValue(target).prevNode.Value;
         }
 
@@ -208,7 +208,13 @@ public class Graph<T> : IEnumerable<T>
         //return visited;
     }
 
-    public int teste(T start, T next)
+    /// <summary>
+    /// Função que retorna o custo da aresta entre os dois nós do grafo
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="next"></param>
+    /// <returns></returns>
+    public int GetGraphCost(T start, T next)
     {
         int index = nodeSet.FindByValue(start).Neighbors.IndexOf(nodeSet.FindByValue(next));
         return nodeSet.FindByValue(start).Costs[index];

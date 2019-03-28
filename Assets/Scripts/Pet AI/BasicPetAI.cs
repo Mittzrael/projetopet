@@ -91,7 +91,14 @@ public class BasicPetAI : MonoBehaviour
         // Para o pet poder continuar a realizar suas ações mesmo quando o jogador não estiver na cena com o pet
         DontDestroyOnLoad(gameObject);
 
-        player = SaveManager.instance.player; // Para testes
+        #region Para testes
+        player = SaveManager.instance.player;
+        player.petLocation.elementName = "pet";
+        player.petLocation.sceneName = SceneManager.GetActiveScene().name;
+        player.petLocation.elementPosition = gameObject.transform.position;
+        player.petElementsLocations.Add(new ElementLocation("Pote de Comida", "Kitchen", new Vector3()));
+        player.petElementsLocations.Add(new ElementLocation("Pote de Água", "Yard", new Vector3()));
+        #endregion
 
         petAnimationScript = gameObject.GetComponent<DogMitza>();
         petHealth = SaveManager.instance.player.health;
@@ -99,14 +106,10 @@ public class BasicPetAI : MonoBehaviour
         petAccessInfoIndex = PetAccessListSelection();
         petAccessGraph = petAccessInfo[petAccessInfoIndex].CreateGraph();
 
+
         StartCoroutine(PetActionVerifier());
     }
     
-    public int PetAccessListSelection()
-    {
-        return 0;
-    }
-
     /// <summary>
     /// Função que verifica que ação o pet irá realizar baseado no estado atual do pet e no que ele já realizou anteriormente
     /// </summary>
@@ -181,53 +184,48 @@ public class BasicPetAI : MonoBehaviour
     {
         Debug.Log("Fome");
 
-        string currentScene = SceneManager.GetActiveScene().name;
+        string currentScene = player.petLocation.sceneName;
         float movePosition;
+        string temp_name = currentScene;
+        int temp = 0;
 
-        if (currentScene == player.foodLocationSceneName)
+        if (currentScene == player.petElementsLocations[0].sceneName)
         {
-            movePosition = player.foodLocationPosition.x;
+            movePosition = player.petElementsLocations[0].elementPosition.x;
         }
         else
         {
-            Debug.Log(player.foodLocationSceneName);
-            var path = petAccessGraph.BFS(currentScene, player.foodLocationSceneName);
+            //Debug.Log(player.foodLocationSceneName);
+            var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[0].sceneName);
             string[] name = HasHSetToString(path).Split(',');
-            for (int i = name.Length - 1; i > 0; i--)
-            {
-                Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.teste(name[i], name[i - 1]));
-            }
+            //for (int i = name.Length - 1; i > 0; i--)
+            //{
+            //    Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
+            //}
 
-            movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.teste(name[name.Length - 1], name[name.Length - 2]);
+            Debug.Log(name[0] + " " + name[1]);
+            temp_name = name[name.Length - 2];
+            temp = name.Length;
+            movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
         }
 
         petAnimationScript.MoveAnimalAndando(movePosition);
 
         yield return new WaitUntil(() => !petAnimationScript.isWalking);
 
-        if (name.Length >= 2)
+        if (temp >= 2)
         {
+            Debug.Log("Pet muda de scene e continua a busca...");
+            player.petLocation.sceneName = temp_name;
             StartCoroutine(PetHungry());
-            Debug.Log("Continua a busca");
         }
         else
         {
-            //player.health.PutInHungry(1);
-            Debug.Log("Comi");
+            Debug.Log("Pet chegou no pote de comida - verifica se tem comida e faz ação equivalente");
+            // Simulação da verificação - tem comida e o pet come
+            player.health.PutInHungry(1f);
+
             hungryOnDelegate = false;
-        }
-    }
-
-    public string HasHSetToString(HashSet<string> hashSet)
-    {
-        return string.Join(",", hashSet);
-    }
-
-    public void PrintPath(string[] path)
-    {
-        for (int i = path.Length - 1; i >= 0; i--)
-        {
-            Debug.Log(path[i]);
         }
     }
 
@@ -236,7 +234,7 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetHungryWarnig()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Msg fome");
         hungryWarningOnDelegate = false;
     }
@@ -246,7 +244,7 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetThisty()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Sede");
         thirstyOnDelegate = false;
     }
@@ -256,7 +254,7 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetThirstyWarning()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Msg sede");
         thirstyWarningOnDelegate = false;
     }
@@ -266,8 +264,8 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetSad()
     {
-        yield return new WaitForSeconds(10f);
-        Debug.Log("Trste");
+        yield return new WaitForSeconds(2f);
+        Debug.Log("Triste");
         sadOnDelegate = false;
     }
 
@@ -276,7 +274,7 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetPee()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Pee");
         peeOnDelegate = false;
     }
@@ -286,23 +284,9 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetPoop()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Poop");
         poopOnDelegate = false;
-    }
-
-    #endregion
-
-    /// <summary>
-    /// Calcula a chance de algo acontecer, em porcentagem
-    /// </summary>
-    /// <param name="min">Limite inferior do atributo</param>
-    /// <param name="max">Limite superior do atributo</param>
-    /// <param name="value">Valor do atributo para verificar a chance</param>
-    /// <returns>Retorna a chance em porcentagem, entre 0 e 1</returns>
-    private float ChanceToHappen(float min, float max, float value)
-    {
-        return Mathf.Clamp01((max - value) / (max - min));
     }
     
     /// <summary>
@@ -344,6 +328,41 @@ public class BasicPetAI : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Funções auxiliares
+    /// <summary>
+    /// Calcula a chance de algo acontecer, em porcentagem
+    /// </summary>
+    /// <param name="min">Limite inferior do atributo</param>
+    /// <param name="max">Limite superior do atributo</param>
+    /// <param name="value">Valor do atributo para verificar a chance</param>
+    /// <returns>Retorna a chance em porcentagem, entre 0 e 1</returns>
+    private float ChanceToHappen(float min, float max, float value)
+    {
+        return Mathf.Clamp01((max - value) / (max - min));
+    }
+
+    /// <summary>
+    /// Transforma uma HashSet em uma string separada por virgulas
+    /// </summary>
+    /// <param name="hashSet"></param>
+    /// <returns></returns>
+    private string HasHSetToString(HashSet<string> hashSet)
+    {
+        return string.Join(",", hashSet);
+    }
+
+    /// <summary>
+    /// EM CONSTRUÇÃO
+    /// Função que retorna o indice de qual grafo de acesso deve ser utilizado
+    /// </summary>
+    /// <returns></returns>
+    public int PetAccessListSelection()
+    {
+        return 0;
+    }
+
     /// <summary>
     /// Para todas as corrotinas neste script
     /// </summary>
@@ -351,4 +370,5 @@ public class BasicPetAI : MonoBehaviour
     {
         StopAllCoroutines();
     }
+    #endregion
 }
