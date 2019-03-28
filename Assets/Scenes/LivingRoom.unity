@@ -2545,6 +2545,37 @@ Transform:
   m_Father: {fileID: 1898019233}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1489599288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1489599289}
+  m_Layer: 0
+  m_Name: PetFather
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1489599289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489599288}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1782136852}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1561673988
 GameObject:
   m_ObjectHideFlags: 0
@@ -3096,7 +3127,7 @@ GameObject:
   - component: {fileID: 1782136855}
   - component: {fileID: 1782136857}
   m_Layer: 0
-  m_Name: dog_mitza
+  m_Name: Pet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3176,12 +3207,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782136849}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10, y: -199, z: 300}
   m_LocalScale: {x: 50, y: 50, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1489599289}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1782136853
 MonoBehaviour:
@@ -3197,6 +3228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedWalk: 250
   speedRun: 500
+  isWalking: 0
 --- !u!114 &1782136854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3242,12 +3274,17 @@ MonoBehaviour:
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
-    foodLocationSceneName: Kitchen
+    petElementsLocations: []
+    petLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
     lastTimePlayed: 
     poopLocation:
       location: []
     peeLocation:
       location: []
+    flag: []
 --- !u!50 &1782136855
 Rigidbody2D:
   serializedVersion: 4

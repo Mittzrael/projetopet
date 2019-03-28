@@ -9,7 +9,7 @@ public class Pet: MonoBehaviour
     [SerializeField]
     private string name;
     private Vector3 position;
-    private int screen;
+    public string screen;
     private GameObject poop;
     private GameObject pee;
 

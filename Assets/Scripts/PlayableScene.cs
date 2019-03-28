@@ -11,11 +11,14 @@ public class PlayableScene : MonoBehaviour
 
     List<Vector3> peeList;
     List<Vector3> poopList;
+    GameObject petFather;
 
     private void Start()
     {
         VerifyPoop();
         VerifyPee();
+        petFather = GameObject.Find("PetFather");
+        petFather.GetComponent<Invisible>().StatusVerify();
     }
 
     private void VerifyPoop()
