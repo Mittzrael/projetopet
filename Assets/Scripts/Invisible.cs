@@ -22,6 +22,7 @@ public class Invisible : MonoBehaviour
 
     public void StatusVerify()
     {
+        Debug.Log("Teste");
         if (pet.GetComponent<Pet>().screen.Equals(SceneManager.GetActiveScene().name))
         {
             pet.SetActive(true);
@@ -34,9 +35,12 @@ public class Invisible : MonoBehaviour
         }
     }
 
-    public void PetTransition()
+    public IEnumerator PetChangeLocation(string scene)
     {
-
+        pet.GetComponent<Pet>().screen = scene;
+        petAnimator.Play("Invisible");
+        yield return new WaitForSeconds(0.45f);
+        pet.SetActive(false);
     }
 
     private void BackToOpaque(GameObject pet)
