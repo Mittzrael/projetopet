@@ -6,27 +6,23 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class Pet: MonoBehaviour
 {
-    [SerializeField]
-    private string name;
-    private Vector3 position;
-    public string screen;
+    public ElementLocation petCurrentLocation;
     private GameObject poop;
     private GameObject pee;
-    private ElementLocation petActualLocation;
 
     public ElementLocation GetPetLocation()
     {
-        return petActualLocation;
+        return petCurrentLocation;
     }
 
     public void SetPetLocation(ElementLocation newPetLocation)
     {
-        petActualLocation = newPetLocation;
+        petCurrentLocation = newPetLocation;
     }
 
     public void SetPetScene(string sceneName)
     {
-        petActualLocation.sceneName = sceneName;
+        petCurrentLocation.sceneName = sceneName;
     }
 
     public void Walk()

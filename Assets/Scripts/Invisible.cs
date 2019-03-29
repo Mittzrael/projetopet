@@ -8,11 +8,6 @@ public class Invisible : MonoBehaviour
     GameObject pet;
     Animator petAnimator;
 
-    private void Coisa()
-    {
-        Debug.Log("Opa");
-    }
-
     private void Awake()
     {
         pet = gameObject.transform.GetChild(0).gameObject;
@@ -22,8 +17,7 @@ public class Invisible : MonoBehaviour
 
     public void StatusVerify()
     {
-        Debug.Log("Teste");
-        if (pet.GetComponent<Pet>().screen.Equals(SceneManager.GetActiveScene().name))
+        if (pet.GetComponent<Pet>().GetPetLocation().sceneName.Equals(SceneManager.GetActiveScene().name))
         {
             pet.SetActive(true);
             BackToOpaque(pet);
@@ -37,7 +31,7 @@ public class Invisible : MonoBehaviour
 
     public IEnumerator PetChangeLocation(string scene)
     {
-        pet.GetComponent<Pet>().screen = scene;
+        pet.GetComponent<Pet>().SetPetScene(scene);
         petAnimator.Play("Invisible");
         yield return new WaitForSeconds(0.45f);
         pet.SetActive(false);
@@ -47,6 +41,9 @@ public class Invisible : MonoBehaviour
     {
         Color petColor = pet.GetComponent<SpriteRenderer>().color;
         Color color = new Color(petColor.r, petColor.g, petColor.b, 1f);
+        Debug.Log(color);
+        Debug.Log(petColor);
         pet.GetComponent<SpriteRenderer>().color = color;
+        
     }
 }

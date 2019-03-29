@@ -3311,7 +3311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1782136850
 Animator:
   serializedVersion: 3
@@ -3454,10 +3454,6 @@ MonoBehaviour:
     residenciaSelecionada: -1
     petSelecionado: -1
     petElementsLocations: []
-    petLocation:
-      elementName: 
-      sceneName: 
-      elementPosition: {x: 0, y: 0, z: 0}
     lastTimePlayed: 
     poopLocation:
       location: []
@@ -3497,8 +3493,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413b740ce4a2c92438a06debfa7897d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  screen: LivingRoo
+  petCurrentLocation:
+    elementName: 
+    sceneName: LivingRoom
+    elementPosition: {x: 0, y: 0, z: 0}
 --- !u!70 &1782136857
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7507,5 +7505,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 950b01aa743a56146bf5012ad18171e4,
         type: 3}
+    - target: {fileID: 8506841494692439338, guid: 30e2ec0d6313a0b409a675a8a62e841d,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506841494771922472, guid: 30e2ec0d6313a0b409a675a8a62e841d,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30e2ec0d6313a0b409a675a8a62e841d, type: 3}
