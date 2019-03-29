@@ -78,6 +78,7 @@ public class ItemDragOn : MonoBehaviour
                 clickedPosition.z = item.transform.position.z;
                 Instantiate(item, clickedPosition, Quaternion.identity);
 
+                scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
                 return;
             }
         }
