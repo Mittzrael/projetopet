@@ -8,11 +8,6 @@ public class Invisible : MonoBehaviour
     GameObject pet;
     Animator petAnimator;
 
-    private void Coisa()
-    {
-        Debug.Log("Opa");
-    }
-
     private void Awake()
     {
         pet = gameObject.transform.GetChild(0).gameObject;
@@ -22,7 +17,6 @@ public class Invisible : MonoBehaviour
 
     public void StatusVerify()
     {
-        //Debug.Log("Teste");
         if (pet.GetComponent<Pet>().GetPetLocation().sceneName.Equals(SceneManager.GetActiveScene().name))
         {
             //pet.SetActive(true);
@@ -51,6 +45,9 @@ public class Invisible : MonoBehaviour
     {
         Color petColor = pet.GetComponent<SpriteRenderer>().color;
         Color color = new Color(petColor.r, petColor.g, petColor.b, 1f);
+        Debug.Log(color);
+        Debug.Log(petColor);
         pet.GetComponent<SpriteRenderer>().color = color;
+        
     }
 }

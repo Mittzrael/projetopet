@@ -35,12 +35,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LivingRoom.unity
     guid: 994e6e7dfde8950498757bf337c0af41
-  - enabled: 1
-    path: Assets/Scenes/Yard.unity
+  - enabled: 0
+    path: Assets/Scenes/yard.unity
     guid: 8eac2128c0797f2469db151427a6002c
   - enabled: 1
-    path: Assets/Scenes/Kitchen.unity
+    path: Assets/Scenes/kitchen.unity
     guid: 1c5ad9346d140fb4498bcd77f4ffb1e9
+  - enabled: 1
+    path: Assets/Scenes/Yard(1).unity
+    guid: 2e6926ccdaf43a54e880b18a0df9da19
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
