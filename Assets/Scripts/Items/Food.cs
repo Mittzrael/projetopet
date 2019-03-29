@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 public class Food
 {
     [SerializeField]
     private string nome;
     [SerializeField]
-    private Image image;
+    private Sprite image;
     [SerializeField]
     private float nutritionalValor;
     //bool or float healthy;

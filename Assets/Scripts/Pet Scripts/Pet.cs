@@ -52,6 +52,7 @@ public class Pet: MonoBehaviour
         SaveManager.instance.player.health.PutInPee(-0.5f); //Esvazia pela metade a vontade do animal de fazer xixi
         SaveManager.instance.player.peeLocation.Add(SceneManager.GetActiveScene().name, position);
     }
+
     /// <summary>
     /// Chamado quando o animal evacua.
     /// </summary>

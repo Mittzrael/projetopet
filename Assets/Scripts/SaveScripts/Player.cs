@@ -19,5 +19,8 @@ public class Player
     public PoopLocation poopLocation = new PoopLocation(); //Locais onde estão os cocôs do animal
     public PeeLocation peeLocation = new PeeLocation(); //Locais onde estão os xixis do animal
 
+    public PotStatus foodPot;
+    public PotStatus waterPot;
+
     public List<Flag> flag = new List<Flag>();
 }
