@@ -6,13 +6,9 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class Pet: MonoBehaviour
 {
-    [SerializeField]
-    private string name;
-    private Vector3 position;
-    public string screen;
+    public ElementLocation petActualLocation;
     private GameObject poop;
     private GameObject pee;
-    private ElementLocation petActualLocation;
 
     public ElementLocation GetPetLocation()
     {

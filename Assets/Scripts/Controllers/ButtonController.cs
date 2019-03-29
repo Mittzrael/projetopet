@@ -39,4 +39,12 @@ public class ButtonController : ScriptableObject
         saveManager = SaveManager.instance;
         saveManager.ResetSave();
     }
+
+    /// <summary>
+    /// PARA TESTES =D
+    /// </summary>
+    public void BeHappy()
+    {
+        SaveManager.instance.player.health.PutInHappiness(1f);
+    }
 }
