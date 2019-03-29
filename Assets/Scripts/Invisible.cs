@@ -19,13 +19,15 @@ public class Invisible : MonoBehaviour
     {
         if (pet.GetComponent<Pet>().GetPetLocation().sceneName.Equals(SceneManager.GetActiveScene().name))
         {
-            pet.SetActive(true);
+            //pet.SetActive(true);
+            pet.GetComponent<SpriteRenderer>().enabled = true;
             BackToOpaque(pet);
         }
 
         else
         {
-            pet.SetActive(false);
+            pet.GetComponent<SpriteRenderer>().enabled = false;
+            //pet.SetActive(false);
         }
     }
 
@@ -34,7 +36,9 @@ public class Invisible : MonoBehaviour
         pet.GetComponent<Pet>().SetPetScene(scene);
         petAnimator.Play("Invisible");
         yield return new WaitForSeconds(0.45f);
-        pet.SetActive(false);
+        petAnimator.SetTrigger("endInvisibleAnimation");
+        pet.GetComponent<SpriteRenderer>().enabled = false; //.SetActive(false);
+        StatusVerify();
     }
 
     private void BackToOpaque(GameObject pet)

@@ -92,8 +92,7 @@ public class BasicPetAI : MonoBehaviour
         // Para o pet poder continuar a realizar suas ações mesmo quando o jogador não estiver na cena com o pet
         DontDestroyOnLoad(gameObject);
 
-        // Alterar para filho quando atualizar a scene
-        pet = gameObject.GetComponent<Pet>();
+        pet = gameObject.GetComponentInChildren<Pet>();
 
         #region Para testes
         player = SaveManager.instance.player;
@@ -103,7 +102,7 @@ public class BasicPetAI : MonoBehaviour
         player.petElementsLocations.Add(new ElementLocation("Pote de Água", "Yard", new Vector3()));
         #endregion
 
-        petAnimationScript = gameObject.GetComponent<DogMitza>();
+        petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
         petHealth = SaveManager.instance.player.health;
 
         petAccessInfoIndex = PetAccessListSelection();
@@ -184,10 +183,12 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetHungry()
     {
+        isPetDoingSometring = true;
         Debug.Log("Fome");
 
         string currentScene = pet.GetPetLocation().sceneName;
         float movePosition;
+        float newStartPosition = 0;
         string temp_name = currentScene;
         bool keepSearching = false;
         int elementIndex = 0;
@@ -215,29 +216,36 @@ public class BasicPetAI : MonoBehaviour
             //    Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
             //}
 
-            Debug.Log(name[0] + " " + name[1]);
+            //Debug.Log(name[0] + " " + name[1]);
             temp_name = name[name.Length - 2];
             keepSearching = true;
             movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
+            newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
         }
 
+        //Debug.Log(movePosition + " " + newStartPosition);
         petAnimationScript.MoveAnimalAndando(movePosition);
 
         yield return new WaitUntil(() => !petAnimationScript.isWalking);
 
         if (keepSearching)
         {
-            Debug.Log("Pet muda de scene e continua a busca...");
-            pet.SetPetScene(temp_name);
+            Debug.Log("Pet muda de scene e continua a busca..." + temp_name);
+            StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(temp_name));
+            yield return new WaitForSeconds(0.5f);
+
+            Vector3 petPosition = pet.gameObject.transform.position;
+            pet.gameObject.transform.position = new Vector3(newStartPosition, petPosition.y, petPosition.z);
+
             StartCoroutine(PetHungry());
         }
         else
         {
             Debug.Log("Pet chegou no pote de comida - verifica se tem comida e faz ação equivalente");
-            // Simulação da verificação - tem comida e o pet come
+            // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
             player.health.PutInHungry(1f);
-
             hungryOnDelegate = false;
+            isPetDoingSometring = false;
         }
     }
 
@@ -256,9 +264,73 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetThisty()
     {
-        yield return new WaitForSeconds(2f);
+        isPetDoingSometring = true;
         Debug.Log("Sede");
-        thirstyOnDelegate = false;
+
+        string currentScene = pet.GetPetLocation().sceneName;
+        float movePosition;
+        float newStartPosition = 0;
+        string temp_name = currentScene;
+        bool keepSearching = false;
+        int elementIndex = 0;
+
+        foreach (ElementLocation element in player.petElementsLocations)
+        {
+            if (element.elementName == "Pote de Água")
+            {
+                elementIndex = player.petElementsLocations.IndexOf(element);
+                break;
+            }
+        }
+
+        if (currentScene == player.petElementsLocations[elementIndex].sceneName)
+        {
+            movePosition = player.petElementsLocations[elementIndex].elementPosition.x;
+        }
+        else
+        {
+            //Debug.Log(player.foodLocationSceneName);
+            var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[elementIndex].sceneName);
+            string[] name = HasHSetToString(path).Split(',');
+            //for (int i = name.Length - 1; i > 0; i--)
+            //{
+            //    Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
+            //}
+
+            //Debug.Log(name[0] + " " + name[1]);
+            temp_name = name[name.Length - 2];
+            keepSearching = true;
+            movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
+            newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
+        }
+
+        petAnimationScript.MoveAnimalAndando(movePosition);
+
+        yield return new WaitUntil(() => !petAnimationScript.isWalking);
+
+        if (keepSearching)
+        {
+            Debug.Log("Pet muda de scene e continua a busca..." + temp_name);
+            StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(temp_name));
+            yield return new WaitForSeconds(0.5f);
+
+            Vector3 petPosition = pet.gameObject.transform.position;
+            pet.gameObject.transform.position = new Vector3(newStartPosition, petPosition.y, petPosition.z);
+
+            StartCoroutine(PetThisty());
+        }
+        else
+        {
+            Debug.Log("Pet chegou no pote de comida - verifica se tem comida e faz ação equivalente");
+            // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
+            player.health.PutInThirsty(1f);
+            thirstyOnDelegate = false;
+            isPetDoingSometring = false;
+        }
+
+        //yield return new WaitForSeconds(2f);
+        //Debug.Log("Sede");
+        //thirstyOnDelegate = false;
     }
 
     /// <summary>
