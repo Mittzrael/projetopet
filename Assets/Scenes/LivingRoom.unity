@@ -191,7 +191,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1782136853}
+      - m_Target: {fileID: 0}
         m_MethodName: ToggleSad
         m_Mode: 1
         m_Arguments:
@@ -1425,7 +1425,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1782136853}
+      - m_Target: {fileID: 0}
         m_MethodName: MoveAnimalAndando
         m_Mode: 4
         m_Arguments:
@@ -3363,7 +3363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1782136850
 Animator:
   serializedVersion: 3
@@ -3460,58 +3460,6 @@ MonoBehaviour:
   speedWalk: 250
   speedRun: 500
   isWalking: 0
---- !u!114 &1782136854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782136849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e778fe709086845ac1d8b20914ec63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenAction: 1
-  healthLimit:
-    hungry: 0.2
-    thirsty: 0.3
-    hygiene: 0.8
-    happiness: 0.2
-    whatToPlay: 0.8
-    pee: 0.9
-    poop: 0.9
-    whereToPP: 0.8
-  hungryWarning: 0.5
-  thirstyWarning: 0.5
-  maxIdleTime: 10
-  moveRangeMin: -20
-  moveRangeMax: 20
-  moveRangeMultiplier: 50
-  petAccessInfo:
-  - {fileID: 11400000, guid: 36b8a2f379f8c8d4e8dcd2d763ae1ab9, type: 2}
-  player:
-    slot: -1
-    nome: 
-    health:
-      hungry: 1
-      thirsty: 1
-      hygiene: 1
-      happiness: 1
-      whatToPlay: 0
-      pee: 0
-      poop: 0
-      whereToPP: 0
-    avatarSelecionado: -1
-    residenciaSelecionada: -1
-    petSelecionado: -1
-    petElementsLocations: []
-    lastTimePlayed: 
-    poopLocation:
-      location: []
-    peeLocation:
-      location: []
-    flag: []
 --- !u!50 &1782136855
 Rigidbody2D:
   serializedVersion: 4
@@ -3644,7 +3592,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1782136853}
+      - m_Target: {fileID: 0}
         m_MethodName: Cocando
         m_Mode: 1
         m_Arguments:
