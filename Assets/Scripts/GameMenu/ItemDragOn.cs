@@ -49,6 +49,7 @@ public class ItemDragOn : MonoBehaviour
 
         currentDropArea = DropArea.GetCurrentDropArea();
         
+        //Muda transparencia do item quando está em area proibida
         if(currentDropArea != "null")
             this.GetComponent<SpriteRenderer>().color = colorStandard;
         else
