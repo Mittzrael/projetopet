@@ -166,6 +166,7 @@ public class BasicPetAI : MonoBehaviour
             // Caso contrário, chama a função que realiza movimentos aleatórios
             else
             {
+                //Debug.LogWarning("Random");
                 PetRandomMove();
             }
         }
@@ -379,12 +380,14 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     public void PetRandomMove()
     {
+        //Debug.Log(randomActionCountdown);
         // Verifica se o limite de vezes que a função deve ser chamada foi atingido
         if (randomActionCountdown >= maxIdleTime)
         {
             randomActionCountdown = 0;
             // Escolhe um valor aleatório para selecionar qual ação o pet irá realizar
-            randomNumber = Random.Range(0, 2);
+            randomNumber = Random.Range(2,3);
+            //Debug.Log(randomNumber);
             switch (randomNumber)
             {
                 case 0: // Pet se coça
@@ -395,6 +398,27 @@ public class BasicPetAI : MonoBehaviour
                     float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
                     Debug.Log("Movimento aleatório - Andando " + move);
                     petAnimationScript.MoveAnimalAndando(move);
+                    break;
+                case 2: // Pet vai para a tela do player
+                    Debug.Log("Indo pra active scene");
+                    var path = petAccessGraph.BFS(pet.petActualLocation.sceneName, SceneManager.GetActiveScene().name);
+                    string[] name = HasHSetToString(path).Split(',');
+                    Debug.Log(name.Length);
+                    Debug.Log(string.Join(" - ", name));
+                    for(int i = name.Length - 1; i > 0; i--)
+                    {
+                        float movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]);
+                        float newPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i - 1], name[i]);
+                        Debug.Log("entra: " + movePosition + " | sai: " + newPosition);
+                        Vector3 petPosition = pet.gameObject.transform.position;
+                        pet.gameObject.transform.position = new Vector3(newPosition, petPosition.y, petPosition.z);
+                        Debug.Log(name[i] + " " + name[i - 1]);
+                        gameObject.GetComponent<Invisible>().PetChangeLocation(name[i - 1]);
+
+                        Vector3 midScreen = petPosition;
+                        midScreen = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 1f));
+                        petAnimationScript.MoveAnimalAndando(midScreen.x);
+                    }
                     break;
             }
         }

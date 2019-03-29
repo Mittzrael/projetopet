@@ -49,6 +49,7 @@ public class ItemDragOn : MonoBehaviour
 
         currentDropArea = DropArea.GetCurrentDropArea();
         
+        //Muda transparencia do item quando está em area proibida
         if(currentDropArea != "null")
             this.GetComponent<SpriteRenderer>().color = colorStandard;
         else
@@ -77,6 +78,7 @@ public class ItemDragOn : MonoBehaviour
                 clickedPosition.z = item.transform.position.z;
                 Instantiate(item, clickedPosition, Quaternion.identity);
 
+                scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
                 return;
             }
         }
