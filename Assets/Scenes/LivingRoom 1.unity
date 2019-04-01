@@ -3771,7 +3771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petCurrentLocation:
     elementName: 
-    sceneName: LivingRoom
+    sceneName: LivingRoom 1
     elementPosition: {x: 0, y: 0, z: 0}
 --- !u!70 &1782136857
 CapsuleCollider2D:

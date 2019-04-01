@@ -401,7 +401,7 @@ public class BasicPetAI : MonoBehaviour
                     break;
                 case 2: // Pet vai para a tela do player
                     Debug.Log("Indo pra active scene");
-                    var path = petAccessGraph.BFS(pet.petActualLocation.sceneName, SceneManager.GetActiveScene().name);
+                    var path = petAccessGraph.BFS(pet.petCurrentLocation.sceneName, SceneManager.GetActiveScene().name);
                     string[] name = HasHSetToString(path).Split(',');
                     Debug.Log(name.Length);
                     Debug.Log(string.Join(" - ", name));
