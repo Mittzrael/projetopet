@@ -71,6 +71,7 @@ public class BasicPetAI : MonoBehaviour
     private bool isPetDoingSometring = false;
 
     private Pet pet;
+    private float chanceToGoToActiveScene = 0.5f;
 
     #region Para testes
     private Food food;
@@ -384,42 +385,54 @@ public class BasicPetAI : MonoBehaviour
         // Verifica se o limite de vezes que a função deve ser chamada foi atingido
         if (randomActionCountdown >= maxIdleTime)
         {
-            randomActionCountdown = 0;
-            // Escolhe um valor aleatório para selecionar qual ação o pet irá realizar
-            randomNumber = Random.Range(2,3);
-            //Debug.Log(randomNumber);
-            switch (randomNumber)
+            if (pet.petCurrentLocation.sceneName != SceneManager.GetActiveScene().name)
             {
-                case 0: // Pet se coça
-                    Debug.Log("Movimento aleatório - Coçando");
-                    petAnimationScript.Cocando();
-                    break;
-                case 1: // Pet se move até um ponto aleatório na scene
-                    float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
-                    Debug.Log("Movimento aleatório - Andando " + move);
-                    petAnimationScript.MoveAnimalAndando(move);
-                    break;
-                case 2: // Pet vai para a tela do player
+                if (Random.Range(0f, 1f) <= chanceToGoToActiveScene)
+                {
                     Debug.Log("Indo pra active scene");
                     var path = petAccessGraph.BFS(pet.petCurrentLocation.sceneName, SceneManager.GetActiveScene().name);
                     string[] name = HasHSetToString(path).Split(',');
-                    Debug.Log(name.Length);
-                    Debug.Log(string.Join(" - ", name));
+                    //Debug.Log(name.Length);
+                    //Debug.Log(string.Join(" - ", name));
                     for(int i = name.Length - 1; i > 0; i--)
                     {
                         float movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]);
                         float newPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i - 1], name[i]);
-                        Debug.Log("entra: " + movePosition + " | sai: " + newPosition);
+                        //Debug.Log("entra: " + movePosition + " | sai: " + newPosition);
                         Vector3 petPosition = pet.gameObject.transform.position;
                         pet.gameObject.transform.position = new Vector3(newPosition, petPosition.y, petPosition.z);
-                        Debug.Log(name[i] + " " + name[i - 1]);
-                        gameObject.GetComponent<Invisible>().PetChangeLocation(name[i - 1]);
+                        //Debug.Log(name[i] + " " + name[i - 1]);
+                        StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(name[i - 1]));
 
                         Vector3 midScreen = petPosition;
                         midScreen = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 1f));
                         petAnimationScript.MoveAnimalAndando(midScreen.x);
                     }
-                    break;
+                    chanceToGoToActiveScene = 0.5f;
+                }
+                else
+                {
+                    chanceToGoToActiveScene += 0.05f;
+                }
+            }
+            else
+            {
+                randomActionCountdown = 0;
+                // Escolhe um valor aleatório para selecionar qual ação o pet irá realizar
+                randomNumber = Random.Range(2,3);
+                //Debug.Log(randomNumber);
+                switch (randomNumber)
+                {
+                    case 0: // Pet se coça
+                        Debug.Log("Movimento aleatório - Coçando");
+                        petAnimationScript.Cocando();
+                        break;
+                    case 1: // Pet se move até um ponto aleatório na scene
+                        float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
+                        Debug.Log("Movimento aleatório - Andando " + move);
+                        petAnimationScript.MoveAnimalAndando(move);
+                        break;
+                }
             }
         }
         else // Caso contrário, incrementa o contador

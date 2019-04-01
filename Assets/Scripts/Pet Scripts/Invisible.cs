@@ -45,8 +45,8 @@ public class Invisible : MonoBehaviour
     {
         Color petColor = pet.GetComponent<SpriteRenderer>().color;
         Color color = new Color(petColor.r, petColor.g, petColor.b, 1f);
-        Debug.Log(color);
-        Debug.Log(petColor);
+        //Debug.Log(color);
+        //Debug.Log(petColor);
         pet.GetComponent<SpriteRenderer>().color = color;
         
     }

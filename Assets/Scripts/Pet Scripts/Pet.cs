@@ -22,6 +22,7 @@ public class Pet: MonoBehaviour
 
     public void SetPetScene(string sceneName)
     {
+        Debug.Log(sceneName);
         petCurrentLocation.sceneName = sceneName;
     }
 
