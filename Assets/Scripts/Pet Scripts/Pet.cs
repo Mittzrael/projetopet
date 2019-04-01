@@ -9,6 +9,12 @@ public class Pet: MonoBehaviour
     public ElementLocation petCurrentLocation;
     private GameObject poop;
     private GameObject pee;
+    private DogMitza petAnimationScript;
+
+    public void Start()
+    {
+        petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
+    }
 
     public ElementLocation GetPetLocation()
     {
@@ -45,7 +51,35 @@ public class Pet: MonoBehaviour
         Debug.Log("bebi");
     }
 
-    public void Pee()
+    public void Pee(bool correctLocation)
+    {
+        if (correctLocation)
+        {
+            ///Depende da função do Rafael
+        }
+        else
+        {
+            PeeOnLocation();
+        }
+    }
+
+    public void Poop(bool correctLocation)
+    {
+        if (correctLocation)
+        {
+            ///Depende da função do Rafael
+        }
+        else
+        {
+            PoopOnLocation();
+        }
+    }
+
+    /// <summary>
+    /// TODO: Coco e xixi em lugares aleatórios
+    /// </summary>
+
+    public void PeeOnLocation()
     {
         pee = Resources.Load("Prefabs/Items/Pee") as GameObject;
         Vector3 position = new Vector3(transform.position.x, transform.position.y - GetComponent<Renderer>().bounds.size.y / 2, transform.position.z-5); //Eixo Z tem que ser menor para ficar mais perto da câmera e ativar o OnMouseDown()
@@ -57,7 +91,7 @@ public class Pet: MonoBehaviour
     /// <summary>
     /// Chamado quando o animal evacua.
     /// </summary>
-    public void Poop()
+    public void PoopOnLocation()
     {
         poop = Resources.Load("Prefabs/Items/Poop") as GameObject;
         Vector3 position = new Vector3(transform.position.x, transform.position.y - GetComponent<Renderer>().bounds.size.y/2, transform.position.z-5);
