@@ -2838,9 +2838,9 @@ MonoBehaviour:
       image: {fileID: 0}
       nutritionalValor: 0
     potFullness: 0
-  fullPot: {fileID: 0}
-  mediumPot: {fileID: 0}
-  emptyPot: {fileID: 0}
+  fullPot: {fileID: 21300000, guid: bb424bf09d52cc941b16e4e43c15658c, type: 3}
+  mediumPot: {fileID: 21300000, guid: 2180f24c23df93842bed8b4079bd2118, type: 3}
+  emptyPot: {fileID: 21300000, guid: 574a7dbdc1cd81248a113a8830e120d3, type: 3}
 --- !u!4 &1391132196
 Transform:
   m_ObjectHideFlags: 0

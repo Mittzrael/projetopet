@@ -15,6 +15,11 @@ public class PlayableScene : MonoBehaviour
 
     private void Start()
     {
+        VerifyScene();
+    }
+
+    private void VerifyScene()
+    {
         VerifyPoop();
         VerifyPee();
         petFather = GameObject.Find("PetFather");
