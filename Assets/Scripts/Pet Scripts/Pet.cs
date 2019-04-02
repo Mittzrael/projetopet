@@ -74,7 +74,7 @@ public class Pet: MonoBehaviour
     {
         string sceneName = "Nome aleatório";
 
-        SaveManager.instance.player.poopLocation.Add(sceneName, );
+        //SaveManager.instance.player.poopLocation.Add(sceneName, );
     }
 
     public void PeeRandomPlace()
