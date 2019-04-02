@@ -3243,7 +3243,7 @@ MonoBehaviour:
   moveRangeMax: 20
   moveRangeMultiplier: 50
   petAccessInfo:
-  - {fileID: 11400000, guid: 36b8a2f379f8c8d4e8dcd2d763ae1ab9, type: 2}
+  - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
   player:
     slot: -1
     nome: 
@@ -3265,6 +3265,18 @@ MonoBehaviour:
       location: []
     peeLocation:
       location: []
+    foodPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
+    waterPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
     flag: []
 --- !u!1 &1521879000
 GameObject:

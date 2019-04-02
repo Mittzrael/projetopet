@@ -44,7 +44,7 @@ public class BasicPetAI : MonoBehaviour
     // DELEGATE: variável que pode armazenar funções
     // Utilizada para armazenar as funções correspondentes as ações que o pet quer realizar
     // As funções serão chamadas através do inicializador da DELEGATE, de modo genérico
-    private delegate IEnumerator PetAction();
+    public delegate IEnumerator PetAction();
     private PetAction petActionList = null;
     // Vetor de delegates (utilizado para chamar uma delegate de cada vez no pacote de delegates)
     private System.Delegate[] petDelegateList;
@@ -99,8 +99,8 @@ public class BasicPetAI : MonoBehaviour
         player = SaveManager.instance.player;
         pet.SetPetLocation(new ElementLocation("Pet", SceneManager.GetActiveScene().name, gameObject.transform.position));
         player.petElementsLocations.Clear();
-        player.petElementsLocations.Add(new ElementLocation("Pote de Comida", "Kitchen", new Vector3()));
-        player.petElementsLocations.Add(new ElementLocation("Pote de Água", "Yard", new Vector3()));
+        player.petElementsLocations.Add(new ElementLocation("Pote de Comida", "MainRoom", new Vector3(1500, -410, 300)));
+        player.petElementsLocations.Add(new ElementLocation("Pote de Água", "Yard(1)", new Vector3(-300, -356, -287)));
         #endregion
 
         petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
@@ -157,8 +157,6 @@ public class BasicPetAI : MonoBehaviour
             {
                 // Discretiza a lista de ações da delegate em um vetor de delegates
                 petDelegateList = petActionList.GetInvocationList();
-                // Chama a função que está armazenada na primeira posição do vetor de delegates
-                //petDelegateList[0].DynamicInvoke();
                 // Chama a função que está armazenada na primeira posição do vetor de delegates como uma coroutine
                 StartCoroutine(petDelegateList[0].Method.Name);
                 // Remove esta função da lista de funções da delegate
@@ -167,7 +165,6 @@ public class BasicPetAI : MonoBehaviour
             // Caso contrário, chama a função que realiza movimentos aleatórios
             else
             {
-                //Debug.LogWarning("Random");
                 PetRandomMove();
             }
         }
@@ -188,7 +185,10 @@ public class BasicPetAI : MonoBehaviour
         isPetDoingSometring = true;
         Debug.Log("Fome");
 
-        string currentScene = pet.GetPetLocation().sceneName;
+        StartCoroutine(MoveToPosition("Pote de Comida", Hungry));
+        yield return new WaitForEndOfFrame();
+
+        /*string currentScene = pet.GetPetLocation().sceneName;
         float movePosition;
         float newStartPosition = 0;
         string temp_name = currentScene;
@@ -249,7 +249,15 @@ public class BasicPetAI : MonoBehaviour
             player.health.PutInHungry(1f);
             hungryOnDelegate = false;
             isPetDoingSometring = false;
-        }
+        }*/
+    }
+
+    private IEnumerator Hungry()
+    {
+        Debug.Log("Simulando que há comida e o pet come");
+        food = new Food("Ração", 1f);
+        pet.Eat(food);
+        yield return new WaitForEndOfFrame();
     }
 
     /// <summary>
@@ -270,7 +278,10 @@ public class BasicPetAI : MonoBehaviour
         isPetDoingSometring = true;
         Debug.Log("Sede");
 
-        string currentScene = pet.GetPetLocation().sceneName;
+        StartCoroutine(MoveToPosition("Pote de Água", Thirsty));
+        yield return new WaitForEndOfFrame();
+
+        /*string currentScene = pet.GetPetLocation().sceneName;
         float movePosition;
         float newStartPosition = 0;
         string temp_name = currentScene;
@@ -333,7 +344,15 @@ public class BasicPetAI : MonoBehaviour
 
         //yield return new WaitForSeconds(2f);
         //Debug.Log("Sede");
-        //thirstyOnDelegate = false;
+        //thirstyOnDelegate = false;*/
+    }
+
+    private IEnumerator Thirsty()
+    {
+        Debug.Log("Simulando que há água e o pet bebe");
+        food = new Food("Água", 1f);
+        pet.Drink(food);
+        yield return new WaitForEndOfFrame();
     }
 
     /// <summary>
@@ -361,7 +380,15 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetPee()
     {
-        yield return new WaitForSeconds(2f);
+        if (Random.Range(0f, 1f) <= ChanceToHappen(0f, 1f, player.health.GetWhereToPP()))
+        {
+            // Move para o local e chama a função
+        }
+        else
+        {
+            // Chama a função direto
+        }
+        yield return new WaitForEndOfFrame();
         Debug.Log("Pee");
         peeOnDelegate = false;
     }
@@ -371,7 +398,15 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetPoop()
     {
-        yield return new WaitForSeconds(2f);
+        if (Random.Range(0f, 1f) <= ChanceToHappen(0f, 1f, player.health.GetWhereToPP()))
+        {
+            // Move para o local e chama a função
+        }
+        else
+        {
+            // Chama a função direto
+        }
+        yield return new WaitForEndOfFrame();
         Debug.Log("Poop");
         poopOnDelegate = false;
     }
@@ -491,6 +526,72 @@ public class BasicPetAI : MonoBehaviour
     public void StoptPetCoroutines()
     {
         StopAllCoroutines();
+    }
+
+    public IEnumerator MoveToPosition(string objectName, PetAction functionToCall)
+    {
+        string currentScene = pet.GetPetLocation().sceneName;
+        float movePosition;
+        float newStartPosition = 0;
+        string temp_name = currentScene;
+        bool keepSearching = false;
+        int elementIndex = 0;
+
+        foreach (ElementLocation element in player.petElementsLocations)
+        {
+            if (element.elementName == objectName)
+            {
+                elementIndex = player.petElementsLocations.IndexOf(element);
+                break;
+            }
+        }
+
+        if (currentScene == player.petElementsLocations[elementIndex].sceneName)
+        {
+            movePosition = player.petElementsLocations[elementIndex].elementPosition.x;
+        }
+        else
+        {
+            //Debug.Log(player.foodLocationSceneName);
+            var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[elementIndex].sceneName);
+            string[] name = HasHSetToString(path).Split(',');
+            //for (int i = name.Length - 1; i > 0; i--)
+            //{
+            //    Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
+            //}
+
+            //Debug.Log(name[0] + " " + name[1]);
+            temp_name = name[name.Length - 2];
+            keepSearching = true;
+            movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
+            newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
+        }
+
+        //Debug.Log(movePosition + " " + newStartPosition);
+        petAnimationScript.MoveAnimalAndando(movePosition);
+
+        yield return new WaitUntil(() => !petAnimationScript.isWalking);
+
+        if (keepSearching)
+        {
+            Debug.Log("Pet muda de scene e continua a busca..." + temp_name);
+            StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(temp_name));
+            yield return new WaitForSeconds(0.5f);
+
+            Vector3 petPosition = pet.gameObject.transform.position;
+            pet.gameObject.transform.position = new Vector3(newStartPosition, petPosition.y, petPosition.z);
+
+            StartCoroutine(MoveToPosition(objectName, functionToCall));
+        }
+        else
+        {
+            Debug.Log("Pet chegou no pote de comida - verifica se tem comida e faz ação equivalente");
+            // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
+            //player.health.PutInHungry(1f);
+            //hungryOnDelegate = false;
+            //isPetDoingSometring = false;
+            StartCoroutine(functionToCall());
+        }
     }
     #endregion
 }
