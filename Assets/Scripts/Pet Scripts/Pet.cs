@@ -9,6 +9,12 @@ public class Pet: MonoBehaviour
     public ElementLocation petCurrentLocation;
     private GameObject poop;
     private GameObject pee;
+    private DogMitza petAnimationScript;
+
+    public void Start()
+    {
+        petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
+    }
 
     public ElementLocation GetPetLocation()
     {
@@ -26,11 +32,6 @@ public class Pet: MonoBehaviour
         petCurrentLocation.sceneName = sceneName;
     }
 
-    public void Walk()
-    {
-
-    }
-
     public void Eat(Food food)
     {
         //health.PutInHungry(food.GetNutrionalValor());
@@ -45,7 +46,10 @@ public class Pet: MonoBehaviour
         Debug.Log("bebi");
     }
 
-    public void Pee()
+    /// <summary>
+    /// TODO: Coco e xixi em lugares aleatórios
+    /// </summary>
+    public void PeeOnLocation()
     {
         pee = Resources.Load("Prefabs/Items/Pee") as GameObject;
         Vector3 position = new Vector3(transform.position.x, transform.position.y - GetComponent<Renderer>().bounds.size.y / 2, transform.position.z-5); //Eixo Z tem que ser menor para ficar mais perto da câmera e ativar o OnMouseDown()
@@ -57,13 +61,25 @@ public class Pet: MonoBehaviour
     /// <summary>
     /// Chamado quando o animal evacua.
     /// </summary>
-    public void Poop()
+    public void PoopOnLocation()
     {
         poop = Resources.Load("Prefabs/Items/Poop") as GameObject;
         Vector3 position = new Vector3(transform.position.x, transform.position.y - GetComponent<Renderer>().bounds.size.y/2, transform.position.z-5);
         Instantiate(poop, position, Quaternion.identity);
         SaveManager.instance.player.health.PutInPoop(-0.5f); //Esvazia pela metade a vontade do animal de fazer cocô
         SaveManager.instance.player.poopLocation.Add(SceneManager.GetActiveScene().name, position);
+    }
+
+    public void PoopRandomPlace()
+    {
+        string sceneName = "Nome aleatório";
+
+        SaveManager.instance.player.poopLocation.Add(sceneName, );
+    }
+
+    public void PeeRandomPlace()
+    {
+
     }
 
     public void Play()

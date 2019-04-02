@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listName: 
   avatar:
-  - itemImage: {fileID: 2800000, guid: 78f1402fd69da3d439ee6ff8b19f12d6, type: 3}
+  - itemImage: {fileID: 2800000, guid: 35d05943bcd09cf4db57fd13631167ea, type: 3}
     avatarName: Robozin
-  - itemImage: {fileID: 2800000, guid: 00cedc6cd2563e94a88933326ada63d9, type: 3}
-    avatarName: Robozin
-  - itemImage: {fileID: 2800000, guid: 73b13b2089eda02408afcf574e4b421f, type: 3}
-    avatarName: Robozin
-  - itemImage: {fileID: 2800000, guid: ba4a5a404c9865247918b5c4f576c93c, type: 3}
-    avatarName: Robozin
-  - itemImage: {fileID: 2800000, guid: 1edbf3cc17e4248499f8dcd50c8515e6, type: 3}
+  - itemImage: {fileID: 2800000, guid: 31423a580c554514db5d497fcc698956, type: 3}
     avatarName: Robozin

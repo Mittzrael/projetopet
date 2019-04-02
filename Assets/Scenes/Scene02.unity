@@ -739,7 +739,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Ex: Joca'
+  m_Text: 'Ex: Ariel'
 --- !u!222 &1087493755
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1234,12 +1234,36 @@ MonoBehaviour:
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
-    petAccessScenes: {fileID: 0}
+    petElementsLocations: []
     lastTimePlayed: 
     poopLocation:
       location: []
     peeLocation:
       location: []
+    foodPotLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    waterPotLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    wasteLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    foodPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
+    waterPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
     flag: []
   avatarList: {fileID: 11400000, guid: 65c91df62b6e138438f013f30b2b9f26, type: 2}
 --- !u!1 &2140648211
@@ -1277,7 +1301,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213

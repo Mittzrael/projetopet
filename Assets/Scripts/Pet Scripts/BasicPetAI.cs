@@ -213,12 +213,13 @@ public class BasicPetAI : MonoBehaviour
             //Debug.Log(player.foodLocationSceneName);
             var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[elementIndex].sceneName);
             string[] name = HasHSetToString(path).Split(',');
-            //for (int i = name.Length - 1; i > 0; i--)
-            //{
-            //    Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
-            //}
+            Debug.Log(name.Length);
+            for (int i = name.Length - 1; i > 0; i--)
+            {
+                Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
+            }
 
-            //Debug.Log(name[0] + " " + name[1]);
+            Debug.Log(name[0] + " " + name[1]);
             temp_name = name[name.Length - 2];
             keepSearching = true;
             movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
