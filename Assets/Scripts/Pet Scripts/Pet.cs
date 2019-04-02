@@ -32,11 +32,6 @@ public class Pet: MonoBehaviour
         petCurrentLocation.sceneName = sceneName;
     }
 
-    public void Walk()
-    {
-
-    }
-
     public void Eat(Food food)
     {
         //health.PutInHungry(food.GetNutrionalValor());
@@ -51,34 +46,9 @@ public class Pet: MonoBehaviour
         Debug.Log("bebi");
     }
 
-    public void Pee(bool correctLocation)
-    {
-        if (correctLocation)
-        {
-            ///Depende da função do Rafael
-        }
-        else
-        {
-            PeeOnLocation();
-        }
-    }
-
-    public void Poop(bool correctLocation)
-    {
-        if (correctLocation)
-        {
-            ///Depende da função do Rafael
-        }
-        else
-        {
-            PoopOnLocation();
-        }
-    }
-
     /// <summary>
     /// TODO: Coco e xixi em lugares aleatórios
     /// </summary>
-
     public void PeeOnLocation()
     {
         pee = Resources.Load("Prefabs/Items/Pee") as GameObject;
@@ -98,6 +68,18 @@ public class Pet: MonoBehaviour
         Instantiate(poop, position, Quaternion.identity);
         SaveManager.instance.player.health.PutInPoop(-0.5f); //Esvazia pela metade a vontade do animal de fazer cocô
         SaveManager.instance.player.poopLocation.Add(SceneManager.GetActiveScene().name, position);
+    }
+
+    public void PoopRandomPlace()
+    {
+        string sceneName = "Nome aleatório";
+
+        SaveManager.instance.player.poopLocation.Add(sceneName, );
+    }
+
+    public void PeeRandomPlace()
+    {
+
     }
 
     public void Play()

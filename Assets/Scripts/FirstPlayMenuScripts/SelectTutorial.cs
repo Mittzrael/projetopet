@@ -9,6 +9,7 @@ public class SelectTutorial : MonoBehaviour
     public int qtyAnimal;
     public int qtyHome;
     public string[,] listOfTutorials;
+    public int[,] listOfGraphs;
 
     private void Start()
     {
@@ -21,7 +22,10 @@ public class SelectTutorial : MonoBehaviour
     /// </summary>
     private void CompleteArray()
     {
+        ///Valor casa-pet
         listOfTutorials[0, 0] = "Instrucoes1";
+
+        listOfGraphs[0, 0] = 0;
     }
 
     /// <summary>
@@ -38,6 +42,7 @@ public class SelectTutorial : MonoBehaviour
         }
         else
         {
+            SaveManager.instance.player.graphNumber = listOfGraphs[residenciaSelecionada, petSelecionado];
             GameManager.instance.LoadSceneWithFade(listOfTutorials[residenciaSelecionada, petSelecionado]);
         }
     }

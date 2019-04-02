@@ -3295,6 +3295,7 @@ MonoBehaviour:
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
+    graphNumber: -1
     petElementsLocations: []
     lastTimePlayed: 
     poopLocation:
