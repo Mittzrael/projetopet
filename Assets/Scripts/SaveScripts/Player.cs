@@ -14,8 +14,6 @@ public class Player
     public int petSelecionado = -1;
     public int graphNumber = -1;
 
-    public List<ElementLocation> petElementsLocations;
-    
     /// <summary>
     /// Horário de saída da última seção de jogador em forma de string
     /// </summary>
