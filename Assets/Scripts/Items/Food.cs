@@ -14,6 +14,13 @@ public class Food
     private float nutritionalValor;
     //bool or float healthy;
 
+    public Food() { }
+    public Food(string name, float value)
+    {
+        nome = name;
+        nutritionalValor = value;
+    }
+
     public float GetNutrionalValor()
     {
         return nutritionalValor;

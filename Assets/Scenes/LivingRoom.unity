@@ -2719,6 +2719,18 @@ MonoBehaviour:
       location: []
     peeLocation:
       location: []
+    foodPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
+    waterPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
     flag: []
 --- !u!1 &1601843390
 GameObject:
@@ -3491,8 +3503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413b740ce4a2c92438a06debfa7897d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petActualLocation:
-    elementName: Pet
+  petCurrentLocation:
+    elementName: 
     sceneName: LivingRoom
     elementPosition: {x: 0, y: 0, z: 0}
 --- !u!70 &1782136857
