@@ -34,7 +34,7 @@ public class Pet: MonoBehaviour
 
     public void Eat(Food food)
     {
-        //health.PutInHungry(food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInHungry(food.GetNutrionalValor());
         Debug.Log("comi");
         SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor()/2);
     }
@@ -74,7 +74,7 @@ public class Pet: MonoBehaviour
     {
         string sceneName = "Nome aleatório";
 
-        SaveManager.instance.player.poopLocation.Add(sceneName, );
+        //SaveManager.instance.player.poopLocation.Add(sceneName, );
     }
 
     public void PeeRandomPlace()
