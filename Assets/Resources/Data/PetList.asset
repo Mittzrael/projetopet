@@ -14,11 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listName: 
   pet:
-  - itemImage: {fileID: 2800000, guid: e1109df6ee257464e8b0109787701f68, type: 3}
+  - itemImage: {fileID: 2800000, guid: 9d3c0248d59dbb345b386621fbe7c106, type: 3}
     petInfo: Doguinho
   - itemImage: {fileID: 2800000, guid: 5e36f04a719c2fa429dc4be6cd36e6d4, type: 3}
     petInfo: Doguito
   - itemImage: {fileID: 2800000, guid: 398a8a0c27074f5408f0a899d84af01e, type: 3}
     petInfo: Gattito
-  - itemImage: {fileID: 2800000, guid: 4e84899ddc1246e438dec09050337f01, type: 3}
-    petInfo: Chifrudinho
