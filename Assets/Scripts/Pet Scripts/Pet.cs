@@ -32,11 +32,25 @@ public class Pet: MonoBehaviour
         petCurrentLocation.sceneName = sceneName;
     }
 
+    public IEnumerator Eat()
+    {
+        ///Play Animation
+        Eat(SaveManager.instance.player.foodPot.content);
+        yield return new WaitForSeconds(0);
+    }
+
     public void Eat(Food food)
     {
         SaveManager.instance.player.health.PutInHungry(food.GetNutrionalValor());
-        Debug.Log("comi");
         SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor()/2);
+        Debug.Log("comi");
+    }
+
+    public IEnumerator Drink()
+    {
+        ///Play Animation
+        Drink(SaveManager.instance.player.waterPot.content);
+        yield return new WaitForSeconds(0);
     }
 
     public void Drink(Food food)
@@ -44,6 +58,11 @@ public class Pet: MonoBehaviour
         SaveManager.instance.player.health.PutInThirsty(food.GetNutrionalValor());
         SaveManager.instance.player.health.PutInPee(food.GetNutrionalValor()/2);
         Debug.Log("bebi");
+    }
+
+    public void Play()
+    {
+
     }
 
     public IEnumerator PeeOnLocation()
@@ -105,7 +124,7 @@ public class Pet: MonoBehaviour
         {
             Debug.LogError("Não encontrou scene com o nome solicitado");
         }
-
+        
         return position;
     }
 
@@ -123,10 +142,5 @@ public class Pet: MonoBehaviour
                 Debug.LogError("Não encontrou scene com o nome solicitado");
                 return "";
         }
-    } 
-    
-    public void Play()
-    {
-
     }
 }
