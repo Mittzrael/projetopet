@@ -9,6 +9,12 @@ public class PotStatus
     [SerializeField]
     private float potFullness; //Quão cheio está o pote
 
+    public PotStatus() { }
+    public PotStatus(Food food)
+    {
+        content = food;
+    }
+
     public void SetFullness(float valor)
     {
         potFullness += valor;
