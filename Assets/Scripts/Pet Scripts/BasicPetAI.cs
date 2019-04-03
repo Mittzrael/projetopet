@@ -68,7 +68,7 @@ public class BasicPetAI : MonoBehaviour
     #endregion
 
     // Variável que indica se o pet já está realizando alguma ação (não permite que várias ações sejam execurtadas em paralelo)
-    private bool isPetDoingSometring = false;
+    public bool isPetDoingSomething = false;
 
     private Pet pet;
     private float chanceToGoToActiveScene = 0.5f;
@@ -100,6 +100,9 @@ public class BasicPetAI : MonoBehaviour
         pet.SetPetLocation(new ElementLocation("Pet", SceneManager.GetActiveScene().name, gameObject.transform.position));
         player.foodPotLocation = new ElementLocation("Pote de Comida", "MainRoom", new Vector3(1500, -410, 300));
         player.waterPotLocation = new ElementLocation("Pote de Água", "Yard(1)", new Vector3(-300, -356, -287));
+        player.wasteLocation = new ElementLocation("Jornal", "Yard(1)", new Vector3(0, -356, -287));
+        player.foodPot = new PotStatus(new Food("Ração", 1f));
+        player.waterPot = new PotStatus(new Food("Água", 1f));
         #endregion
 
         petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
@@ -119,7 +122,7 @@ public class BasicPetAI : MonoBehaviour
     {
         // Número aleatório gerado para definir quando ocorrerá a próxima verificação
         actionRandom = Random.Range(actionMinRandom, actionMaxRandom);
-        if (!isPetDoingSometring)
+        if (!isPetDoingSomething)
         {
             // VERIFICAÇÃO DO ESTADO DO PET
             // Verifica se um status específico está fora do limite aceitável para o pet e se a ação já está na lista
@@ -163,7 +166,7 @@ public class BasicPetAI : MonoBehaviour
             // Caso contrário, chama a função que realiza movimentos aleatórios
             else
             {
-                PetRandomMove();
+                StartCoroutine(PetRandomMove());
             }
         }
 
@@ -180,10 +183,10 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetHungry()
     {
-        isPetDoingSometring = true;
+        isPetDoingSomething = true;
         Debug.Log("Fome");
 
-        StartCoroutine(MoveToPosition(player.foodPotLocation, Hungry));
+        StartCoroutine(MoveToPosition(player.foodPotLocation, pet.Eat));
         yield return new WaitForEndOfFrame();
 
         /*string currentScene = pet.GetPetLocation().sceneName;
@@ -246,19 +249,10 @@ public class BasicPetAI : MonoBehaviour
             // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
             player.health.PutInHungry(1f);
             hungryOnDelegate = false;
-            isPetDoingSometring = false;
+            isPetDoingSomething = false;
         }*/
     }
-
-    private IEnumerator Hungry()
-    {
-        Debug.Log("Simulando que há comida e o pet come");
-        food = new Food("Ração", 1f);
-        pet.Eat(food);
-        isPetDoingSometring = false;
-        yield return new WaitForEndOfFrame();
-    }
-
+    
     /// <summary>
     /// Função que gera um aviso visual de fome quando entra na zona de aviso de fome
     /// </summary>
@@ -274,10 +268,10 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetThisty()
     {
-        isPetDoingSometring = true;
+        isPetDoingSomething = true;
         Debug.Log("Sede");
 
-        StartCoroutine(MoveToPosition(player.waterPotLocation, Thirsty));
+        StartCoroutine(MoveToPosition(player.waterPotLocation, pet.Drink));
         yield return new WaitForEndOfFrame();
 
         /*string currentScene = pet.GetPetLocation().sceneName;
@@ -338,23 +332,14 @@ public class BasicPetAI : MonoBehaviour
             // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
             player.health.PutInThirsty(1f);
             thirstyOnDelegate = false;
-            isPetDoingSometring = false;
+            isPetDoingSomething = false;
         }
 
         //yield return new WaitForSeconds(2f);
         //Debug.Log("Sede");
         //thirstyOnDelegate = false;*/
     }
-
-    private IEnumerator Thirsty()
-    {
-        Debug.Log("Simulando que há água e o pet bebe");
-        food = new Food("Água", 1f);
-        pet.Drink(food);
-        isPetDoingSometring = false;
-        yield return new WaitForEndOfFrame();
-    }
-
+    
     /// <summary>
     /// Função que gera um aviso visual de sede quando entra na zona de aviso de sede
     /// </summary>
@@ -380,31 +365,37 @@ public class BasicPetAI : MonoBehaviour
     /// </summary>
     private IEnumerator PetPee()
     {
-        if (Random.Range(0f, 1f) <= ChanceToHappen(0f, 1f, player.health.GetWhereToPP()))
+        isPetDoingSomething = true;
+
+        if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
         {
-            // Move para o local e chama a função
+            Debug.Log("move");
+            StartCoroutine(MoveToPosition(player.wasteLocation, pet.PeeOnLocation));
         }
         else
         {
-            // Chama a função direto
+            StartCoroutine(pet.PeeOnLocation());
         }
-        yield return new WaitForEndOfFrame();
         Debug.Log("Pee");
         peeOnDelegate = false;
+        yield return new WaitForEndOfFrame();
     }
-
+    
     /// <summary>
     /// Função que controla o pet quando ele está com vontade de fazer coco
     /// </summary>
     private IEnumerator PetPoop()
     {
-        if (Random.Range(0f, 1f) <= ChanceToHappen(0f, 1f, player.health.GetWhereToPP()))
+        isPetDoingSomething = true;
+
+        if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
         {
-            // Move para o local e chama a função
+            Debug.Log("move");
+            StartCoroutine(MoveToPosition(player.wasteLocation, pet.PoopOnLocation));
         }
         else
         {
-            // Chama a função direto
+            StartCoroutine(pet.PoopOnLocation());
         }
         Debug.Log("Poop");
         poopOnDelegate = false;
@@ -415,37 +406,38 @@ public class BasicPetAI : MonoBehaviour
     /// Função que controla os movimentos aleatórios do pet
     /// Movimentos que ocorrem quando o pet não possui nenhuma outra necessidade
     /// </summary>
-    public void PetRandomMove()
+    public IEnumerator PetRandomMove()
     {
-        //Debug.Log(randomActionCountdown);
         // Verifica se o limite de vezes que a função deve ser chamada foi atingido
         if (randomActionCountdown >= maxIdleTime)
         {
+            isPetDoingSomething = true;
+            // Primeiro o pet verifica se está na ActiveScene
             if (pet.petCurrentLocation.sceneName != SceneManager.GetActiveScene().name)
             {
+                // Se não estiver, há uma chance de o pet ir para a ActiveScene
                 if (Random.Range(0f, 1f) <= chanceToGoToActiveScene)
                 {
                     Debug.Log("Indo pra active scene");
                     var path = petAccessGraph.BFS(pet.petCurrentLocation.sceneName, SceneManager.GetActiveScene().name);
                     string[] name = HasHSetToString(path).Split(',');
-                    //Debug.Log(name.Length);
-                    //Debug.Log(string.Join(" - ", name));
-                    for(int i = name.Length - 1; i > 0; i--)
+                    for (int i = name.Length - 1; i > 0; i--)
                     {
                         float movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]);
                         float newPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i - 1], name[i]);
-                        //Debug.Log("entra: " + movePosition + " | sai: " + newPosition);
                         Vector3 petPosition = pet.gameObject.transform.position;
                         pet.gameObject.transform.position = new Vector3(newPosition, petPosition.y, petPosition.z);
-                        //Debug.Log(name[i] + " " + name[i - 1]);
                         StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(name[i - 1]));
 
                         Vector3 midScreen = petPosition;
                         midScreen = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 1f));
                         petAnimationScript.MoveAnimalAndando(midScreen.x);
+
+                        yield return new WaitUntil(() => !petAnimationScript.isWalking);
                     }
+                    
                     chanceToGoToActiveScene = 0.5f;
-                }
+                } 
                 else
                 {
                     chanceToGoToActiveScene += 0.05f;
@@ -455,21 +447,23 @@ public class BasicPetAI : MonoBehaviour
             {
                 randomActionCountdown = 0;
                 // Escolhe um valor aleatório para selecionar qual ação o pet irá realizar
-                randomNumber = Random.Range(2,3);
-                //Debug.Log(randomNumber);
+                randomNumber = Random.Range(0, 2);
                 switch (randomNumber)
                 {
                     case 0: // Pet se coça
                         Debug.Log("Movimento aleatório - Coçando");
                         petAnimationScript.Cocando();
+                        yield return new WaitForSeconds(1);
                         break;
                     case 1: // Pet se move até um ponto aleatório na scene
                         float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
                         Debug.Log("Movimento aleatório - Andando " + move);
                         petAnimationScript.MoveAnimalAndando(move);
+                        yield return new WaitUntil(() => !petAnimationScript.isWalking);
                         break;
                 }
             }
+            isPetDoingSomething = false;
         }
         else // Caso contrário, incrementa o contador
         {
@@ -528,14 +522,22 @@ public class BasicPetAI : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public IEnumerator IsPetDoingSometingSetFalse()
+    {
+        Debug.Log("Pet não está fazendo nada");
+        isPetDoingSomething = false;
+        yield return new WaitForEndOfFrame();
+    }
+
     public IEnumerator MoveToPosition(ElementLocation element, PetAction functionToCall)
     {
+        gameObject.GetComponent<Invisible>().StatusVerify();
+
         string currentScene = pet.GetPetLocation().sceneName;
         float movePosition;
         float newStartPosition = 0;
         string temp_name = currentScene;
         bool keepSearching = false;
-        int elementIndex = 0;
 
         if (currentScene == element.sceneName)
         {
@@ -543,22 +545,15 @@ public class BasicPetAI : MonoBehaviour
         }
         else
         {
-            //Debug.Log(player.foodLocationSceneName);
             var path = petAccessGraph.BFS(currentScene, element.sceneName);
             string[] name = HasHSetToString(path).Split(',');
-            //for (int i = name.Length - 1; i > 0; i--)
-            //{
-            //    Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
-            //}
 
-            //Debug.Log(name[0] + " " + name[1]);
             temp_name = name[name.Length - 2];
             keepSearching = true;
             movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
             newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
         }
 
-        //Debug.Log(movePosition + " " + newStartPosition);
         petAnimationScript.MoveAnimalAndando(movePosition);
 
         yield return new WaitUntil(() => !petAnimationScript.isWalking);
@@ -576,11 +571,7 @@ public class BasicPetAI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Pet chegou no pote de comida - verifica se tem comida e faz ação equivalente");
-            // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
-            //player.health.PutInHungry(1f);
-            //hungryOnDelegate = false;
-            //isPetDoingSometring = false;
+            Debug.Log("Pet chegou no local marcado");
             StartCoroutine(functionToCall());
         }
     }

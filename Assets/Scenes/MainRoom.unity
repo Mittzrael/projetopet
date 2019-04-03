@@ -2145,7 +2145,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 45, y: 1}
+  m_Size: {x: 100, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1083972003
 GameObject:
@@ -3238,12 +3238,13 @@ MonoBehaviour:
     whereToPP: 0.8
   hungryWarning: 0.5
   thirstyWarning: 0.5
-  maxIdleTime: 10
+  maxIdleTime: 3
   moveRangeMin: -20
   moveRangeMax: 20
   moveRangeMultiplier: 50
   petAccessInfo:
   - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
+  isPetDoingSomething: 0
   player:
     slot: -1
     nome: 
@@ -3259,12 +3260,24 @@ MonoBehaviour:
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
-    petElementsLocations: []
+    graphNumber: -1
     lastTimePlayed: 
     poopLocation:
       location: []
     peeLocation:
       location: []
+    foodPotLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    waterPotLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    wasteLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
     foodPot:
       content:
         nome: 
@@ -3815,7 +3828,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782136849}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: -199, z: 300}
+  m_LocalPosition: {x: -10, y: -199, z: 0}
   m_LocalScale: {x: 50, y: 50, z: 1}
   m_Children: []
   m_Father: {fileID: 1489599289}
