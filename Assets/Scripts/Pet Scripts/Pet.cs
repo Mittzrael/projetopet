@@ -40,6 +40,8 @@ public class Pet : MonoBehaviour
     {
         ///Play Animation
         Eat(SaveManager.instance.player.foodPot.content);
+        // Informa que o pet acabou de fazer sua ação
+        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
         yield return new WaitForSeconds(0);
     }
 
@@ -62,6 +64,8 @@ public class Pet : MonoBehaviour
     {
         ///Play Animation
         Drink(SaveManager.instance.player.waterPot.content);
+        // Informa que o pet acabou de fazer sua ação
+        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
         yield return new WaitForSeconds(0);
     }
 
@@ -98,6 +102,8 @@ public class Pet : MonoBehaviour
         }
         SaveManager.instance.player.health.PutInPee(-0.5f); //Esvazia pela metade a vontade do animal de fazer xixi
         SaveManager.instance.player.peeLocation.Add(petCurrentLocation.sceneName, position);
+        // Informa que o pet acabou de fazer sua ação
+        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
         yield return new WaitForSeconds(0);
     }
 
@@ -115,6 +121,8 @@ public class Pet : MonoBehaviour
         }
         SaveManager.instance.player.health.PutInPoop(-0.5f); //Esvazia pela metade a vontade do animal de fazer cocô
         SaveManager.instance.player.poopLocation.Add(petCurrentLocation.sceneName, position);
+        // Informa que o pet acabou de fazer sua ação
+        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
         yield return new WaitForSeconds(0);
     }
 
