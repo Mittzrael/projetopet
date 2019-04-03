@@ -98,9 +98,9 @@ public class BasicPetAI : MonoBehaviour
         #region Para testes
         player = SaveManager.instance.player;
         pet.SetPetLocation(new ElementLocation("Pet", SceneManager.GetActiveScene().name, gameObject.transform.position));
-        player.foodPotLocation = new ElementLocation("Pote de Comida", "MainRoom", new Vector3(1500, -410, 0));
-        player.waterPotLocation = new ElementLocation("Pote de Água", "Yard(1)", new Vector3(-300, -356, 0));
-        player.wasteLocation = new ElementLocation("Jornal", "Yard(1)", new Vector3(0, -356, 0));
+        player.foodPotLocation = new ElementLocation("Pote de Comida", "MainRoom", new Vector3(1500, -410, 5));
+        player.waterPotLocation = new ElementLocation("Pote de Água", "Yard(1)", new Vector3(-300, -356, 5));
+        player.wasteLocation = new ElementLocation("Jornal", "Yard(1)", new Vector3(500, -356, 0));
         player.foodPot = new PotStatus(new Food("Ração", 1f));
         player.waterPot = new PotStatus(new Food("Água", 1f));
         #endregion
