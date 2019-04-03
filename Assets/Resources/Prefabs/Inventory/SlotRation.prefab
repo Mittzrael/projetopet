@@ -122,11 +122,7 @@ MonoBehaviour:
   item: {fileID: 4076655025784107931, guid: 00d331529d6a81d4f962080cfbfc458a, type: 3}
   slot: {fileID: 4250056684128145242}
   allowedDropAreas:
-  - DropArea (0)
-  - DropArea (1)
-  - DropArea (2)
-  - DropArea (3)
-  - DropArea (4)
+  - DropAreaYard (1)
 --- !u!1 &4250056684128145242
 GameObject:
   m_ObjectHideFlags: 0

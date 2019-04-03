@@ -18,8 +18,6 @@ public class ItemDragOn : MonoBehaviour
 
     public string[] allowedDropAreas;
     string currentDropArea;
-    Color colorTransparent = new Color(1, 1, 1, 0.5f);
-    Color colorStandard = new Color(1, 1, 1, 1);
 
     void Start()
     {
@@ -37,6 +35,7 @@ public class ItemDragOn : MonoBehaviour
         transform.parent = panelDragItems.transform;
         panelInventory.SetActive(false);
         GameMenu.isInventoryOpen = false;
+
         //Drag
         OnMouseDrag();
     }
@@ -46,14 +45,6 @@ public class ItemDragOn : MonoBehaviour
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objPosition;
-
-        currentDropArea = DropArea.GetCurrentDropArea();
-        
-        //Muda transparencia do item quando está em area proibida
-        if(currentDropArea != "null")
-            this.GetComponent<SpriteRenderer>().color = colorStandard;
-        else
-            this.GetComponent<SpriteRenderer>().color = colorTransparent;
     }
 
     public void OnMouseUp ()
@@ -86,7 +77,6 @@ public class ItemDragOn : MonoBehaviour
         //Retorna item ao inventário,
         this.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1) ;
         transform.parent = slot.transform;
-        this.GetComponent<SpriteRenderer>().color = colorStandard;
         //Ativa o menu inventário
         panelInventory.SetActive(true);
         GameMenu.isInventoryOpen = true;

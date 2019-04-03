@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebe3be8da3707c46bb51299adc9ce7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qtyAnimal: 6
+  qtyAnimal: 3
   qtyHome: 3
 --- !u!1 &655285647
 GameObject:
@@ -936,7 +936,7 @@ MonoBehaviour:
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
-    petElementsLocations: []
+    graphNumber: -1
     lastTimePlayed: 
     poopLocation:
       location: []
@@ -1003,7 +1003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213
