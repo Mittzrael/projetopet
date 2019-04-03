@@ -12,9 +12,11 @@ public class PlayableScene : MonoBehaviour
     List<Vector3> peeList;
     List<Vector3> poopList;
     GameObject petFather;
+    string currentScene;
 
     private void Start()
     {
+        currentScene = SceneManager.GetActiveScene().name;
         VerifyScene();
     }
 
@@ -22,6 +24,7 @@ public class PlayableScene : MonoBehaviour
     {
         VerifyPoop();
         VerifyPee();
+        VerifyPot();
         petFather = GameObject.Find("PetFather");
         petFather.GetComponent<Invisible>().StatusVerify();
     }
@@ -33,7 +36,22 @@ public class PlayableScene : MonoBehaviour
         foreach (Vector3 position in poopList)
         {
             GameObject newPoop = Instantiate(poop, position, Quaternion.identity);
-            OnOff(newPoop);
+            OnOff(newPoop); //Talvez tirar no futuro, vê aí
+        }
+    }
+
+    private void VerifyPot()
+    {
+        if (SaveManager.instance.player.foodPotLocation.sceneName.Equals(currentScene))
+        {
+            Debug.Log("Entrou food");
+            Instantiate(Resources.Load("Prefabs/Items/PotFood") as GameObject, SaveManager.instance.player.foodPotLocation.elementPosition, Quaternion.identity);
+        }
+
+        if (SaveManager.instance.player.waterPotLocation.sceneName.Equals(currentScene))
+        {
+            Debug.Log("Entrou water");
+            Instantiate(Resources.Load("Prefabs/Items/PotWater") as GameObject, SaveManager.instance.player.waterPotLocation.elementPosition, Quaternion.identity);
         }
     }
 

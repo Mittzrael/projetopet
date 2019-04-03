@@ -40,11 +40,43 @@ public class ButtonController : ScriptableObject
         saveManager.ResetSave();
     }
 
-    /// <summary>
-    /// PARA TESTES =D
-    /// </summary>
+    #region PARA TESTES =D
     public void BeHappy()
     {
-        SaveManager.instance.player.health.PutInHappiness(1f);
+        SaveManager.instance.player.health.PutInHappiness(10f);
     }
+
+    public void PetHungry()
+    {
+        SaveManager.instance.player.health.PutInHungry(-10f);
+    }
+
+    public void PetThirsty()
+    {
+        SaveManager.instance.player.health.PutInThirsty(-10f);
+    }
+
+    public void PetPee()
+    {
+        SaveManager.instance.player.health.PutInPee(10f);
+    }
+
+    public void PetPoop()
+    {
+        SaveManager.instance.player.health.PutInPoop(10f);
+    }
+
+    public void PetIsEducated()
+    {
+        if (SaveManager.instance.player.health.GetWhereToPP() == 0)
+        {
+            SaveManager.instance.player.health.PutInWhereToPP(10f);
+        }
+        else
+        {
+            SaveManager.instance.player.health.PutInWhereToPP(-10f);
+        }
+    }
+
+    #endregion
 }
