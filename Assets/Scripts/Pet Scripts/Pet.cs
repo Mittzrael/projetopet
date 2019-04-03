@@ -88,17 +88,32 @@ public class Pet: MonoBehaviour
     //    Vector3 position = randomPosition(sceneName);
     //    SaveManager.instance.player.poopLocation.Add(sceneName, );
     //}
+    
+    private Vector3 randomPosition(string scene)
+    {
+        Vector3 position = new Vector3();
 
-    //private Vector3 randomPosition(string scene)
-    //{
-    //    Vector3 position = new Vector3();
-    //    int upperBound;
-    //    int lowerBound;
+        if (scene.Equals("MainRoom"))
+        {
+            position.x = Random.Range(-2700, 2700);
+            position.y = Random.Range(-434, -607);
+            position.z = -5;
+        }
 
+        else if (scene.Equals("Yard"))
+        {
+            position.x = Random.Range(-1718, 1700);
+            position.y = Random.Range(-566, 607);
+            position.z = -5;
+        }
 
-
-    //    position.x =
-    //}
+        else
+        {
+            Debug.LogError("Não encontrou scene com o nome solicitado");
+        }
+        
+        return position;
+    }
 
     public string ReturnSceneName()
     {
@@ -111,6 +126,7 @@ public class Pet: MonoBehaviour
             case 2:
                 return "Yard";
             default:
+                Debug.LogError("Não encontrou scene com o nome solicitado");
                 return "";
         }
     }
