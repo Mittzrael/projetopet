@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 253047103461907455}
   - component: {fileID: 1235612932422262660}
   m_Layer: 0
-  m_Name: Ration
+  m_Name: PotWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4076655025784107931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 300}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 25, y: 25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,7 +69,7 @@ SpriteRenderer:
   m_SortingLayerID: -322976953
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: c968cccf16e4eac41b3356ec9d9aae78, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99b186bf9c0083140b37610bfc75f97a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
