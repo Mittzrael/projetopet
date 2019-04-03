@@ -46,16 +46,13 @@ public class Pet: MonoBehaviour
         Debug.Log("bebi");
     }
 
-    /// <summary>
-    /// TODO: Coco e xixi em lugares aleatórios
-    /// </summary>
     public IEnumerator PeeOnLocation()
     {
         pee = Resources.Load("Prefabs/Items/Pee") as GameObject;
         Vector3 position = new Vector3(transform.position.x, transform.position.y - GetComponent<Renderer>().bounds.size.y / 2, transform.position.z-5); //Eixo Z tem que ser menor para ficar mais perto da câmera e ativar o OnMouseDown()
         Instantiate(pee, position, Quaternion.identity);
         SaveManager.instance.player.health.PutInPee(-0.5f); //Esvazia pela metade a vontade do animal de fazer xixi
-        SaveManager.instance.player.peeLocation.Add(SceneManager.GetActiveScene().name, position);
+        SaveManager.instance.player.peeLocation.Add(petCurrentLocation.sceneName, position);
         yield return new WaitForSeconds(0);
     }
 
@@ -68,19 +65,25 @@ public class Pet: MonoBehaviour
         Vector3 position = new Vector3(transform.position.x, transform.position.y - GetComponent<Renderer>().bounds.size.y/2, transform.position.z-5);
         Instantiate(poop, position, Quaternion.identity);
         SaveManager.instance.player.health.PutInPoop(-0.5f); //Esvazia pela metade a vontade do animal de fazer cocô
-        SaveManager.instance.player.poopLocation.Add(SceneManager.GetActiveScene().name, position);
+        SaveManager.instance.player.poopLocation.Add(petCurrentLocation.sceneName, position);
         yield return new WaitForSeconds(0);
     }
 
     public void PoopRandomPlace()
     {
         string sceneName = ReturnSceneName();
-        Vector3 position = randomPosition(sceneName); 
-        //SaveManager.instance.player.poopLocation.Add(sceneName, );
+        Vector3 position = RandomPosition(sceneName); 
+        SaveManager.instance.player.poopLocation.Add(sceneName, position);
     }
 
+    public void PeeRandomPlace()
+    {
+        string sceneName = ReturnSceneName();
+        Vector3 position = RandomPosition(sceneName);
+        SaveManager.instance.player.peeLocation.Add(sceneName, position);
+    }
 
-    private Vector3 randomPosition(string scene)
+    private Vector3 RandomPosition(string scene)
     {
         Vector3 position = new Vector3();
 
@@ -121,12 +124,7 @@ public class Pet: MonoBehaviour
                 return "";
         }
     } 
-
-    public void PeeRandomPlace()
-    {
-
-    }
-
+    
     public void Play()
     {
 
