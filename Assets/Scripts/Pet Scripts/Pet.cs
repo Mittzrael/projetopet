@@ -32,11 +32,21 @@ public class Pet: MonoBehaviour
         petCurrentLocation.sceneName = sceneName;
     }
 
+    public IEnumerator Eat()
+    {
+        yield return new WaitForSeconds(0);
+    }
+
     public void Eat(Food food)
     {
         SaveManager.instance.player.health.PutInHungry(food.GetNutrionalValor());
         Debug.Log("comi");
         SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor()/2);
+    }
+
+    public IEnumerator Drink()
+    {
+        yield return new WaitForSeconds(0);
     }
 
     public void Drink(Food food)
@@ -72,23 +82,23 @@ public class Pet: MonoBehaviour
         yield return new WaitForSeconds(0);
     }
 
-    public void PoopRandomPlace()
-    {
-        string sceneName = ReturnSceneName();
-        Vector3 position = randomPosition(sceneName); 
-        //SaveManager.instance.player.poopLocation.Add(sceneName, );
-    }
+    //public void PoopRandomPlace()
+    //{
+    //    string sceneName = ReturnSceneName();
+    //    Vector3 position = randomPosition(sceneName);
+    //    SaveManager.instance.player.poopLocation.Add(sceneName, );
+    //}
 
-    private Vector3 randomPosition(string scene)
-    {
-        Vector3 position = new Vector3();
-        int upperBound;
-        int lowerBound;
+    //private Vector3 randomPosition(string scene)
+    //{
+    //    Vector3 position = new Vector3();
+    //    int upperBound;
+    //    int lowerBound;
 
 
 
-        position.x = 
-    }
+    //    position.x =
+    //}
 
     public string ReturnSceneName()
     {
@@ -104,8 +114,6 @@ public class Pet: MonoBehaviour
                 return "";
         }
     }
-
-    public 
 
     public void PeeRandomPlace()
     {
