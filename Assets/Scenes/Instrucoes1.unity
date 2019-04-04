@@ -468,9 +468,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogos:
+  - "Ol\xE1! Eu sou um agente da subsecretaria estadual de defesa dos animais."
   - "Antes de levar seu novo amigo para casa, vamos preparar o ambiente para receb\xEA-lo."
   - Tem que estar tudo certo, tudo bem?
-  texture: {fileID: 2800000, guid: 12c2c24582bb7e048b473e5cf5046e8d, type: 3}
+  texture: {fileID: 2800000, guid: 1e1120d3976102042bd6930bfae93f8e, type: 3}
   nextScene: Tela dos erros iniciais
 --- !u!1 &980569436
 GameObject:

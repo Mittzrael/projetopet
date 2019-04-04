@@ -14,6 +14,7 @@ public class SelectTutorial : MonoBehaviour
     private void Start()
     {
         listOfTutorials = new string[qtyHome, qtyAnimal];
+        listOfGraphs = new int[qtyHome, qtyAnimal];
         CompleteArray();
     }
 
