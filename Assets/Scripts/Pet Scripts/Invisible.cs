@@ -15,11 +15,13 @@ public class Invisible : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    /// <summary>
+    /// Verifica se a imagem do pet deveria estar sendo mostrada. Caso não, desliga a imagem.
+    /// </summary>
     public void StatusVerify()
     {
         if (pet.GetComponent<Pet>().GetPetLocation().sceneName.Equals(SceneManager.GetActiveScene().name))
         {
-            //pet.SetActive(true);
             pet.GetComponent<SpriteRenderer>().enabled = true;
             BackToOpaque(pet);
         }
@@ -27,7 +29,6 @@ public class Invisible : MonoBehaviour
         else
         {
             pet.GetComponent<SpriteRenderer>().enabled = false;
-            //pet.SetActive(false);
         }
     }
 
