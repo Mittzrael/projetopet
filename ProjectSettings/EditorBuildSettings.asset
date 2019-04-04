@@ -36,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LivingRoom.unity
     guid: 994e6e7dfde8950498757bf337c0af41
   - enabled: 0
-    path: Assets/Scenes/yard.unity
+    path: Assets/Scenes/Yard.unity
     guid: 8eac2128c0797f2469db151427a6002c
   - enabled: 1
     path: Assets/Scenes/kitchen.unity
