@@ -188,69 +188,6 @@ public class BasicPetAI : MonoBehaviour
 
         StartCoroutine(MoveToPosition(player.foodPotLocation, pet.Eat));
         yield return new WaitForEndOfFrame();
-
-        /*string currentScene = pet.GetPetLocation().sceneName;
-        float movePosition;
-        float newStartPosition = 0;
-        string temp_name = currentScene;
-        bool keepSearching = false;
-        int elementIndex = 0;
-
-        foreach(ElementLocation element in player.petElementsLocations)
-        {
-            if (element.elementName == "Pote de Comida")
-            {
-                elementIndex = player.petElementsLocations.IndexOf(element);
-                break;
-            }
-        }
-
-        if (currentScene == player.petElementsLocations[elementIndex].sceneName)
-        {
-            movePosition = player.petElementsLocations[elementIndex].elementPosition.x;
-        }
-        else
-        {
-            //Debug.Log(player.foodLocationSceneName);
-            var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[elementIndex].sceneName);
-            string[] name = HasHSetToString(path).Split(',');
-            Debug.Log(name.Length);
-            for (int i = name.Length - 1; i > 0; i--)
-            {
-                Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
-            }
-
-            Debug.Log(name[0] + " " + name[1]);
-            temp_name = name[name.Length - 2];
-            keepSearching = true;
-            movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
-            newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
-        }
-
-        //Debug.Log(movePosition + " " + newStartPosition);
-        petAnimationScript.MoveAnimalAndando(movePosition);
-
-        yield return new WaitUntil(() => !petAnimationScript.isWalking);
-
-        if (keepSearching)
-        {
-            Debug.Log("Pet muda de scene e continua a busca..." + temp_name);
-            StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(temp_name));
-            yield return new WaitForSeconds(0.5f);
-
-            Vector3 petPosition = pet.gameObject.transform.position;
-            pet.gameObject.transform.position = new Vector3(newStartPosition, petPosition.y, petPosition.z);
-
-            StartCoroutine(PetHungry());
-        }
-        else
-        {
-            Debug.Log("Pet chegou no pote de comida - verifica se tem comida e faz ação equivalente");
-            // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
-            player.health.PutInHungry(1f);
-            hungryOnDelegate = false;
-            isPetDoingSomething = false;
-        }*/
     }
     
     /// <summary>
@@ -273,71 +210,6 @@ public class BasicPetAI : MonoBehaviour
 
         StartCoroutine(MoveToPosition(player.waterPotLocation, pet.Drink));
         yield return new WaitForEndOfFrame();
-
-        /*string currentScene = pet.GetPetLocation().sceneName;
-        float movePosition;
-        float newStartPosition = 0;
-        string temp_name = currentScene;
-        bool keepSearching = false;
-        int elementIndex = 0;
-
-        foreach (ElementLocation element in player.petElementsLocations)
-        {
-            if (element.elementName == "Pote de Água")
-            {
-                elementIndex = player.petElementsLocations.IndexOf(element);
-                break;
-            }
-        }
-
-        if (currentScene == player.petElementsLocations[elementIndex].sceneName)
-        {
-            movePosition = player.petElementsLocations[elementIndex].elementPosition.x;
-        }
-        else
-        {
-            //Debug.Log(player.foodLocationSceneName);
-            var path = petAccessGraph.BFS(currentScene, player.petElementsLocations[elementIndex].sceneName);
-            string[] name = HasHSetToString(path).Split(',');
-            //for (int i = name.Length - 1; i > 0; i--)
-            //{
-            //    Debug.Log(name[i] + " -> " + petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]));
-            //}
-
-            //Debug.Log(name[0] + " " + name[1]);
-            temp_name = name[name.Length - 2];
-            keepSearching = true;
-            movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
-            newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
-        }
-
-        petAnimationScript.MoveAnimalAndando(movePosition);
-
-        yield return new WaitUntil(() => !petAnimationScript.isWalking);
-
-        if (keepSearching)
-        {
-            Debug.Log("Pet muda de scene e continua a busca..." + temp_name);
-            StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(temp_name));
-            yield return new WaitForSeconds(0.5f);
-
-            Vector3 petPosition = pet.gameObject.transform.position;
-            pet.gameObject.transform.position = new Vector3(newStartPosition, petPosition.y, petPosition.z);
-
-            StartCoroutine(PetThisty());
-        }
-        else
-        {
-            Debug.Log("Pet chegou no pote de comida - verifica se tem comida e faz ação equivalente");
-            // Simulação da verificação - tem comida e o pet come (adiciona o valor da comida no petHungry)
-            player.health.PutInThirsty(1f);
-            thirstyOnDelegate = false;
-            isPetDoingSomething = false;
-        }
-
-        //yield return new WaitForSeconds(2f);
-        //Debug.Log("Sede");
-        //thirstyOnDelegate = false;*/
     }
     
     /// <summary>
@@ -367,13 +239,16 @@ public class BasicPetAI : MonoBehaviour
     {
         isPetDoingSomething = true;
 
+        // Verifica se o pet sabe (foi ensinado) o local correto de fazer as suas necessidades
         if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
         {
+            // Se ele sabe o local, se move até lá e faz
             Debug.Log("move");
             StartCoroutine(MoveToPosition(player.wasteLocation, pet.PeeOnLocation));
         }
         else
         {
+            // Caso contrário, faz no local em que está
             StartCoroutine(pet.PeeOnLocation());
         }
         Debug.Log("Pee");
@@ -388,13 +263,16 @@ public class BasicPetAI : MonoBehaviour
     {
         isPetDoingSomething = true;
 
+        // Verifica se o pet sabe (foi ensinado) o local correto de fazer as suas necessidades
         if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
         {
+            // Se ele sabe o local, se move até lá e faz
             Debug.Log("move");
             StartCoroutine(MoveToPosition(player.wasteLocation, pet.PoopOnLocation));
         }
         else
         {
+            // Caso contrário, faz no local em que está
             StartCoroutine(pet.PoopOnLocation());
         }
         Debug.Log("Poop");
@@ -419,30 +297,41 @@ public class BasicPetAI : MonoBehaviour
                 if (Random.Range(0f, 1f) <= chanceToGoToActiveScene)
                 {
                     Debug.Log("Indo pra active scene");
+                    // Busca a rota para a active scene a partir da localização atual do pet
                     var path = petAccessGraph.BFS(pet.petCurrentLocation.sceneName, SceneManager.GetActiveScene().name);
+                    // Concatena a resposta em uma string, separando os nomes das scenes por vírgulas
+                    // Depois separa a string em um vetor de strings, separando pelas vírgulas
                     string[] name = HasHSetToString(path).Split(',');
+                    // Para cada elemento do vetor, realiza os movimentos do pet
                     for (int i = name.Length - 1; i > 0; i--)
                     {
-                        float movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]);
+                        //float movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i], name[i - 1]);
+                        // Pega a posição da próxima porta para onde o pet irá
                         float newPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[i - 1], name[i]);
+                        // Pega a posição atual do pet para posicioná-lo na posição exata
                         Vector3 petPosition = pet.gameObject.transform.position;
+                        // Coloca o pet na posição x da porta, enquanto mantem as posições y e z do pet
                         pet.gameObject.transform.position = new Vector3(newPosition, petPosition.y, petPosition.z);
+                        // Informa que o pet mudou de scene
                         StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(name[i - 1]));
-
-                        Vector3 midScreen = petPosition;
+                        // Pega a posição central da camera (localização para onde o pet irá)
+                        Vector3 midScreen = new Vector3(); //petPosition;
                         midScreen = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 1f));
+                        // Chama a animação de movimento do pet
                         petAnimationScript.MoveAnimalAndando(midScreen.x);
-
+                        // Aguarda o término da animação
                         yield return new WaitUntil(() => !petAnimationScript.isWalking);
                     }
-                    
+                    // Retorna a chance para 50%
                     chanceToGoToActiveScene = 0.5f;
                 } 
                 else
                 {
+                    // Caso o pet não foi para a ActiveScene, aumenta a chace em 5%
                     chanceToGoToActiveScene += 0.05f;
                 }
             }
+            // Se o pet estiver na ActiveScene, verifica se o pet vai realizar alguma ação aleatória
             else
             {
                 randomActionCountdown = 0;
@@ -452,12 +341,14 @@ public class BasicPetAI : MonoBehaviour
                 {
                     case 0: // Pet se coça
                         Debug.Log("Movimento aleatório - Coçando");
+                        // Chama a animação de coçar e aguarda
                         petAnimationScript.Cocando();
                         yield return new WaitForSeconds(1);
                         break;
                     case 1: // Pet se move até um ponto aleatório na scene
                         float move = Random.Range(moveRangeMin, moveRangeMax) * moveRangeMultiplier;
                         Debug.Log("Movimento aleatório - Andando " + move);
+                        // Chama a animação de mover e aguarda o fim do movimento
                         petAnimationScript.MoveAnimalAndando(move);
                         yield return new WaitUntil(() => !petAnimationScript.isWalking);
                         break;
@@ -522,56 +413,84 @@ public class BasicPetAI : MonoBehaviour
         StopAllCoroutines();
     }
 
+    /// <summary>
+    /// Função que informa ao Pet que a ação que o mesmo estava realizando terminou
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator IsPetDoingSometingSetFalse()
     {
-        Debug.Log("Pet não está fazendo nada");
+        //Debug.Log("Pet não está fazendo nada");
         isPetDoingSomething = false;
         yield return new WaitForEndOfFrame();
     }
 
+    /// <summary>
+    /// Função que movimenta o pet para um local determinado e chama uma função quando chegar lá
+    /// </summary>
+    /// <param name="element"> Local para onde o pet deve ir (variável do tipo ElementLocation) </param>
+    /// <param name="functionToCall"> Função a ser chamada (do tipo IEnumerator sem nenhum parametro de entrada) </param>
+    /// <returns></returns>
     public IEnumerator MoveToPosition(ElementLocation element, PetAction functionToCall)
     {
+        // Chama a verificação do status do pet (verifica se ele está na scene ou não e "instancia" caso necessário)
         gameObject.GetComponent<Invisible>().StatusVerify();
 
+        // Nome da scene em que o pet se encontra
         string currentScene = pet.GetPetLocation().sceneName;
         float movePosition;
         float newStartPosition = 0;
         string temp_name = currentScene;
+        // Vaariável que indica se o pet deve continuar procurando pelo local ou se ele já se encontra lá
         bool keepSearching = false;
 
+        // Se o pet está na scene que ele quer estar
         if (currentScene == element.sceneName)
         {
+            // O pet se move para o local do objeto que ele estava procurando
             movePosition = element.elementPosition.x;
         }
         else
         {
+            // Pet busca pelo caminho que deve seguir até a scene que ele quer estar (scene em que está o objeto que ele está procurando)
             var path = petAccessGraph.BFS(currentScene, element.sceneName);
+            // Transforma a informação em uma string separada por vírgulas
+            // Depois separa em um vetor de strings, separando pelas vírgulas
             string[] name = HasHSetToString(path).Split(',');
 
+            // Pega o nome da penúltima scene na lista de scenes
             temp_name = name[name.Length - 2];
+            // Informa que ele deve continuar procurando pois ainda não está na scene correta
             keepSearching = true;
+            // Pega  aposição da porta por qual o pet deve entrar para a scene que ele quer ir
             movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
+            // Pega a posição da porta por qual ele irá sair na nova scene
             newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
         }
 
+        // Faz o pet se mover até a posição
         petAnimationScript.MoveAnimalAndando(movePosition);
-
+        
+        // Aguarda o fim da movimentação para continuar
         yield return new WaitUntil(() => !petAnimationScript.isWalking);
 
+        // Se o pet não está onde queria estar
         if (keepSearching)
         {
             Debug.Log("Pet muda de scene e continua a busca..." + temp_name);
+            // Inicia a animação de transição de scene
             StartCoroutine(gameObject.GetComponent<Invisible>().PetChangeLocation(temp_name));
             yield return new WaitForSeconds(0.5f);
-
+            // Posiciona o pet na posição da porta por onde ele deve sair (mantendo as posições y e z atuais do pet)
             Vector3 petPosition = pet.gameObject.transform.position;
             pet.gameObject.transform.position = new Vector3(newStartPosition, petPosition.y, petPosition.z);
-
+            
+            // Chama novamente a função de movimento
             StartCoroutine(MoveToPosition(element, functionToCall));
         }
         else
         {
             Debug.Log("Pet chegou no local marcado");
+            // Se ele está no local que queria, chama a função que foi passada como parâmetro
             StartCoroutine(functionToCall());
         }
     }
