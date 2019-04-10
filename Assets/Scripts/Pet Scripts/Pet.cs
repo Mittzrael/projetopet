@@ -51,7 +51,7 @@ public class Pet : MonoBehaviour
     /// <param name="food"></param>
     public void Eat(Food food)
     {
-        SaveManager.instance.player.health.PutInHungry(food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInHungry(false);
         SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor() / 2);
         Debug.Log("comi");
     }

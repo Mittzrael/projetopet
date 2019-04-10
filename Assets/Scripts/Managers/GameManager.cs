@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     {
         TimeOffDecrease();
         StartCoroutine(DecreaseHappiness(decreaseTimeHappiness));
-        StartCoroutine(DecreaseHungry(decreaseTimeHungry));
+        //StartCoroutine(DecreaseHungry(decreaseTimeHungry));
         StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
         StartCoroutine(DecreaseHygiene(decreaseTimeHygiene));
     }
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
         health.PutInHappiness(decreaseRate * timeElapsedForAttribute);
 
         timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHungry);
-        health.PutInHungry(decreaseRate * timeElapsedForAttribute);
+        //health.PutInHungry(decreaseRate * timeElapsedForAttribute);
 
         timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeThirsty);
         health.PutInThirsty(decreaseRate * timeElapsedForAttribute);
@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
         health.PutInHygiene(decreaseRate * timeElapsedForAttribute);
     }
 
+    /*
     /// <summary>
     /// Diminui a fome de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
     /// </summary>
@@ -141,6 +142,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds((float)s);
         StartCoroutine(DecreaseHungry(s));
     }
+    */
 
     /// <summary>
     /// Diminui a sede de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos

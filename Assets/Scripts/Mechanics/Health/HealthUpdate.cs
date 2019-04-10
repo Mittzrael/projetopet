@@ -27,10 +27,19 @@ public class HealthUpdate : MonoBehaviour
         Invoke(gameObject.name, 0);
     }
     
+    
     private void Ration()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetHungry();
+        if (saveManager.player.health.GetHungry())
+        {
+            transform.GetChild(1).GetComponent<Image>().fillAmount = 0;// saveManager.player.health.GetHungry();
+        }
+        else
+        {
+            transform.GetChild(1).GetComponent<Image>().fillAmount = 1;// saveManager.player.health.GetHungry();
+        }
     }
+    
 
     private void Water()
     {
