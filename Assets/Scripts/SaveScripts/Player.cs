@@ -48,8 +48,7 @@ public class Player
     public PotStatus waterPot;
     public int currentPeriod;
     public int dayCounter;
-    public double lastMeal;
-    public double timeSinceLastMeal;
+    public string lastMeal;
 
     public List<Flag> flag = new List<Flag>();
 }

@@ -36,19 +36,21 @@ public class GameManager : MonoBehaviour
     private SoundManager soundManager;
     private AnimationManager animManager;
     private SaveManager saveManager;
+    private TimeManager timeManager;
 
     public bool BlockSwipe { get => blockSwipe; set => blockSwipe = value; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitializeManagers()
     {
-        GameObject videoManager, gameManager, animManager, soundManager, saveManager;
+        GameObject videoManager, gameManager, animManager, soundManager, saveManager, timeManager;
         
         videoManager = Resources.Load("Prefabs/VideoManager") as GameObject;
         gameManager = Resources.Load("Prefabs/GameManager") as GameObject;
         animManager = Resources.Load("Prefabs/AnimationManager") as GameObject;
         soundManager = Resources.Load("Prefabs/SoundManager") as GameObject;
         saveManager = Resources.Load("Prefabs/SaveManager") as GameObject;
+        timeManager = Resources.Load("Prefabs/TimeManager") as GameObject;
 
         if (VideoManager.instance == null)
         {
@@ -73,6 +75,11 @@ public class GameManager : MonoBehaviour
         if(SaveManager.instance == null)
         {
             Instantiate(saveManager);
+        }
+
+        if (TimeManager.instance == null)
+        {
+            Instantiate(timeManager);
         }
     }
     #endregion
@@ -202,12 +209,15 @@ public class GameManager : MonoBehaviour
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
         StartCoroutine(timeManager.StartPeriodTimeCount());
-        StartCoroutine(timeManager.StartResetTimeCount());
+        if (!timeManager.limitTimeRunning)
+        {
+            StartCoroutine(timeManager.StartResetTimeCount());
+        }
     }
 
     private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
-        SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager
+        SaveManager.instance.player.lastMeal = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager
         if (SaveManager.instance.player.flag[0].state)
         {
             SaveManager.instance.Save();

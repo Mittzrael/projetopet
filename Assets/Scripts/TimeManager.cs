@@ -16,6 +16,8 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     private double timeSinceLastMeal;
 
+    public bool limitTimeRunning;
+
     #region Getters & Setters
     public int GetCurrentPeriod()
     {
@@ -49,7 +51,6 @@ public class TimeManager : MonoBehaviour
     public void Start()
     {
         currentPeriod = SaveManager.instance.player.currentPeriod;
-        timeSinceLastMeal = SaveManager.instance.player.timeSinceLastMeal;
     }
 
     /// <summary>
@@ -57,6 +58,7 @@ public class TimeManager : MonoBehaviour
     /// </summary>
     public void ForwardToNextPeriod()
     {
+        Debug.Log("Entrou no Forward");
         currentPeriod++;
         currentPeriod = (currentPeriod % numberOfPeriods);
         if (currentPeriod == 0)
@@ -70,16 +72,19 @@ public class TimeManager : MonoBehaviour
     {
         if (TimeSinceMeal() > limitTime)
         {
+            Debug.Log("Entrou no 1");
             ResetPeriod();
         }
 
         else if (TimeSinceMeal() > timeBetweenPeriods[currentPeriod])
         {
+            Debug.Log("Entrou no 2");
             ForwardToNextPeriod();
         }
 
         else
         {
+            Debug.Log("Entrou no 3");
             GameManager.instance.StartPeriod();
         }
     }
@@ -91,7 +96,8 @@ public class TimeManager : MonoBehaviour
     {
         SaveManager.instance.player.currentPeriod = 0;
         currentPeriod = 0;
-        SaveManager.instance.player.lastMeal = 0;
+        SaveManager.instance.player.lastMeal = "";
+        limitTimeRunning = false;
         ///Momento de chamar alguma bronca aqui sendo que a próxima linha pode ir para o final da função que toca a animação.
         GameManager.instance.StartPeriod();
     }
@@ -102,6 +108,7 @@ public class TimeManager : MonoBehaviour
     /// <returns></returns>
     public IEnumerator StartResetTimeCount()
     {
+        limitTimeRunning = true;
         if (TimeSinceMeal() > limitTime)
         {
             ResetPeriod();
@@ -121,6 +128,7 @@ public class TimeManager : MonoBehaviour
     {
         if (TimeSinceMeal() > timeBetweenPeriods[currentPeriod])
         {
+            Debug.Log("Chamou o forward");
             ForwardToNextPeriod();
         }
 
@@ -138,7 +146,8 @@ public class TimeManager : MonoBehaviour
     public static double TimeSinceMeal()
     {
         System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
-        System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastTimePlayed); //Tempo atual - tempo da última vez que foi jogado
+        System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastMeal); //Tempo atual - tempo da última vez que foi jogado
+        Debug.Log("Foi chamado, passaram " + timeElapsed.TotalSeconds.ToString() + " segundos");
         return timeElapsed.TotalSeconds;
     }
 
