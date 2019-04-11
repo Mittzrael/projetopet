@@ -496,5 +496,16 @@ public class BasicPetAI : MonoBehaviour
             StartCoroutine(functionToCall());
         }
     }
+    
+    public void SetHungryOnDelegateBool(bool value)
+    {
+        hungryOnDelegate = value;
+    }
+
+    public void SetThirstyOnDelegateBool(bool value)
+    {
+        thirstyOnDelegate = value;
+    }
+
     #endregion
 }

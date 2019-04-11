@@ -10,10 +10,12 @@ public class Pet : MonoBehaviour
     private GameObject poop;
     private GameObject pee;
     private DogMitza petAnimationScript;
+    private PetMovement petMovement;
 
     public void Start()
     {
         petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
+        petMovement = gameObject.GetComponentInParent<PetMovement>();
     }
 
     public ElementLocation GetPetLocation()
@@ -41,7 +43,8 @@ public class Pet : MonoBehaviour
         ///Play Animation
         Eat(SaveManager.instance.player.foodPot.content);
         // Informa que o pet acabou de fazer sua ação
-        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
+        StartCoroutine(petMovement.IsPetDoingSometingSetFalse());
+        petMovement.SetHungryOnDelegateBool(false);
         yield return new WaitForSeconds(0);
     }
 
@@ -65,7 +68,8 @@ public class Pet : MonoBehaviour
         ///Play Animation
         Drink(SaveManager.instance.player.waterPot.content);
         // Informa que o pet acabou de fazer sua ação
-        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
+        StartCoroutine(petMovement.IsPetDoingSometingSetFalse());
+        petMovement.SetThirstyOnDelegateBool(false);
         yield return new WaitForSeconds(0);
     }
 

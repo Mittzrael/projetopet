@@ -50,9 +50,9 @@ public class PetMovement : MonoBehaviour
     private System.Delegate[] petDelegateList;
 
     //#region Variáveis utilizadas para bloquear uma ação que já está armazenada na delegate e ainda não foi chamada
-    //private bool hungryOnDelegate = false;
+    private bool hungryOnDelegate = false;
     //private bool hungryWarningOnDelegate = false;
-    //private bool thirstyOnDelegate = false;
+    private bool thirstyOnDelegate = false;
     //private bool thirstyWarningOnDelegate = false;
     //private bool sadOnDelegate = false;
     //private bool peeOnDelegate = false;
@@ -127,18 +127,17 @@ public class PetMovement : MonoBehaviour
             // VERIFICAÇÃO DO ESTADO DO PET
             // Verifica se um status específico está fora do limite aceitável para o pet e se a ação já está na lista
             // Se estiver fora do limite e não estiver na lista de ações, adiciona na lista (delegate) e sinaliza como adicionado
-            /*
-            if (petHealth.GetHungry() < healthLimit.GetHungry() && !hungryOnDelegate)
+            if (petHealth.GetHungry() && !hungryOnDelegate)
             {
                 petActionList += PetHungry;
                 hungryOnDelegate = true;
             }
-            
             if (petHealth.GetThirsty() < healthLimit.GetThirsty() && !thirstyOnDelegate)
             {
                 petActionList += PetThisty;
                 thirstyOnDelegate = true;
             }
+            /*
             if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
             {
                 petActionList += PetPoop;
@@ -188,10 +187,33 @@ public class PetMovement : MonoBehaviour
         isPetDoingSomething = true;
         Debug.Log("Fome");
 
+        StartCoroutine(MoveToPosition(player.foodPotLocation, IsPetDoingSometingSetFalse));
+        yield return new WaitForEndOfFrame();
+    }
+    
+    public IEnumerator PetGoEat()
+    {
+        yield return new WaitUntil(() => !isPetDoingSomething);
+
+        isPetDoingSomething = true;
+        Debug.Log("Foi comer");
+
         StartCoroutine(MoveToPosition(player.foodPotLocation, pet.Eat));
         yield return new WaitForEndOfFrame();
     }
-       
+
+    /// <summary>
+    /// Função que comanda o pet quando ele está com sede
+    /// </summary>
+    private IEnumerator PetThisty()
+    {
+        isPetDoingSomething = true;
+        Debug.Log("Sede");
+
+        StartCoroutine(MoveToPosition(player.waterPotLocation, pet.Drink));
+        yield return new WaitForEndOfFrame();
+    }
+
     /// <summary>
     /// Função que controla os movimentos aleatórios do pet
     /// Movimentos que ocorrem quando o pet não possui nenhuma outra necessidade
@@ -331,7 +353,7 @@ public class PetMovement : MonoBehaviour
     /// <returns></returns>
     public IEnumerator IsPetDoingSometingSetFalse()
     {
-        //Debug.Log("Pet não está fazendo nada");
+        Debug.Log("Pet não está fazendo nada");
         isPetDoingSomething = false;
         yield return new WaitForEndOfFrame();
     }
@@ -405,6 +427,21 @@ public class PetMovement : MonoBehaviour
             // Se ele está no local que queria, chama a função que foi passada como parâmetro
             StartCoroutine(functionToCall());
         }
+    }
+    
+    public void SetHungryOnDelegateBool(bool value)
+    {
+        hungryOnDelegate = value;
+    }
+
+    public void SetThirstyOnDelegateBool(bool value)
+    {
+        thirstyOnDelegate = value;
+    }
+    
+    public IEnumerator WaitForPetEndAction()
+    {
+        yield return new WaitUntil(() => !isPetDoingSomething);
     }
     #endregion
 }

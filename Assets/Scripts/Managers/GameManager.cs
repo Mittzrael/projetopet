@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         int timeElapsedForAttribute = (int)(timeElapsed/decreaseTimeHappiness);
         health.PutInHappiness(decreaseRate * timeElapsedForAttribute);
 
-        timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHungry);
+        //timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHungry);
         //health.PutInHungry(decreaseRate * timeElapsedForAttribute);
 
         timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeThirsty);
