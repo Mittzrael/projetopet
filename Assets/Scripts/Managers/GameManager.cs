@@ -196,6 +196,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(animManager.Fade(scene));
     }
 
+    public void StartPeriod()
+    {
+        TimeManager timeManager = TimeManager.instance;
+        ///Coisas que acontecem no começo do período
+        Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
+        StartCoroutine(timeManager.StartPeriodTimeCount());
+        StartCoroutine(timeManager.StartResetTimeCount());
+    }
+
     private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
         SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager

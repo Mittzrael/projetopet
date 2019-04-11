@@ -38,7 +38,6 @@ public class Player
     /// Lugar onde o cachoro irá fazer suas necessidades fisiológicas.
     /// </summary>
     public ElementLocation wasteLocation;
-
     /// <summary>
     /// Status do pot de comida
     /// </summary>
@@ -47,6 +46,10 @@ public class Player
     /// Status do pot de água
     /// </summary>
     public PotStatus waterPot;
+    public int currentPeriod;
+    public int dayCounter;
+    public double lastMeal;
+    public double timeSinceLastMeal;
 
     public List<Flag> flag = new List<Flag>();
 }
