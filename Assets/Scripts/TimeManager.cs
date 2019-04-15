@@ -23,10 +23,8 @@ public class TimeManager : MonoBehaviour
     private int numberOfPeriods;
     [SerializeField]
     private double limitTime;
-    [SerializeField]
-    private double timeSinceLastMeal;
     private SaveManager saveManager;
-
+    
     #region Getters & Setters
     /// <summary>
     /// Retorna o período atual
