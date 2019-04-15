@@ -6,11 +6,16 @@ using System;
 
 public class Teste : MonoBehaviour
 {
-    public void Awake()
+    public void Start()
     {
         SaveManager saveManager;
         saveManager = SaveManager.instance;
-        saveManager.player.lastMeal = System.DateTime.UtcNow.ToString();
+        //saveManager.player.timeHelper.lastMeal = System.DateTime.UtcNow.ToString();
         TimeManager.instance.PeriodChecker();
+    }
+
+    public void SetLastMeal()
+    {
+        SaveManager.instance.player.timeHelper.lastMeal = System.DateTime.UtcNow.ToString();
     }
 }

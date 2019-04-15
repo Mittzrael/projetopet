@@ -208,16 +208,11 @@ public class GameManager : MonoBehaviour
         TimeManager timeManager = TimeManager.instance;
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
-        StartCoroutine(timeManager.StartPeriodTimeCount());
-        if (!timeManager.limitTimeRunning)
-        {
-            StartCoroutine(timeManager.StartResetTimeCount());
-        }
+        timeManager.StartTimerCount();
     }
 
     private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
-        SaveManager.instance.player.lastMeal = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager
         if (SaveManager.instance.player.flag[0].state)
         {
             SaveManager.instance.Save();

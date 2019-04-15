@@ -46,9 +46,7 @@ public class Player
     /// Status do pot de água
     /// </summary>
     public PotStatus waterPot;
-    public int currentPeriod;
-    public int dayCounter;
-    public string lastMeal;
+    public TimeHelper timeHelper;
 
     public List<Flag> flag = new List<Flag>();
 }

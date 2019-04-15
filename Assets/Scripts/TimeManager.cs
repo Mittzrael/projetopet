@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class TimeHelper
+{
+    public int currentPeriod;
+    public int dayCounter;
+    public string lastMeal;
+    public bool betweenMealAndPeriod = false;
+    public bool betweenMealAndTimeLimit = false;
+}
+
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager instance = null;
@@ -12,11 +22,9 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     private int numberOfPeriods;
     [SerializeField]
-    private double limitTime;
+    private double limitTime = 60;
     [SerializeField]
     private double timeSinceLastMeal;
-
-    public bool limitTimeRunning;
 
     #region Getters & Setters
     public int GetCurrentPeriod()
@@ -34,7 +42,6 @@ public class TimeManager : MonoBehaviour
         return limitTime;
     }
     #endregion
-
     private void Awake()
     {
         if (instance == null)
@@ -50,7 +57,13 @@ public class TimeManager : MonoBehaviour
 
     public void Start()
     {
-        currentPeriod = SaveManager.instance.player.currentPeriod;
+        currentPeriod = SaveManager.instance.player.timeHelper.currentPeriod;
+    }
+
+    public void StartTimerCount()
+    {
+        StartCoroutine(StartPeriodTimeCount());
+        StartCoroutine(StartResetTimeCount());
     }
 
     /// <summary>
@@ -65,6 +78,7 @@ public class TimeManager : MonoBehaviour
         {
           DayCounterUp();
         }
+        SaveManager.instance.player.timeHelper.betweenMealAndPeriod = false;
         GameManager.instance.StartPeriod();
     }
 
@@ -94,10 +108,12 @@ public class TimeManager : MonoBehaviour
     /// </summary>
     public void ResetPeriod()
     {
-        SaveManager.instance.player.currentPeriod = 0;
+        SaveManager saveManager = SaveManager.instance;
+        SaveManager.instance.player.timeHelper.currentPeriod = 0;
         currentPeriod = 0;
-        SaveManager.instance.player.lastMeal = "";
-        limitTimeRunning = false;
+        SaveManager.instance.player.timeHelper.lastMeal = "";
+        saveManager.player.timeHelper.betweenMealAndTimeLimit = false;
+        saveManager.player.timeHelper.betweenMealAndPeriod = false;
         ///Momento de chamar alguma bronca aqui sendo que a próxima linha pode ir para o final da função que toca a animação.
         GameManager.instance.StartPeriod();
     }
@@ -106,17 +122,22 @@ public class TimeManager : MonoBehaviour
     /// Tempo que conta até o ResetSerPermitido
     /// </summary>
     /// <returns></returns>
-    public IEnumerator StartResetTimeCount()
+    private IEnumerator StartResetTimeCount()
     {
-        limitTimeRunning = true;
-        if (TimeSinceMeal() > limitTime)
+        //yield return new WaitForSeconds(1f);
+        Debug.Log(SaveManager.instance.player.timeHelper.betweenMealAndTimeLimit);
+        if (SaveManager.instance.player.timeHelper.betweenMealAndTimeLimit)
         {
-            ResetPeriod();
-        }
-        else
-        {
-            yield return new WaitForSeconds(5f);
-            StartCoroutine(StartResetTimeCount());
+            if (TimeSinceMeal() > limitTime)
+            {
+                SaveManager.instance.player.timeHelper.betweenMealAndTimeLimit = false;
+                ResetPeriod();
+            }
+            else
+            {
+                yield return new WaitForSeconds(5f);
+                StartCoroutine(StartResetTimeCount());
+            }
         }
     }
 
@@ -124,18 +145,22 @@ public class TimeManager : MonoBehaviour
     /// Verifica de tempos em tempos se o tempo do período já foi excedido.
     /// </summary>
     /// <returns></returns>
-    public IEnumerator StartPeriodTimeCount()
+    private IEnumerator StartPeriodTimeCount()
     {
-        if (TimeSinceMeal() > timeBetweenPeriods[currentPeriod])
+        //yield return new WaitForSeconds(1f);
+        Debug.Log(SaveManager.instance.player.timeHelper.betweenMealAndPeriod);
+        if (SaveManager.instance.player.timeHelper.betweenMealAndPeriod)
         {
-            Debug.Log("Chamou o forward");
-            ForwardToNextPeriod();
-        }
-
-        else
-        {
-            yield return new WaitForSeconds(5f);
-            StartCoroutine(StartPeriodTimeCount());
+            if (TimeSinceMeal() > timeBetweenPeriods[currentPeriod])
+            {
+                ForwardToNextPeriod();
+                SaveManager.instance.player.timeHelper.betweenMealAndPeriod = false;
+            }
+            else
+            {
+                yield return new WaitForSeconds(5f);
+                StartCoroutine(StartPeriodTimeCount());
+            }
         }
     }
 
@@ -146,7 +171,7 @@ public class TimeManager : MonoBehaviour
     public static double TimeSinceMeal()
     {
         System.DateTime nowTime = System.DateTime.UtcNow; //Data atual
-        System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.lastMeal); //Tempo atual - tempo da última vez que foi jogado
+        System.TimeSpan timeElapsed = nowTime - System.Convert.ToDateTime(SaveManager.instance.player.timeHelper.lastMeal); //Tempo atual - tempo da última vez que foi jogado
         Debug.Log("Foi chamado, passaram " + timeElapsed.TotalSeconds.ToString() + " segundos");
         return timeElapsed.TotalSeconds;
     }
@@ -156,6 +181,6 @@ public class TimeManager : MonoBehaviour
     /// </summary>
     private void DayCounterUp()
     {
-        SaveManager.instance.player.dayCounter++;
+        SaveManager.instance.player.timeHelper.dayCounter++;
     }
 }
