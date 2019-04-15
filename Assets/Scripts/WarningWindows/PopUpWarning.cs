@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PopUpWarning : MonoBehaviour
 {
-    public WarningsList warningsList;
     public GameObject warningPrefab;
 
     public List<string> warnings;
