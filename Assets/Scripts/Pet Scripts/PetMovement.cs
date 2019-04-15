@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BasicPetAI : MonoBehaviour
+public class PetMovement : MonoBehaviour
 {
     #region Declaração das Variáveis
     [Tooltip("Tempo entre as verificações de ações do Pet (em segundos)")]
@@ -16,7 +16,7 @@ public class BasicPetAI : MonoBehaviour
     [Tooltip("Valor para aviso de sede")]
     public float thirstyWarning;
 
-    public static BasicPetAI instance; // Garantir a unicidade
+    public static PetMovement instance; // Garantir a unicidade
 
     protected Health petHealth; // Para facilitar o acesso a informação
     protected int randomNumber; // Número aleatório utilizado na movimetnação alatória do pet
@@ -49,15 +49,15 @@ public class BasicPetAI : MonoBehaviour
     // Vetor de delegates (utilizado para chamar uma delegate de cada vez no pacote de delegates)
     private System.Delegate[] petDelegateList;
 
-    #region Variáveis utilizadas para bloquear uma ação que já está armazenada na delegate e ainda não foi chamada
+    //#region Variáveis utilizadas para bloquear uma ação que já está armazenada na delegate e ainda não foi chamada
     private bool hungryOnDelegate = false;
-    private bool hungryWarningOnDelegate = false;
+    //private bool hungryWarningOnDelegate = false;
     private bool thirstyOnDelegate = false;
-    private bool thirstyWarningOnDelegate = false;
-    private bool sadOnDelegate = false;
-    private bool peeOnDelegate = false;
-    private bool poopOnDelegate = false;
-    #endregion
+    //private bool thirstyWarningOnDelegate = false;
+    //private bool sadOnDelegate = false;
+    //private bool peeOnDelegate = false;
+    //private bool poopOnDelegate = false;
+    //#endregion
 
     #region Variáveis para o grafo de locais de acesso do pet
     [SerializeField]
@@ -113,7 +113,7 @@ public class BasicPetAI : MonoBehaviour
 
         StartCoroutine(PetActionVerifier());
     }
-    
+
     /// <summary>
     /// Função que verifica que ação o pet irá realizar baseado no estado atual do pet e no que ele já realizou anteriormente
     /// </summary>
@@ -127,18 +127,17 @@ public class BasicPetAI : MonoBehaviour
             // VERIFICAÇÃO DO ESTADO DO PET
             // Verifica se um status específico está fora do limite aceitável para o pet e se a ação já está na lista
             // Se estiver fora do limite e não estiver na lista de ações, adiciona na lista (delegate) e sinaliza como adicionado
-            /*
-            if (petHealth.GetHungry() < healthLimit.GetHungry() && !hungryOnDelegate)
+            if (petHealth.GetHungry() && !hungryOnDelegate)
             {
                 petActionList += PetHungry;
                 hungryOnDelegate = true;
             }
-            */
             if (petHealth.GetThirsty() < healthLimit.GetThirsty() && !thirstyOnDelegate)
             {
                 petActionList += PetThisty;
                 thirstyOnDelegate = true;
             }
+            /*
             if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
             {
                 petActionList += PetPoop;
@@ -153,7 +152,7 @@ public class BasicPetAI : MonoBehaviour
             {
                 petActionList += PetSad;
                 sadOnDelegate = true;
-            }
+            }*/
 
             // Se a lista de ações do pet não estiver vazia, realiza a primeira ação da lista e a remove da lista
             if (petActionList != null)
@@ -174,32 +173,33 @@ public class BasicPetAI : MonoBehaviour
 
         // Aguarda o tempo aleatório gerado anteriormente
         yield return new WaitForSeconds(actionRandom);
-        
+
         // Chama a mesma função (para uma nova verificação do estado do pet)
         StartCoroutine(PetActionVerifier());
     }
-
+    
     #region Funções específicas de controle de cada ação do PET
     /// <summary>
     /// Função que comanda o pet quando ele está com fome
     /// </summary>
-    private IEnumerator PetHungry()
+    public IEnumerator PetHungry()
     {
         isPetDoingSomething = true;
         Debug.Log("Fome");
 
-        StartCoroutine(MoveToPosition(player.foodPotLocation, pet.Eat));
+        StartCoroutine(MoveToPosition(player.foodPotLocation, IsPetDoingSometingSetFalse));
         yield return new WaitForEndOfFrame();
     }
     
-    /// <summary>
-    /// Função que gera um aviso visual de fome quando entra na zona de aviso de fome
-    /// </summary>
-    private IEnumerator PetHungryWarnig()
+    public IEnumerator PetGoEat()
     {
-        yield return new WaitForSeconds(2f);
-        Debug.Log("Msg fome");
-        hungryWarningOnDelegate = false;
+        yield return new WaitUntil(() => !isPetDoingSomething);
+
+        isPetDoingSomething = true;
+        Debug.Log("Foi comer");
+
+        StartCoroutine(MoveToPosition(player.foodPotLocation, pet.Eat));
+        yield return new WaitForEndOfFrame();
     }
 
     /// <summary>
@@ -213,75 +213,7 @@ public class BasicPetAI : MonoBehaviour
         StartCoroutine(MoveToPosition(player.waterPotLocation, pet.Drink));
         yield return new WaitForEndOfFrame();
     }
-    
-    /// <summary>
-    /// Função que gera um aviso visual de sede quando entra na zona de aviso de sede
-    /// </summary>
-    private IEnumerator PetThirstyWarning()
-    {
-        yield return new WaitForSeconds(2f);
-        Debug.Log("Msg sede");
-        thirstyWarningOnDelegate = false;
-    }
 
-    /// <summary>
-    /// Função que comanda o pet quando ele está triste/carente
-    /// </summary>
-    private IEnumerator PetSad()
-    {
-        yield return new WaitForSeconds(2f);
-        Debug.Log("Triste");
-        sadOnDelegate = false;
-    }
-
-    /// <summary>
-    /// Função que controla o pet quando ele está com vontade de fazer xixi
-    /// </summary>
-    private IEnumerator PetPee()
-    {
-        isPetDoingSomething = true;
-
-        // Verifica se o pet sabe (foi ensinado) o local correto de fazer as suas necessidades
-        if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
-        {
-            // Se ele sabe o local, se move até lá e faz
-            Debug.Log("move");
-            StartCoroutine(MoveToPosition(player.wasteLocation, pet.PeeOnLocation));
-        }
-        else
-        {
-            // Caso contrário, faz no local em que está
-            StartCoroutine(pet.PeeOnLocation());
-        }
-        Debug.Log("Pee");
-        peeOnDelegate = false;
-        yield return new WaitForEndOfFrame();
-    }
-    
-    /// <summary>
-    /// Função que controla o pet quando ele está com vontade de fazer coco
-    /// </summary>
-    private IEnumerator PetPoop()
-    {
-        isPetDoingSomething = true;
-
-        // Verifica se o pet sabe (foi ensinado) o local correto de fazer as suas necessidades
-        if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
-        {
-            // Se ele sabe o local, se move até lá e faz
-            Debug.Log("move");
-            StartCoroutine(MoveToPosition(player.wasteLocation, pet.PoopOnLocation));
-        }
-        else
-        {
-            // Caso contrário, faz no local em que está
-            StartCoroutine(pet.PoopOnLocation());
-        }
-        Debug.Log("Poop");
-        poopOnDelegate = false;
-        yield return new WaitForEndOfFrame();
-    }
-    
     /// <summary>
     /// Função que controla os movimentos aleatórios do pet
     /// Movimentos que ocorrem quando o pet não possui nenhuma outra necessidade
@@ -421,7 +353,7 @@ public class BasicPetAI : MonoBehaviour
     /// <returns></returns>
     public IEnumerator IsPetDoingSometingSetFalse()
     {
-        //Debug.Log("Pet não está fazendo nada");
+        Debug.Log("Pet não está fazendo nada");
         isPetDoingSomething = false;
         yield return new WaitForEndOfFrame();
     }
@@ -506,6 +438,10 @@ public class BasicPetAI : MonoBehaviour
     {
         thirstyOnDelegate = value;
     }
-
+    
+    public IEnumerator WaitForPetEndAction()
+    {
+        yield return new WaitUntil(() => !isPetDoingSomething);
+    }
     #endregion
 }
