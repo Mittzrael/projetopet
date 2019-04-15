@@ -11,7 +11,7 @@ public class Teste : MonoBehaviour
         SaveManager saveManager;
         saveManager = SaveManager.instance;
         //saveManager.player.timeHelper.lastMeal = System.DateTime.UtcNow.ToString();
-        TimeManager.instance.PeriodChecker();
+        TimeManager.instance.PeriodProcess();
     }
 
     public void SetLastMeal()

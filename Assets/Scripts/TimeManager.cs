@@ -22,26 +22,41 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     private int numberOfPeriods;
     [SerializeField]
-    private double limitTime = 60;
+    private double limitTime;
     [SerializeField]
     private double timeSinceLastMeal;
+    private SaveManager saveManager;
 
     #region Getters & Setters
+    /// <summary>
+    /// Retorna o período atual
+    /// </summary>
+    /// <returns></returns>
     public int GetCurrentPeriod()
     {
         return currentPeriod;
     }
 
+    /// <summary>
+    /// Retorna o tempo de espera após o período i
+    /// </summary>
+    /// <param name="i">Período que se quer saber o tempo de espera após ele</param>
+    /// <returns>Tempo de espera</returns>
     public double GetTimeBetweenPeriods(int i)
     {
         return timeBetweenPeriods[i];
     }
 
+    /// <summary>
+    /// Retorna o tempo, em segundos, máximo em que é possível ficar sem alimentar o pet.
+    /// </summary>
+    /// <returns></returns>
     public double GetLimitTime()
     {
         return limitTime;
     }
     #endregion
+
     private void Awake()
     {
         if (instance == null)
@@ -57,32 +72,14 @@ public class TimeManager : MonoBehaviour
 
     public void Start()
     {
+        saveManager = SaveManager.instance;
         currentPeriod = SaveManager.instance.player.timeHelper.currentPeriod;
     }
 
-    public void StartTimerCount()
-    {
-        StartCoroutine(StartPeriodTimeCount());
-        StartCoroutine(StartResetTimeCount());
-    }
-
     /// <summary>
-    /// Passa para o próximo período (ciclo normal)
+    /// Função que é chamada para dizer como que o período procederá, podendo resetá-lo, avançá-lo ou então só fazer o contador continuar.
     /// </summary>
-    public void ForwardToNextPeriod()
-    {
-        Debug.Log("Entrou no Forward");
-        currentPeriod++;
-        currentPeriod = (currentPeriod % numberOfPeriods);
-        if (currentPeriod == 0)
-        {
-          DayCounterUp();
-        }
-        SaveManager.instance.player.timeHelper.betweenMealAndPeriod = false;
-        GameManager.instance.StartPeriod();
-    }
-
-    public void PeriodChecker()
+    public void PeriodProcess()
     {
         if (TimeSinceMeal() > limitTime)
         {
@@ -99,14 +96,40 @@ public class TimeManager : MonoBehaviour
         else
         {
             Debug.Log("Entrou no 3");
-            GameManager.instance.StartPeriod();
+            StartTimerCount();
         }
+    }
+
+    /// <summary>
+    /// Inicia a contagens para caso haja necessidade do periodo avançar enquanto o jogador está jogando.
+    /// </summary>
+    private void StartTimerCount()
+    {
+        StartCoroutine(StartPeriodTimeCount());
+        StartCoroutine(StartResetTimeCount());
+    }
+
+    /// <summary>
+    /// Passa para o próximo período (ciclo normal)
+    /// </summary>
+    private void ForwardToNextPeriod()
+    {
+        Debug.Log("Entrou no Forward");
+        currentPeriod++;
+        currentPeriod = (currentPeriod % numberOfPeriods);
+        if (currentPeriod == 0)
+        {
+          DayCounterUp();
+        }
+        saveManager.player.timeHelper.betweenMealAndPeriod = false;
+        saveManager.player.timeHelper.currentPeriod = currentPeriod;
+        GameManager.instance.StartPeriod();
     }
 
     /// <summary>
     /// Passa para o período 0 direto, caso o jogador passe mais de 48h sem alimentar.
     /// </summary>
-    public void ResetPeriod()
+    private void ResetPeriod()
     {
         SaveManager saveManager = SaveManager.instance;
         SaveManager.instance.player.timeHelper.currentPeriod = 0;
@@ -124,7 +147,6 @@ public class TimeManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator StartResetTimeCount()
     {
-        //yield return new WaitForSeconds(1f);
         Debug.Log(SaveManager.instance.player.timeHelper.betweenMealAndTimeLimit);
         if (SaveManager.instance.player.timeHelper.betweenMealAndTimeLimit)
         {
@@ -147,14 +169,13 @@ public class TimeManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator StartPeriodTimeCount()
     {
-        //yield return new WaitForSeconds(1f);
         Debug.Log(SaveManager.instance.player.timeHelper.betweenMealAndPeriod);
         if (SaveManager.instance.player.timeHelper.betweenMealAndPeriod)
         {
             if (TimeSinceMeal() > timeBetweenPeriods[currentPeriod])
             {
-                ForwardToNextPeriod();
                 SaveManager.instance.player.timeHelper.betweenMealAndPeriod = false;
+                ForwardToNextPeriod();
             }
             else
             {
@@ -181,6 +202,6 @@ public class TimeManager : MonoBehaviour
     /// </summary>
     private void DayCounterUp()
     {
-        SaveManager.instance.player.timeHelper.dayCounter++;
+        saveManager.player.timeHelper.dayCounter++;
     }
 }

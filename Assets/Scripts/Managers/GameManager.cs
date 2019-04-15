@@ -210,7 +210,6 @@ public class GameManager : MonoBehaviour
         TimeManager timeManager = TimeManager.instance;
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
-        timeManager.StartTimerCount();
     }
 
     private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
