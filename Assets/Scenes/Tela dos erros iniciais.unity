@@ -1801,8 +1801,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xPosition:
-    max: 760
-    min: -760
+    max: 1600
+    min: -1600
   speed: 3.5
 --- !u!114 &655285653
 MonoBehaviour:

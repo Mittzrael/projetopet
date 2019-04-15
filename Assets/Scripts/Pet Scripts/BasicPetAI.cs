@@ -33,7 +33,7 @@ public class BasicPetAI : MonoBehaviour
     public float moveRangeMultiplier = 50;
 
     // Nome do script com as animações do pet - para poder acessar as animações
-    private DogMitza petAnimationScript;
+    private PetMovement petAnimationScript;
 
     // Valores minimo e máximo para o tempo aleatório de verificação das necessidades do pet
     readonly private float actionMinRandom = 1;
@@ -105,7 +105,7 @@ public class BasicPetAI : MonoBehaviour
         player.waterPot = new PotStatus(new Food("Água", 1f));
         #endregion
 
-        petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
+        petAnimationScript = gameObject.GetComponentInChildren<PetMovement>();
         petHealth = SaveManager.instance.player.health;
 
         petAccessInfoIndex = PetAccessListSelection();

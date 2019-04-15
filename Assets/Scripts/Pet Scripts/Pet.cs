@@ -9,11 +9,11 @@ public class Pet : MonoBehaviour
     public ElementLocation petCurrentLocation;
     private GameObject poop;
     private GameObject pee;
-    private DogMitza petAnimationScript;
+    //private PetMovement petAnimationScript;
 
     public void Start()
     {
-        petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
+        //petAnimationScript = gameObject.GetComponentInChildren<PetMovement>();
     }
 
     public ElementLocation GetPetLocation()
