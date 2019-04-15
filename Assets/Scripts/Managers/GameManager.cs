@@ -208,6 +208,9 @@ public class GameManager : MonoBehaviour
     public void StartPeriod()
     {
         TimeManager timeManager = TimeManager.instance;
+
+        PopUpWarning.instance.CallAllWarnings(timeManager.GetCurrentPeriod());
+
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
         timeManager.StartTimerCount();

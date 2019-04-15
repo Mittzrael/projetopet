@@ -12,6 +12,8 @@ public class Pet : MonoBehaviour
     private DogMitza petAnimationScript;
     private PetMovement petMovement;
 
+    public WarningsList[] warningsLists;
+
     public void Start()
     {
         petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();

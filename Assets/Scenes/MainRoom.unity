@@ -2875,6 +2875,12 @@ MonoBehaviour:
         image: {fileID: 0}
         nutritionalValor: 0
       potFullness: 0
+    timeHelper:
+      currentPeriod: 0
+      dayCounter: 0
+      lastMeal: 
+      betweenMealAndPeriod: 0
+      betweenMealAndTimeLimit: 0
     flag: []
 --- !u!114 &1489599292
 MonoBehaviour:
@@ -2952,6 +2958,12 @@ MonoBehaviour:
         image: {fileID: 0}
         nutritionalValor: 0
       potFullness: 0
+    timeHelper:
+      currentPeriod: 0
+      dayCounter: 0
+      lastMeal: 
+      betweenMealAndPeriod: 0
+      betweenMealAndTimeLimit: 0
     flag: []
 --- !u!1 &1521879000
 GameObject:
@@ -4056,6 +4068,12 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: warningsList
+      value: 
+      objectReference: {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85,
+        type: 2}
     - target: {fileID: 1368832266873554670, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}
       propertyPath: m_AnchorMin.y
