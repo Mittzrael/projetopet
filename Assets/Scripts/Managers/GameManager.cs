@@ -213,13 +213,13 @@ public class GameManager : MonoBehaviour
 
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
-        timeManager.StartTimerCount();
     }
 
     private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
         if (SaveManager.instance.player.flag[0].state)
         {
+            SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString();
             SaveManager.instance.Save();
         }
     }

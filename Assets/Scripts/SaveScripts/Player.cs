@@ -13,6 +13,7 @@ public class Player
     public int residenciaSelecionada = -1;
     public int petSelecionado = -1;
     public int graphNumber = -1;
+    private int testerPorra = 24;
 
     /// <summary>
     /// Horário de saída da última seção de jogador em forma de string
