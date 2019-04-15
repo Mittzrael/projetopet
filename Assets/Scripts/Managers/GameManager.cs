@@ -216,6 +216,7 @@ public class GameManager : MonoBehaviour
     {
         if (SaveManager.instance.player.flag[0].state)
         {
+            SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString();
             SaveManager.instance.Save();
         }
     }
