@@ -2814,7 +2814,7 @@ MonoBehaviour:
   timeBetweenAction: 1
   healthLimit:
     hungry: 0
-    thirsty: 0.3
+    thirsty: 0
     hygiene: 0.8
     happiness: 0.2
     whatToPlay: 0.8
@@ -2849,8 +2849,10 @@ MonoBehaviour:
     lastTimePlayed: 
     poopLocation:
       location: []
+      poopCount: 0
     peeLocation:
       location: []
+      peeCount: 0
     foodPotLocation:
       elementName: 
       sceneName: 
@@ -2897,7 +2899,7 @@ MonoBehaviour:
   timeBetweenAction: 1
   healthLimit:
     hungry: 0
-    thirsty: 0.2
+    thirsty: 0
     hygiene: 1
     happiness: 1
     whatToPlay: 0
@@ -2932,8 +2934,10 @@ MonoBehaviour:
     lastTimePlayed: 
     poopLocation:
       location: []
+      poopCount: 0
     peeLocation:
       location: []
+      peeCount: 0
     foodPotLocation:
       elementName: 
       sceneName: 
@@ -4096,7 +4100,7 @@ PrefabInstance:
     - target: {fileID: 2795094808975489035, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1368832266873554670, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}
@@ -4177,6 +4181,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2795094807575274720, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2795094807117263045, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2795094808927375450, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69852cc971c18774191bb54fad8dedc3, type: 3}

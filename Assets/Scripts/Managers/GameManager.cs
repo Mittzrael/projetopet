@@ -211,6 +211,8 @@ public class GameManager : MonoBehaviour
 
         PopUpWarning.instance.CallAllWarnings(timeManager.GetCurrentPeriod());
         StartCoroutine(PetMovement.instance.CallPeePoop());
+        SaveManager.instance.player.health.PutInHungry(true);
+        SaveManager.instance.player.health.PutInThirsty(true);
 
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());

@@ -133,11 +133,11 @@ public class PetMovement : MonoBehaviour
                 petActionList += PetHungry;
                 hungryOnDelegate = true;
             }
-            if (petHealth.GetThirsty() && !thirstyOnDelegate)
-            {
-                petActionList += PetThisty;
-                thirstyOnDelegate = true;
-            }
+            //if (petHealth.GetThirsty() && !thirstyOnDelegate)
+            //{
+            //    petActionList += PetThisty;
+            //    thirstyOnDelegate = true;
+            //}
             /*
             if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
             {
