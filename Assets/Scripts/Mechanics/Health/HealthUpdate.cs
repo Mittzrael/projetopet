@@ -43,7 +43,7 @@ public class HealthUpdate : MonoBehaviour
 
     private void Water()
     {
-        transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetThirsty();
+        //transform.GetChild(1).GetComponent<Image>().fillAmount = saveManager.player.health.GetThirsty();
     }
 
     private void Clean()

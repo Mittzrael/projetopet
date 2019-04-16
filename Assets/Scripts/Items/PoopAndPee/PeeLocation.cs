@@ -75,6 +75,11 @@ public class PeeLocation
             location[index].place.Remove(position);
             peeCount--;
         }
+
+        if (QuantityOfPees() <= 0)
+        {
+            PopUpWarning.instance.SolveWarning("Pee");
+        }
     }
 
     /// <summary>

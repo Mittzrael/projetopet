@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         TimeOffDecrease();
         StartCoroutine(DecreaseHappiness(decreaseTimeHappiness));
         //StartCoroutine(DecreaseHungry(decreaseTimeHungry));
-        StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
+        //StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
         StartCoroutine(DecreaseHygiene(decreaseTimeHygiene));
     }
 
@@ -130,8 +130,8 @@ public class GameManager : MonoBehaviour
         //timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHungry);
         //health.PutInHungry(decreaseRate * timeElapsedForAttribute);
 
-        timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeThirsty);
-        health.PutInThirsty(decreaseRate * timeElapsedForAttribute);
+        //timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeThirsty);
+        //health.PutInThirsty(decreaseRate * timeElapsedForAttribute);
 
         timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHygiene);
         health.PutInHygiene(decreaseRate * timeElapsedForAttribute);
@@ -156,12 +156,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="s"></param>
     /// <returns></returns>
-    private IEnumerator DecreaseThirsty(double s)
-    {
-        SaveManager.instance.player.health.PutInThirsty(decreaseRate);
-        yield return new WaitForSeconds((float)s);
-        StartCoroutine(DecreaseThirsty(s));
-    }
+    //private IEnumerator DecreaseThirsty(double s)
+    //{
+    //    SaveManager.instance.player.health.PutInThirsty(decreaseRate);
+    //    yield return new WaitForSeconds((float)s);
+    //    StartCoroutine(DecreaseThirsty(s));
+    //}
 
     /// <summary>
     /// Diminui a felicidade de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
         TimeManager timeManager = TimeManager.instance;
 
         PopUpWarning.instance.CallAllWarnings(timeManager.GetCurrentPeriod());
+        StartCoroutine(PetMovement.instance.CallPeePoop());
 
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
