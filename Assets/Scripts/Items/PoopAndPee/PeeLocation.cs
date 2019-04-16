@@ -8,6 +8,17 @@ public class PeeLocation
 {
     [SerializeField]
     private List<Place> location = new List<Place>();
+    [SerializeField]
+    private int peeCount; //Quantidade de pees no game.
+    
+    /// <summary>
+    /// Retorna a quantidade de pee que estão em jogo, contando todas as scenes.
+    /// </summary>
+    /// <returns></returns>
+    public int QuantityOfPees()
+    {
+        return peeCount;
+    }
 
     /// <summary>
     /// Adiciona a posição a lista de vetores
@@ -28,6 +39,7 @@ public class PeeLocation
             vetor.name = local;
             vetor.place.Add(position);
             location.Add(vetor);
+            peeCount++;
         }
     }
 
@@ -61,6 +73,7 @@ public class PeeLocation
         if (index != -1)
         {
             location[index].place.Remove(position);
+            peeCount--;
         }
     }
 
