@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryMenu : MonoBehaviour
+
+public class InventoryEmpty : MonoBehaviour
 {
     public GameObject inventoryList;
     public GameObject textInventarioVazio;
@@ -19,6 +20,4 @@ public class InventoryMenu : MonoBehaviour
             textInventarioVazio.SetActive(false);
         }
     }
-
-
 }

@@ -75,7 +75,7 @@ public class ItemDragOn : MonoBehaviour
         }
         //Caso item tenha sido colocado em área não permitida
         //Retorna item ao inventário,
-        this.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1) ;
+        this.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1);
         transform.parent = slot.transform;
         //Ativa o menu inventário
         panelInventory.SetActive(true);
