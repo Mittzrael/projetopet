@@ -102,6 +102,10 @@ public class GameManager : MonoBehaviour
     {
         SaveManager.instance.Load(0);
         DecreaseStats();
+        if (saveManager.player.flag[0].state)
+        {
+            timeManager.PeriodProcess();
+        }
     }
 
     #region Diminuição de atributos do Health de acordo com o tempo
