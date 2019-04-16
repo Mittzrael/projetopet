@@ -9,7 +9,7 @@ public class Health
     [SerializeField]
     private bool hungry; //Quanta fome o animal está sentido, quanto mais alto melhor para a saúde
     [SerializeField]
-    private float thirsty; //Quanta sede o animal está sentido, quanto mais alto melhor para a saúde
+    private bool thirsty; //Quanta sede o animal está sentido, quanto mais alto melhor para a saúde
     [SerializeField]
     private float hygiene; //Qual é a higiene do animal, quanto mais alto melhor para a saúde
 
@@ -27,7 +27,7 @@ public class Health
     public Health()
     {
         hungry = false;
-        thirsty = 1;
+        thirsty = false;
         hygiene = 1;
         happiness = 1;
         whatToPlay = 0;
@@ -58,7 +58,7 @@ public class Health
     /// Recebe o valor da sede do animal.
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1 sendo 0, com desidratado, e 1, hidratado</returns>
-    public float GetThirsty()
+    public bool GetThirsty()
     {
         return thirsty;
     }
@@ -67,10 +67,9 @@ public class Health
     /// Adiciona um valor a sede do animal.
     /// </summary>
     /// <param name="i">Valor de sede que é adicionado, se for positivo, animal bebeu algo, se for negativo, animal está ficando com sede</param>
-    public void PutInThirsty(float i)
+    public void PutInThirsty(bool i)
     {
-        thirsty += i;
-        thirsty = Mathf.Clamp(thirsty, 0, 1);
+        thirsty = i;
     }
 
     /// <summary>

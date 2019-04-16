@@ -47,6 +47,12 @@ public class Pet : MonoBehaviour
         // Informa que o pet acabou de fazer sua ação
         StartCoroutine(petMovement.IsPetDoingSometingSetFalse());
         petMovement.SetHungryOnDelegateBool(false);
+
+        PopUpWarning.instance.SolveWarning("Hungry");
+        SaveManager.instance.player.SetFlagsTimeHelper();
+        SaveManager.instance.player.SetTimeLastMeal();
+        TimeManager.instance.PeriodProcess();
+
         yield return new WaitForSeconds(0);
     }
 
@@ -81,7 +87,7 @@ public class Pet : MonoBehaviour
     /// <param name="food"></param>
     public void Drink(Food food)
     {
-        SaveManager.instance.player.health.PutInThirsty(food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInThirsty(true); // food.GetNutrionalValor());
         SaveManager.instance.player.health.PutInPee(food.GetNutrionalValor() / 2);
         Debug.Log("bebi");
     }

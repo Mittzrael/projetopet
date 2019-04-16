@@ -134,26 +134,26 @@ public class BasicPetAI : MonoBehaviour
                 hungryOnDelegate = true;
             }
             */
-            if (petHealth.GetThirsty() < healthLimit.GetThirsty() && !thirstyOnDelegate)
-            {
-                petActionList += PetThisty;
-                thirstyOnDelegate = true;
-            }
-            if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
-            {
-                petActionList += PetPoop;
-                poopOnDelegate = true;
-            }
-            if (petHealth.GetPee() > healthLimit.GetPee() && !peeOnDelegate)
-            {
-                petActionList += PetPee;
-                peeOnDelegate = true;
-            }
-            if (petHealth.GetHappiness() < healthLimit.GetHappiness() && !sadOnDelegate)
-            {
-                petActionList += PetSad;
-                sadOnDelegate = true;
-            }
+            //if (petHealth.GetThirsty() < healthLimit.GetThirsty() && !thirstyOnDelegate)
+            //{
+            //    petActionList += PetThisty;
+            //    thirstyOnDelegate = true;
+            //}
+            //if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
+            //{
+            //    petActionList += PetPoop;
+            //    poopOnDelegate = true;
+            //}
+            //if (petHealth.GetPee() > healthLimit.GetPee() && !peeOnDelegate)
+            //{
+            //    petActionList += PetPee;
+            //    peeOnDelegate = true;
+            //}
+            //if (petHealth.GetHappiness() < healthLimit.GetHappiness() && !sadOnDelegate)
+            //{
+            //    petActionList += PetSad;
+            //    sadOnDelegate = true;
+            //}
 
             // Se a lista de ações do pet não estiver vazia, realiza a primeira ação da lista e a remove da lista
             if (petActionList != null)

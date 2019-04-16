@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1181151756133867140}
   - component: {fileID: 253047103461907455}
   - component: {fileID: 1235612932422262660}
+  - component: {fileID: 5792885266654473505}
   m_Layer: 0
   m_Name: PotWater
   m_TagString: Untagged
@@ -106,3 +107,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &5792885266654473505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4076655025784107931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95fd6e8b117cf44a8954888da33b9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

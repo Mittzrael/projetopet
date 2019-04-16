@@ -53,7 +53,7 @@ public class ButtonController : ScriptableObject
 
     public void PetThirsty()
     {
-        SaveManager.instance.player.health.PutInThirsty(-10f);
+        SaveManager.instance.player.health.PutInThirsty(false);
     }
 
     public void PetPee()

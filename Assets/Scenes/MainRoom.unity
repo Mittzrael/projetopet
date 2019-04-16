@@ -3441,6 +3441,10 @@ MonoBehaviour:
     elementName: 
     sceneName: MainRoom
     elementPosition: {x: 0, y: 0, z: 0}
+  warningsLists:
+  - {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85, type: 2}
+  - {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85, type: 2}
+  - {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85, type: 2}
 --- !u!70 &1782136857
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4070,10 +4074,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}
+      propertyPath: warnings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: warningsList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
       propertyPath: warningsList
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: warningsList.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85,
         type: 2}
+    - target: {fileID: 2795094808975489035, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1368832266873554670, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}
       propertyPath: m_AnchorMin.y

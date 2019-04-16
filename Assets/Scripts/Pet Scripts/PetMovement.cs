@@ -69,6 +69,7 @@ public class PetMovement : MonoBehaviour
 
     // Variável que indica se o pet já está realizando alguma ação (não permite que várias ações sejam execurtadas em paralelo)
     public bool isPetDoingSomething = false;
+    private bool waitForActionEnd;
 
     private Pet pet;
     private float chanceToGoToActiveScene = 0.5f;
@@ -132,7 +133,7 @@ public class PetMovement : MonoBehaviour
                 petActionList += PetHungry;
                 hungryOnDelegate = true;
             }
-            if (petHealth.GetThirsty() < healthLimit.GetThirsty() && !thirstyOnDelegate)
+            if (petHealth.GetThirsty() && !thirstyOnDelegate)
             {
                 petActionList += PetThisty;
                 thirstyOnDelegate = true;
@@ -212,6 +213,62 @@ public class PetMovement : MonoBehaviour
 
         StartCoroutine(MoveToPosition(player.waterPotLocation, pet.Drink));
         yield return new WaitForEndOfFrame();
+    }
+
+    /// <summary>
+    /// Função que controla o pet quando ele está com vontade de fazer xixi
+    /// </summary>
+    private IEnumerator PetPee()
+    {
+        waitForActionEnd = true;
+
+        // Verifica se o pet sabe (foi ensinado) o local correto de fazer as suas necessidades
+        if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
+        {
+            // Se ele sabe o local, se move até lá e faz
+            Debug.Log("move");
+            StartCoroutine(MoveToPosition(player.wasteLocation, pet.PeeOnLocation));
+        }
+        else
+        {
+            // Caso contrário, faz no local em que está
+            StartCoroutine(pet.PeeOnLocation());
+        }
+        Debug.Log("Pee");
+        waitForActionEnd = false;
+        yield return new WaitForEndOfFrame();
+    }
+
+    /// <summary>
+    /// Função que controla o pet quando ele está com vontade de fazer coco
+    /// </summary>
+    private IEnumerator PetPoop()
+    {
+        waitForActionEnd = true;
+
+        // Verifica se o pet sabe (foi ensinado) o local correto de fazer as suas necessidades
+        if (Random.Range(0f, 1f) <= player.health.GetWhereToPP())
+        {
+            // Se ele sabe o local, se move até lá e faz
+            Debug.Log("move");
+            StartCoroutine(MoveToPosition(player.wasteLocation, pet.PoopOnLocation));
+        }
+        else
+        {
+            // Caso contrário, faz no local em que está
+            StartCoroutine(pet.PoopOnLocation());
+        }
+        Debug.Log("Poop");
+        waitForActionEnd = false;
+        yield return new WaitForEndOfFrame();
+    }
+
+    public IEnumerator CallPeePoop()
+    {
+        StartCoroutine(PetPee());
+        yield return new WaitWhile(() => waitForActionEnd);
+        StartCoroutine(PetPoop());
+        yield return new WaitWhile(() => waitForActionEnd);
     }
 
     /// <summary>

@@ -57,11 +57,12 @@ public class PopUpWarning : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Teste());
+        //StartCoroutine(Teste());
     }
 
     private IEnumerator Teste()
     {
+        yield return new WaitForSeconds(5);
         SolveAllWarnings(0);
         yield return new WaitForSeconds(5);
         CallAllWarnings(0);

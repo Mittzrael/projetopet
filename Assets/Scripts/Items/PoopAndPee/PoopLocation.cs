@@ -83,6 +83,11 @@ public class PoopLocation
             location[index].place.Remove(position);
             poopCount--;
         }
+
+        if (QuantityOfPees() <= 0)
+        {
+            PopUpWarning.instance.SolveWarning("Poop");
+        }
     }
 
     /// <summary>
