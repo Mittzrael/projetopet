@@ -101,10 +101,20 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SaveManager.instance.Load(0);
-        DecreaseStats();
+        DecreaseStats();/*
         if (saveManager.player.flag[0].state)
         {
             timeManager.PeriodProcess();
+        }*/
+        StartCoroutine(StartProcess());
+    }
+
+    private IEnumerator StartProcess()
+    {
+        yield return new WaitUntil(() => (TimeManager.instance != null));
+        if (SaveManager.instance.player.flag[0].state)
+        {
+            TimeManager.instance.PeriodProcess();
         }
     }
 
@@ -209,6 +219,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(animManager.Fade(scene));
     }
 
+    /// <summary>
+    /// Função que é chamada no início de cada novo período de tempo.
+    /// </summary>
     public void StartPeriod()
     {
         TimeManager timeManager = TimeManager.instance;

@@ -7,7 +7,7 @@ public class TimeHelper
 {
     public int currentPeriod;
     public int dayCounter;
-    public string lastMeal;
+    public string lastMeal = System.DateTime.UtcNow.ToString();
     public bool betweenMealAndPeriod = false;
     public bool betweenMealAndTimeLimit = false;
 }
