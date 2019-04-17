@@ -2884,6 +2884,7 @@ MonoBehaviour:
       betweenMealAndPeriod: 0
       betweenMealAndTimeLimit: 0
     flag: []
+    savedWarnings: []
 --- !u!114 &1489599292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2969,6 +2970,7 @@ MonoBehaviour:
       betweenMealAndPeriod: 0
       betweenMealAndTimeLimit: 0
     flag: []
+    savedWarnings: []
 --- !u!1 &1521879000
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,7 +4086,7 @@ PrefabInstance:
     - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}
       propertyPath: warningsList.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}
@@ -4096,6 +4098,18 @@ PrefabInstance:
       propertyPath: warningsList.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85,
+        type: 2}
+    - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: warningsList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ac2c620460c412459f7c32c381ec3fe,
+        type: 2}
+    - target: {fileID: 1676743195114999801, guid: 69852cc971c18774191bb54fad8dedc3,
+        type: 3}
+      propertyPath: warningsList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 357bd17c37241e142a29b1955168032f,
         type: 2}
     - target: {fileID: 2795094808975489035, guid: 69852cc971c18774191bb54fad8dedc3,
         type: 3}

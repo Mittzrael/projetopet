@@ -9,6 +9,7 @@ public class PopUpWarning : MonoBehaviour
     public WarningsList[] warningsList;
 
     public List<string> warnings;
+    public List<string> savedWarnings;
 
     private void Awake()
     {
@@ -25,15 +26,30 @@ public class PopUpWarning : MonoBehaviour
         {
             warnings.Add(transform.GetChild(i).name);
         }
+        
+        CallSavedWarnings();
+    }
 
-        warningsList = GameObject.Find("Pet").GetComponent<Pet>().warningsLists;
+    public void CallSavedWarnings()
+    {
+        Debug.Log("callSW");
+        foreach (string name in SaveManager.instance.player.savedWarnings)
+        {
+            CallWarning(name);
+        }
     }
 
     public void CallAllWarnings(int listIndex)
     {
+        Debug.LogWarning("callAW");
         for (int i = 0; i < warningsList[listIndex].warnings.Length; i++)
         {
-            CallWarning(warningsList[listIndex].warnings[i].warningName);
+            string name = warningsList[listIndex].warnings[i].warningName;
+            if (!SaveManager.instance.player.savedWarnings.Contains(name))
+            {
+                SaveManager.instance.player.savedWarnings.Add(name);
+                CallWarning(name);
+            }
         }
     }
 
@@ -42,6 +58,7 @@ public class PopUpWarning : MonoBehaviour
         for (int i = 0; i < warningsList[listIndex].warnings.Length; i++)
         {
             SolveWarning(warningsList[listIndex].warnings[i].warningName);
+            SaveManager.instance.player.savedWarnings.Clear();
         }
     }
 
@@ -53,6 +70,7 @@ public class PopUpWarning : MonoBehaviour
     public void SolveWarning(string warningName)
     {
         transform.GetChild(warnings.IndexOf(warningName)).gameObject.SetActive(false);
+        SaveManager.instance.player.savedWarnings.Remove(warningName);
     }
 
     private void Start()
