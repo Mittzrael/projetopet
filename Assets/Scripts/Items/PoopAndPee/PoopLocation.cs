@@ -38,6 +38,7 @@ public class PoopLocation
         int index = IndexPlace(local, location);
 
         if (index != -1) //Verifica se existe o local na lista de Places, caso não exista, ele cria o lugar e adiciona a posição.
+
         {
             location[index].place.Add(position);
         }
