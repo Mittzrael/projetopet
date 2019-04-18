@@ -14,6 +14,9 @@ public class Pet : MonoBehaviour
 
     public WarningsList[] warningsLists;
 
+    [Tooltip("Indica quantas vezes o pet bebe água em cada periodo")]
+    public int[] drinkTimes;
+
     public void Start()
     {
         petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();

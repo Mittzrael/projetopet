@@ -73,6 +73,9 @@ public class PetMovement : MonoBehaviour
 
     private Pet pet;
     private float chanceToGoToActiveScene = 0.5f;
+    private float chanceToBeThirsty = 0f;
+    [SerializeField]
+    private float increaseChanceToBeThirsty;
 
     #region Para testes
     private Food food;
@@ -111,6 +114,8 @@ public class PetMovement : MonoBehaviour
 
         petAccessInfoIndex = PetAccessListSelection();
         petAccessGraph = petAccessInfo[petAccessInfoIndex].CreateGraph();
+
+        IncreaseChanceCalculate();
 
         StartCoroutine(PetActionVerifier());
     }
@@ -281,7 +286,16 @@ public class PetMovement : MonoBehaviour
         if (randomActionCountdown >= maxIdleTime)
         {
             isPetDoingSomething = true;
-            // Primeiro o pet verifica se está na ActiveScene
+            // Pet verifica se "está com sede"
+            if (Random.Range(0f,1f) <= chanceToBeThirsty)
+            {
+                Debug.Log("bebe água " + chanceToBeThirsty);
+            }
+            else
+            {
+                chanceToBeThirsty += increaseChanceToBeThirsty;
+            }
+            // Pet verifica se está na ActiveScene
             if (pet.petCurrentLocation.sceneName != SceneManager.GetActiveScene().name)
             {
                 // Se não estiver, há uma chance de o pet ir para a ActiveScene
@@ -500,5 +514,15 @@ public class PetMovement : MonoBehaviour
     {
         yield return new WaitUntil(() => !isPetDoingSomething);
     }
+
+    private void IncreaseChanceCalculate()
+    {
+        double time = TimeManager.instance.GetTimeBetweenPeriods(TimeManager.instance.GetCurrentPeriod());
+        time *= 0.8f;
+        double maxActTime = time / pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()];
+        maxActTime /= 15f;
+        increaseChanceToBeThirsty = (float) maxActTime;
+    }
+
     #endregion
 }
