@@ -45,9 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPeriod: 0
   timeBetweenPeriods:
-  - 600
-  - 600
-  - 28.8
+  - 100
+  - 100
+  - 150
   numberOfPeriods: 3
   limitTime: 172800
-  timeSinceLastMeal: 0

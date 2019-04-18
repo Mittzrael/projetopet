@@ -67,5 +67,8 @@ public class Player
     public void SetTimeLastMeal()
     {
         timeHelper.lastMeal = System.DateTime.UtcNow.ToString();
+        //TimeManager.instance.StopResetTime();
+        timeHelper.betweenMealAndPeriod = true;
+        timeHelper.betweenMealAndTimeLimit = true;
     }
 }

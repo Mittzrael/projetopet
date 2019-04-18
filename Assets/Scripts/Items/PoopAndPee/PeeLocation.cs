@@ -29,7 +29,7 @@ public class PeeLocation
     {
         int index = IndexPlace(local, location);
 
-        if (index != -1)
+        if (index != -1) //Verifica se existe o local na lista de Places, caso não exista, ele cria o lugar e adiciona a posição.
         {
             location[index].place.Add(position);
         }
@@ -39,8 +39,8 @@ public class PeeLocation
             vetor.name = local;
             vetor.place.Add(position);
             location.Add(vetor);
-            peeCount++;
         }
+        peeCount++;
     }
 
     /// <summary>

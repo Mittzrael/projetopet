@@ -85,7 +85,7 @@ public class TimeManager : MonoBehaviour
             ResetPeriod();
         }
 
-        else if (TimeSinceMeal() > timeBetweenPeriods[currentPeriod])
+        else if (TimeSinceMeal() > timeBetweenPeriods[currentPeriod] && SaveManager.instance.player.timeHelper.betweenMealAndPeriod)
         {
             Debug.Log("Entrou no 2");
             ForwardToNextPeriod();
@@ -103,6 +103,8 @@ public class TimeManager : MonoBehaviour
     /// </summary>
     private void StartTimerCount()
     {
+        StopAllCoroutines();
+
         StartCoroutine(StartPeriodTimeCount());
         StartCoroutine(StartResetTimeCount());
     }
@@ -130,9 +132,9 @@ public class TimeManager : MonoBehaviour
     private void ResetPeriod()
     {
         SaveManager saveManager = SaveManager.instance;
-        SaveManager.instance.player.timeHelper.currentPeriod = 0;
+        saveManager.player.timeHelper.currentPeriod = 0;
         currentPeriod = 0;
-        SaveManager.instance.player.timeHelper.lastMeal = "";
+        saveManager.player.timeHelper.lastMeal = "";
         saveManager.player.timeHelper.betweenMealAndTimeLimit = false;
         saveManager.player.timeHelper.betweenMealAndPeriod = false;
         ///Momento de chamar alguma bronca aqui sendo que a próxima linha pode ir para o final da função que toca a animação.
@@ -159,6 +161,11 @@ public class TimeManager : MonoBehaviour
                 StartCoroutine(StartResetTimeCount());
             }
         }
+    }
+
+    public void StopResetTime()
+    {
+        StopCoroutine(StartResetTimeCount());
     }
 
     /// <summary>

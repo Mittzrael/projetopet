@@ -46,14 +46,17 @@ public class Pet : MonoBehaviour
     public IEnumerator Eat()
     {
         ///Play Animation
-        Eat(SaveManager.instance.player.foodPot.content);
+
+        SaveManager saveManager = SaveManager.instance;
+        Eat(saveManager.player.foodPot.content);
         // Informa que o pet acabou de fazer sua ação
         StartCoroutine(petMovement.IsPetDoingSometingSetFalse());
         petMovement.SetHungryOnDelegateBool(false);
 
         PopUpWarning.instance.SolveWarning("Hungry");
-        SaveManager.instance.player.SetFlagsTimeHelper();
-        SaveManager.instance.player.SetTimeLastMeal();
+        saveManager.player.SetFlagsTimeHelper();
+        saveManager.player.SetTimeLastMeal();
+        yield return new WaitUntil(() => (saveManager.player.timeHelper.betweenMealAndPeriod && saveManager.player.timeHelper.betweenMealAndTimeLimit));
         TimeManager.instance.PeriodProcess();
 
         yield return new WaitForSeconds(0);
