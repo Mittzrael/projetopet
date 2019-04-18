@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe para controlar os movimentos do animal. Estas funções podem ser chamadas de outras classes.
+/// Este script deve estar no prefab do animal, que deve ter o animator correspondente.
+/// </summary>
 public class PetMovement : MonoBehaviour
 {
     private Animator petAnimator;
@@ -81,7 +85,7 @@ public class PetMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Aciona animação do animal coçando por 3 segundos (has exit time) (trigger).
+    /// Aciona animação do animal coçando por 3 segundos (has exit time) (trigger) (para o gato ele lambe a pata).
     /// </summary>
     public void Cocando()
     {
@@ -97,7 +101,7 @@ public class PetMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Aciona animação de espriguiçar (somente gato);
+    /// Aciona animação de espriguiçar;
     /// </summary>
     public void Espriguicar()
     {
@@ -110,5 +114,21 @@ public class PetMovement : MonoBehaviour
     public void ToggleDeitado()
     {
         petAnimator.SetBool("isDeitado", !petAnimator.GetBool("isDeitado"));
+    }
+
+    /// <summary>
+    /// Aciona animação de uivar (somente cachorro);
+    /// </summary>
+    public void Howling()
+    {
+        petAnimator.SetTrigger("isHowling");
+    }
+
+    /// <summary>
+    /// Toggle animação do animal bravo (true/false).
+    /// </summary>
+    public void ToggleAngry()
+    {
+        petAnimator.SetBool("isAngry", !petAnimator.GetBool("isAngry"));
     }
 }
