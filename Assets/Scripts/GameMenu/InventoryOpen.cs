@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryOpen: MonoBehaviour
 {
     public GameObject menuInventario;
-    bool isInventoryOpen = false;
+    public static bool isInventoryOpen = false;
 
     //Abre o inventário
     public void OnClickOpenInventory()

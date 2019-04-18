@@ -12,7 +12,8 @@ public class ItemDragOn : MonoBehaviour
     public GameObject item;
     GameObject scrollViewInventory;
     GameObject panelDragItems;
-    GameObject panelInventory;
+    GameObject menuInventory;
+    GameObject dropAreas;
     public GameObject slot;
     private float distance = 10;
 
@@ -23,7 +24,8 @@ public class ItemDragOn : MonoBehaviour
     {
         scrollViewInventory = GameObject.FindGameObjectWithTag("SVInventario");
         panelDragItems = GameObject.FindGameObjectWithTag("PanelDragItems");
-        panelInventory = GameObject.FindGameObjectWithTag("PanelInventory");
+        menuInventory = GameObject.FindGameObjectWithTag("MenuInventory");
+        dropAreas = GameObject.FindGameObjectWithTag("DropAreas");
     }
     void OnMouseDown()
     {
@@ -33,9 +35,11 @@ public class ItemDragOn : MonoBehaviour
         scrollViewInventory.GetComponent<ScrollRect>().enabled = false;
         //Desativa o menu inventário
         transform.parent = panelDragItems.transform;
-        panelInventory.SetActive(false);
-        GameMenu.isInventoryOpen = false;
-
+        menuInventory.SetActive(false);
+        InventoryOpen.isInventoryOpen = false;
+        //Ativa as Drop Areas
+        foreach(Transform child in dropAreas.transform)
+            child.gameObject.SetActive(true);
         //Drag
         OnMouseDrag();
     }
@@ -55,6 +59,10 @@ public class ItemDragOn : MonoBehaviour
         
         currentDropArea = DropArea.GetCurrentDropArea();
 
+        //Desativa as Drop Areas
+        foreach (Transform child in dropAreas.transform)
+            child.gameObject.SetActive(false);
+
         //Verifica se area atual é permitida para o item
         foreach (string allowedDropArea in allowedDropAreas)
         {
@@ -70,6 +78,7 @@ public class ItemDragOn : MonoBehaviour
                 Instantiate(item, clickedPosition, Quaternion.identity);
 
                 scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
+
                 return;
             }
         }
@@ -78,8 +87,8 @@ public class ItemDragOn : MonoBehaviour
         this.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1);
         transform.parent = slot.transform;
         //Ativa o menu inventário
-        panelInventory.SetActive(true);
-        GameMenu.isInventoryOpen = true;
+        menuInventory.SetActive(true);
+        InventoryOpen.isInventoryOpen = true;
         scrollViewInventory.GetComponent<ScrollRect>().enabled = true;
     }
 }

@@ -19,5 +19,6 @@ public class AddItem : MonoBehaviour
         count++;
 
         item.transform.SetParent(inventoryList.transform, false);
+        item.transform.position = new Vector3 (item.transform.position.x, item.transform.position.y, -1);
     }
 }

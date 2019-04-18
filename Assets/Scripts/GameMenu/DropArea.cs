@@ -19,7 +19,7 @@ public class DropArea : MonoBehaviour
 
     public void OnDropAreaExit()
     {
-        currentDropArea = "null" ;
+        currentDropArea = "null";
     }
 
     public static string GetCurrentDropArea()
