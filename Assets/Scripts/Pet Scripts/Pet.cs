@@ -189,6 +189,7 @@ public class Pet : MonoBehaviour
             position.z = -5;
         }
 
+
         else if (scene.Equals("Yard"))
         {
             position.x = Random.Range(-1718, 1700);

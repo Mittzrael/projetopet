@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-
-[Serializable]
-public class Place
-{
-    public string name;
-    public List<Vector3> place = new List<Vector3>();
-}
-
 [Serializable]
 public class PoopLocation
 {
