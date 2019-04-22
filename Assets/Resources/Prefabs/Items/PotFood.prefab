@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 253047103461907455}
   - component: {fileID: 1235612932422262660}
   - component: {fileID: 4944495728605976159}
+  - component: {fileID: 7803604381248462542}
   m_Layer: 0
   m_Name: PotFood
   m_TagString: Untagged
@@ -117,5 +118,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecd0c71bafb3d3f4095ac26173bfdbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelActionsItemName: 
+--- !u!114 &7803604381248462542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4076655025784107931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55146235f63b96e46a5986dbcdf9ea52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
