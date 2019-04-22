@@ -8,6 +8,17 @@ public class PeeLocation
 {
     [SerializeField]
     private List<Place> location = new List<Place>();
+    [SerializeField]
+    private int peeCount; //Quantidade de pees no game.
+    
+    /// <summary>
+    /// Retorna a quantidade de pee que estão em jogo, contando todas as scenes.
+    /// </summary>
+    /// <returns></returns>
+    public int QuantityOfPees()
+    {
+        return peeCount;
+    }
 
     /// <summary>
     /// Adiciona a posição a lista de vetores
@@ -18,7 +29,7 @@ public class PeeLocation
     {
         int index = IndexPlace(local, location);
 
-        if (index != -1)
+        if (index != -1) //Verifica se existe o local na lista de Places, caso não exista, ele cria o lugar e adiciona a posição.
         {
             location[index].place.Add(position);
         }
@@ -29,6 +40,7 @@ public class PeeLocation
             vetor.place.Add(position);
             location.Add(vetor);
         }
+        peeCount++;
     }
 
     /// <summary>
@@ -61,6 +73,12 @@ public class PeeLocation
         if (index != -1)
         {
             location[index].place.Remove(position);
+            peeCount--;
+        }
+
+        if (QuantityOfPees() <= 0)
+        {
+            PopUpWarning.instance.SolveWarning("Pee");
         }
     }
 

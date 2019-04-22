@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-
-[Serializable]
-public class Place
-{
-    public string name;
-    public List<Vector3> place = new List<Vector3>();
-}
-
 [Serializable]
 public class PoopLocation
 {
     [SerializeField]
     private List<Place> location = new List<Place>();
+    [SerializeField]
+    private int poopCount; //Quantidade de poops no game.
+
+    /// <summary>
+    /// Retorna a quantidade de poop que estão em jogo, contando todas as scenes.
+    /// </summary>
+    /// <returns></returns>
+    public int QuantityOfPees()
+    {
+        return poopCount;
+    }
 
     /// <summary>
     /// Adiciona a posição a lista de vetores
@@ -26,7 +29,8 @@ public class PoopLocation
     {
         int index = IndexPlace(local, location);
 
-        if (index != -1)
+        if (index != -1) //Verifica se existe o local na lista de Places, caso não exista, ele cria o lugar e adiciona a posição.
+
         {
             location[index].place.Add(position);
         }
@@ -37,6 +41,7 @@ public class PoopLocation
             vetor.place.Add(position);
             location.Add(vetor);
         }
+        poopCount++;
     }
 
     /// <summary>
@@ -69,6 +74,12 @@ public class PoopLocation
         if (index != -1)
         {
             location[index].place.Remove(position);
+            poopCount--;
+        }
+
+        if (QuantityOfPees() <= 0)
+        {
+            PopUpWarning.instance.SolveWarning("Poop");
         }
     }
 

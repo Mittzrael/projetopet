@@ -36,19 +36,21 @@ public class GameManager : MonoBehaviour
     private SoundManager soundManager;
     private AnimationManager animManager;
     private SaveManager saveManager;
+    private TimeManager timeManager;
 
     public bool BlockSwipe { get => blockSwipe; set => blockSwipe = value; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitializeManagers()
     {
-        GameObject videoManager, gameManager, animManager, soundManager, saveManager;
+        GameObject videoManager, gameManager, animManager, soundManager, saveManager, timeManager;
         
         videoManager = Resources.Load("Prefabs/VideoManager") as GameObject;
         gameManager = Resources.Load("Prefabs/GameManager") as GameObject;
         animManager = Resources.Load("Prefabs/AnimationManager") as GameObject;
         soundManager = Resources.Load("Prefabs/SoundManager") as GameObject;
         saveManager = Resources.Load("Prefabs/SaveManager") as GameObject;
+        timeManager = Resources.Load("Prefabs/TimeManager") as GameObject;
 
         if (VideoManager.instance == null)
         {
@@ -74,6 +76,11 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(saveManager);
         }
+
+        if (TimeManager.instance == null)
+        {
+            Instantiate(timeManager);
+        }
     }
     #endregion
 
@@ -94,7 +101,21 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SaveManager.instance.Load(0);
-        DecreaseStats();
+        DecreaseStats();/*
+        if (saveManager.player.flag[0].state)
+        {
+            timeManager.PeriodProcess();
+        }*/
+        StartCoroutine(StartProcess());
+    }
+
+    private IEnumerator StartProcess()
+    {
+        yield return new WaitUntil(() => (TimeManager.instance != null));
+        if (SaveManager.instance.player.flag[0].state)
+        {
+            TimeManager.instance.PeriodProcess();
+        }
     }
 
     #region Diminuição de atributos do Health de acordo com o tempo
@@ -107,8 +128,8 @@ public class GameManager : MonoBehaviour
     {
         TimeOffDecrease();
         StartCoroutine(DecreaseHappiness(decreaseTimeHappiness));
-        StartCoroutine(DecreaseHungry(decreaseTimeHungry));
-        StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
+        //StartCoroutine(DecreaseHungry(decreaseTimeHungry));
+        //StartCoroutine(DecreaseThirsty(decreaseTimeThirsty));
         StartCoroutine(DecreaseHygiene(decreaseTimeHygiene));
     }
 
@@ -120,16 +141,17 @@ public class GameManager : MonoBehaviour
         int timeElapsedForAttribute = (int)(timeElapsed/decreaseTimeHappiness);
         health.PutInHappiness(decreaseRate * timeElapsedForAttribute);
 
-        timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHungry);
-        health.PutInHungry(decreaseRate * timeElapsedForAttribute);
+        //timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHungry);
+        //health.PutInHungry(decreaseRate * timeElapsedForAttribute);
 
-        timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeThirsty);
-        health.PutInThirsty(decreaseRate * timeElapsedForAttribute);
+        //timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeThirsty);
+        //health.PutInThirsty(decreaseRate * timeElapsedForAttribute);
 
         timeElapsedForAttribute = (int)(timeElapsed / decreaseTimeHygiene);
         health.PutInHygiene(decreaseRate * timeElapsedForAttribute);
     }
 
+    /*
     /// <summary>
     /// Diminui a fome de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
     /// </summary>
@@ -141,18 +163,19 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds((float)s);
         StartCoroutine(DecreaseHungry(s));
     }
+    */
 
     /// <summary>
     /// Diminui a sede de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
     /// </summary>
     /// <param name="s"></param>
     /// <returns></returns>
-    private IEnumerator DecreaseThirsty(double s)
-    {
-        SaveManager.instance.player.health.PutInThirsty(decreaseRate);
-        yield return new WaitForSeconds((float)s);
-        StartCoroutine(DecreaseThirsty(s));
-    }
+    //private IEnumerator DecreaseThirsty(double s)
+    //{
+    //    SaveManager.instance.player.health.PutInThirsty(decreaseRate);
+    //    yield return new WaitForSeconds((float)s);
+    //    StartCoroutine(DecreaseThirsty(s));
+    //}
 
     /// <summary>
     /// Diminui a felicidade de acordo com o valor do decreaseRate e chama recursivamente ela após s segundos
@@ -196,11 +219,29 @@ public class GameManager : MonoBehaviour
         StartCoroutine(animManager.Fade(scene));
     }
 
+    /// <summary>
+    /// Função que é chamada no início de cada novo período de tempo.
+    /// </summary>
+    public void StartPeriod()
+    {
+        TimeManager timeManager = TimeManager.instance;
+
+        PopUpWarning.instance.CallAllWarnings(timeManager.GetCurrentPeriod());
+        StartCoroutine(PetMovement.instance.CallPeePoop());
+        PetMovement.instance.RestartDrinkCount();
+
+        SaveManager.instance.player.health.PutInHungry(true);
+        SaveManager.instance.player.health.PutInThirsty(true);
+
+        ///Coisas que acontecem no começo do período
+        Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
+    }
+
     private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
-        SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString(); //Salva o tempo atual como string para o SaveManager
         if (SaveManager.instance.player.flag[0].state)
         {
+            SaveManager.instance.player.lastTimePlayed = System.DateTime.UtcNow.ToString();
             SaveManager.instance.Save();
         }
     }

@@ -38,7 +38,6 @@ public class Player
     /// Lugar onde o cachoro irá fazer suas necessidades fisiológicas.
     /// </summary>
     public ElementLocation wasteLocation;
-
     /// <summary>
     /// Status do pot de comida
     /// </summary>
@@ -47,6 +46,29 @@ public class Player
     /// Status do pot de água
     /// </summary>
     public PotStatus waterPot;
+    public TimeHelper timeHelper;
 
     public List<Flag> flag = new List<Flag>();
+
+    public List<string> savedWarnings = new List<string>();
+
+    /// <summary>
+    /// Coloca os dois booleanos do timeHelper como true, para contar o tempo nos contadores do TimeManager
+    /// </summary>
+    public void SetFlagsTimeHelper()
+    {
+        timeHelper.betweenMealAndPeriod = true;
+        timeHelper.betweenMealAndTimeLimit = true;
+    }
+
+    /// <summary>
+    /// Atualiza o lastMeal do TimeHelper do player para o tempo atual
+    /// </summary>
+    public void SetTimeLastMeal()
+    {
+        timeHelper.lastMeal = System.DateTime.UtcNow.ToString();
+        //TimeManager.instance.StopResetTime();
+        timeHelper.betweenMealAndPeriod = true;
+        timeHelper.betweenMealAndTimeLimit = true;
+    }
 }

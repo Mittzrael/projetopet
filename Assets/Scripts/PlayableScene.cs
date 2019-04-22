@@ -42,7 +42,6 @@ public class PlayableScene : MonoBehaviour
         foreach (Vector3 position in poopList) //Verifica todos os poop na poopList e instancia na posição marcada o poop.
         {
             GameObject newPoop = Instantiate(poop, position, Quaternion.identity);
-            OnOff(newPoop); //Talvez tirar no futuro, vê aí
         }
     }
 
@@ -77,13 +76,8 @@ public class PlayableScene : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Desativa e ativa o objeto, utilizado para resolver um bug de outrora, mas ainda não retirado.
-    /// </summary>
-    /// <param name="obj"></param>
-    private void OnOff(GameObject obj)
+    private void StartCounters()
     {
-        obj.GetComponentInChildren<BoxCollider2D>().enabled = false;
-        obj.GetComponentInChildren<BoxCollider2D>().enabled = true;
+
     }
 }

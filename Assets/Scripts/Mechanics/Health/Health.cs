@@ -7,9 +7,9 @@ using UnityEngine;
 public class Health
 {
     [SerializeField]
-    private float hungry; //Quanta fome o animal está sentido, quanto mais alto melhor para a saúde
+    private bool hungry; //Quanta fome o animal está sentido, quanto mais alto melhor para a saúde
     [SerializeField]
-    private float thirsty; //Quanta sede o animal está sentido, quanto mais alto melhor para a saúde
+    private bool thirsty; //Quanta sede o animal está sentido, quanto mais alto melhor para a saúde
     [SerializeField]
     private float hygiene; //Qual é a higiene do animal, quanto mais alto melhor para a saúde
 
@@ -26,8 +26,8 @@ public class Health
 
     public Health()
     {
-        hungry = 1;
-        thirsty = 1;
+        hungry = false;
+        thirsty = false;
         hygiene = 1;
         happiness = 1;
         whatToPlay = 0;
@@ -40,7 +40,7 @@ public class Health
     /// Recebe o valor da fome do animal.
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1 sendo 0, esfomeado, e 1, satisfeito</returns>
-    public float GetHungry()
+    public bool GetHungry()
     {
         return hungry;
     }
@@ -49,17 +49,16 @@ public class Health
     /// Adiciona um valor a fome do animal.
     /// </summary>
     /// <param name="i">Valor de fome que é adicionado, se for positivo, animal comeu algo, se for negativo, animal está ficando faminto</param>
-    public void PutInHungry(float i)
+    public void PutInHungry(bool i)
     {
-        hungry += i;
-        hungry = Mathf.Clamp(hungry, 0, 1);
+        hungry = i;
     }
 
     /// <summary>
     /// Recebe o valor da sede do animal.
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1 sendo 0, com desidratado, e 1, hidratado</returns>
-    public float GetThirsty()
+    public bool GetThirsty()
     {
         return thirsty;
     }
@@ -68,10 +67,9 @@ public class Health
     /// Adiciona um valor a sede do animal.
     /// </summary>
     /// <param name="i">Valor de sede que é adicionado, se for positivo, animal bebeu algo, se for negativo, animal está ficando com sede</param>
-    public void PutInThirsty(float i)
+    public void PutInThirsty(bool i)
     {
-        thirsty += i;
-        thirsty = Mathf.Clamp(thirsty, 0, 1);
+        thirsty = i;
     }
 
     /// <summary>

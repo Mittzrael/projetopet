@@ -355,6 +355,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1191733087797998169}
     m_Modifications:
+    - target: {fileID: 7445619139142570752, guid: 3cf47f939a420cc4ba00fea66b63eaae,
+        type: 3}
+      propertyPath: m_Name
+      value: SlotBall (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7445619139142570753, guid: 3cf47f939a420cc4ba00fea66b63eaae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -460,11 +465,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7445619139142570752, guid: 3cf47f939a420cc4ba00fea66b63eaae,
-        type: 3}
-      propertyPath: m_Name
-      value: SlotBall (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cf47f939a420cc4ba00fea66b63eaae, type: 3}
 --- !u!1001 &211730103
@@ -474,6 +474,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1191733087797998169}
     m_Modifications:
+    - target: {fileID: 7445619139142570752, guid: 3cf47f939a420cc4ba00fea66b63eaae,
+        type: 3}
+      propertyPath: m_Name
+      value: SlotBall
+      objectReference: {fileID: 0}
     - target: {fileID: 7445619139142570753, guid: 3cf47f939a420cc4ba00fea66b63eaae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -578,11 +583,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7445619139142570752, guid: 3cf47f939a420cc4ba00fea66b63eaae,
-        type: 3}
-      propertyPath: m_Name
-      value: SlotBall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cf47f939a420cc4ba00fea66b63eaae, type: 3}
@@ -1223,7 +1223,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Teste
+  m_Text: Set Last Meal
 --- !u!222 &781927416
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2636,6 +2636,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1191733087797998169}
     m_Modifications:
+    - target: {fileID: 4250056684128145242, guid: 937cfe3d38c4fda498b7ad7f2b93893d,
+        type: 3}
+      propertyPath: m_Name
+      value: SlotRation (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 4250056684128145243, guid: 937cfe3d38c4fda498b7ad7f2b93893d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2740,11 +2745,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250056684128145242, guid: 937cfe3d38c4fda498b7ad7f2b93893d,
-        type: 3}
-      propertyPath: m_Name
-      value: SlotRation (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 937cfe3d38c4fda498b7ad7f2b93893d, type: 3}
@@ -3062,6 +3062,12 @@ MonoBehaviour:
         image: {fileID: 0}
         nutritionalValor: 0
       potFullness: 0
+    timeHelper:
+      currentPeriod: 0
+      dayCounter: 0
+      lastMeal: 
+      betweenMealAndPeriod: 0
+      betweenMealAndTimeLimit: 0
     flag: []
 --- !u!1 &1601843390
 GameObject:
@@ -3221,8 +3227,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Butt
+      - m_Target: {fileID: 1764022673}
+        m_MethodName: SetLastMeal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3278,6 +3284,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1191733087797998169}
     m_Modifications:
+    - target: {fileID: 4250056684128145242, guid: 937cfe3d38c4fda498b7ad7f2b93893d,
+        type: 3}
+      propertyPath: m_Name
+      value: SlotRation
+      objectReference: {fileID: 0}
     - target: {fileID: 4250056684128145243, guid: 937cfe3d38c4fda498b7ad7f2b93893d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3382,11 +3393,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250056684128145242, guid: 937cfe3d38c4fda498b7ad7f2b93893d,
-        type: 3}
-      propertyPath: m_Name
-      value: SlotRation
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 937cfe3d38c4fda498b7ad7f2b93893d, type: 3}
@@ -3554,6 +3560,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1363443305655420276}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1764022673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764022672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea68d1328d24b6d4f9149779d38259d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1764022677
 MonoBehaviour:
   m_ObjectHideFlags: 0

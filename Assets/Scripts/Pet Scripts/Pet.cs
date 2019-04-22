@@ -9,11 +9,18 @@ public class Pet : MonoBehaviour
     public ElementLocation petCurrentLocation;
     private GameObject poop;
     private GameObject pee;
-    //private PetMovement petAnimationScript;
+    private DogMitza petAnimationScript;
+    private PetMovement petMovement;
+
+    public WarningsList[] warningsLists;
+
+    [Tooltip("Indica quantas vezes o pet bebe água em cada periodo")]
+    public int[] drinkTimes;
 
     public void Start()
     {
-        //petAnimationScript = gameObject.GetComponentInChildren<PetMovement>();
+        petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
+        petMovement = gameObject.GetComponentInParent<PetMovement>();
     }
 
     public ElementLocation GetPetLocation()
@@ -39,9 +46,19 @@ public class Pet : MonoBehaviour
     public IEnumerator Eat()
     {
         ///Play Animation
-        Eat(SaveManager.instance.player.foodPot.content);
+
+        SaveManager saveManager = SaveManager.instance;
+        Eat(saveManager.player.foodPot.content);
         // Informa que o pet acabou de fazer sua ação
-        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
+        StartCoroutine(petMovement.IsPetDoingSometingSetFalse());
+        petMovement.SetHungryOnDelegateBool(false);
+
+        PopUpWarning.instance.SolveWarning("Hungry");
+        saveManager.player.SetFlagsTimeHelper();
+        saveManager.player.SetTimeLastMeal();
+        yield return new WaitUntil(() => (saveManager.player.timeHelper.betweenMealAndPeriod && saveManager.player.timeHelper.betweenMealAndTimeLimit));
+        TimeManager.instance.PeriodProcess();
+
         yield return new WaitForSeconds(0);
     }
 
@@ -51,7 +68,7 @@ public class Pet : MonoBehaviour
     /// <param name="food"></param>
     public void Eat(Food food)
     {
-        SaveManager.instance.player.health.PutInHungry(food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInHungry(false);
         SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor() / 2);
         Debug.Log("comi");
     }
@@ -65,7 +82,8 @@ public class Pet : MonoBehaviour
         ///Play Animation
         Drink(SaveManager.instance.player.waterPot.content);
         // Informa que o pet acabou de fazer sua ação
-        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
+        StartCoroutine(petMovement.IsPetDoingSometingSetFalse());
+        petMovement.SetThirstyOnDelegateBool(false);
         yield return new WaitForSeconds(0);
     }
 
@@ -75,7 +93,7 @@ public class Pet : MonoBehaviour
     /// <param name="food"></param>
     public void Drink(Food food)
     {
-        SaveManager.instance.player.health.PutInThirsty(food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInThirsty(true); // food.GetNutrionalValor());
         SaveManager.instance.player.health.PutInPee(food.GetNutrionalValor() / 2);
         Debug.Log("bebi");
     }
@@ -133,76 +151,5 @@ public class Pet : MonoBehaviour
     public bool PetIsInScene()
     {
         return petCurrentLocation.sceneName.Equals(SceneManager.GetActiveScene().name);
-    }
-
-    /// <summary>
-    /// Faz um poop em um lugar aleatório de alguma scene (mas não o instância).
-    /// </summary>
-    public void PoopRandomPlace()
-    {
-        string sceneName = ReturnSceneName();
-        Vector3 position = RandomPosition(sceneName); 
-        SaveManager.instance.player.poopLocation.Add(sceneName, position);
-    }
-
-    /// <summary>
-    /// Faz um poop em um lugar aleatório de alguma scene (mas não o instância).
-    /// </summary>
-    public void PeeRandomPlace()
-    {
-        string sceneName = ReturnSceneName();
-        Vector3 position = RandomPosition(sceneName);
-        SaveManager.instance.player.peeLocation.Add(sceneName, position);
-    }
-
-    /// <summary>
-    /// Retorna um lugar aleatório onde é possível instanciar algo na scene desejada
-    /// </summary>
-    /// <param name="scene"></param>
-    /// <returns></returns>
-    private Vector3 RandomPosition(string scene)
-    {
-        Vector3 position = new Vector3();
-
-        if (scene.Equals("MainRoom"))
-        {
-            position.x = Random.Range(-2700, 2700);
-            position.y = Random.Range(-434, -607);
-            position.z = -5;
-        }
-
-        else if (scene.Equals("Yard"))
-        {
-            position.x = Random.Range(-1718, 1700);
-            position.y = Random.Range(-566, 607);
-            position.z = -5;
-        }
-
-        else
-        {
-            Debug.LogError("Não encontrou scene com o nome solicitado");
-        }
-        
-        return position;
-    }
-
-    /// <summary>
-    /// Retorna uma scene jogável aleatória
-    /// </summary>
-    /// <returns></returns>
-    public string ReturnSceneName()
-    {
-        int random = (int)Random.Range(1, 2);
-
-        switch (random)
-        {
-            case 1:
-                return "MainRoom";
-            case 2:
-                return "Yard";
-            default:
-                Debug.LogError("Não encontrou scene com o nome solicitado");
-                return "";
-        }
     }
 }
