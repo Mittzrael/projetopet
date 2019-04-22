@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PetMovement : MonoBehaviour
+public class PetBasicAI : MonoBehaviour
 {
     #region Declaração das Variáveis
     [Tooltip("Tempo entre as verificações de ações do Pet (em segundos)")]
