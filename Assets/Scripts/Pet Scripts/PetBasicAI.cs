@@ -16,7 +16,7 @@ public class PetBasicAI : MonoBehaviour
     [Tooltip("Valor para aviso de sede")]
     public float thirstyWarning;
 
-    public static PetMovement instance; // Garantir a unicidade
+    public static PetBasicAI instance; // Garantir a unicidade
 
     protected Health petHealth; // Para facilitar o acesso a informação
     protected int randomNumber; // Número aleatório utilizado na movimetnação alatória do pet
@@ -33,7 +33,7 @@ public class PetBasicAI : MonoBehaviour
     public float moveRangeMultiplier = 50;
 
     // Nome do script com as animações do pet - para poder acessar as animações
-    private DogMitza petAnimationScript;
+    private PetMovement petAnimationScript;
 
     // Valores minimo e máximo para o tempo aleatório de verificação das necessidades do pet
     readonly private float actionMinRandom = 1;
@@ -110,7 +110,7 @@ public class PetBasicAI : MonoBehaviour
         player.waterPot = new PotStatus(new Food("Água", 1f));
         #endregion
 
-        petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
+        petAnimationScript = gameObject.GetComponentInChildren<PetMovement>();
         petHealth = SaveManager.instance.player.health;
 
         petAccessInfoIndex = PetAccessListSelection();

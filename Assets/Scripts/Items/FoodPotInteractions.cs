@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FoodPotInteractions : MonoBehaviour
 {
-    private PetMovement petMovement;
+    private PetBasicAI petMovement;
 
     private void Awake()
     {
-        petMovement = GameObject.Find("PetFather").GetComponent<PetMovement>();
+        petMovement = GameObject.Find("PetFather").GetComponent<PetBasicAI>();
     }
 
     private void OnMouseDown()
