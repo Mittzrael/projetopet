@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class WaterPotInteractions : MonoBehaviour
 {
-    private PetMovement petMovement;
-
-    private void Awake()
-    {
-        petMovement = GameObject.Find("PetFather").GetComponent<PetMovement>();
-    }
-
+    
     private void OnMouseDown()
     {
         if (SaveManager.instance.player.health.GetThirsty())

@@ -16,7 +16,7 @@ public class PetBasicAI : MonoBehaviour
     [Tooltip("Valor para aviso de sede")]
     public float thirstyWarning;
 
-    public static PetMovement instance; // Garantir a unicidade
+    public static PetBasicAI instance; // Garantir a unicidade
 
     protected Health petHealth; // Para facilitar o acesso a informação
     protected int randomNumber; // Número aleatório utilizado na movimetnação alatória do pet

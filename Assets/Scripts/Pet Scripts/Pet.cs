@@ -10,7 +10,7 @@ public class Pet : MonoBehaviour
     private GameObject poop;
     private GameObject pee;
     private DogMitza petAnimationScript;
-    private PetMovement petMovement;
+    private PetBasicAI petMovement;
 
     public WarningsList[] warningsLists;
 
@@ -20,7 +20,7 @@ public class Pet : MonoBehaviour
     public void Start()
     {
         petAnimationScript = gameObject.GetComponentInChildren<DogMitza>();
-        petMovement = gameObject.GetComponentInParent<PetMovement>();
+        petMovement = gameObject.GetComponentInParent<PetBasicAI>();
     }
 
     public ElementLocation GetPetLocation()
