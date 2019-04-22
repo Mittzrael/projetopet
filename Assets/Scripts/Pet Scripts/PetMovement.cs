@@ -76,6 +76,7 @@ public class PetMovement : MonoBehaviour
     private float chanceToBeThirsty = 0f;
     [SerializeField]
     private float increaseChanceToBeThirsty;
+    private int drinkCount = 0;
 
     #region Para testes
     private Food food;
@@ -138,22 +139,21 @@ public class PetMovement : MonoBehaviour
                 petActionList += PetHungry;
                 hungryOnDelegate = true;
             }
-            //if (petHealth.GetThirsty() && !thirstyOnDelegate)
-            //{
-            //    petActionList += PetThisty;
-            //    thirstyOnDelegate = true;
-            //}
+            if (drinkCount < pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()] && !thirstyOnDelegate)
+            {
+                if (Random.Range(0f, 1f) <= chanceToBeThirsty)
+                {
+                    Debug.LogWarning("bebe água " + chanceToBeThirsty);
+                    drinkCount++;
+                    petActionList += PetThisty;
+                    thirstyOnDelegate = true;
+                }
+                else
+                {
+                    chanceToBeThirsty += increaseChanceToBeThirsty;
+                }
+            }
             /*
-            if (petHealth.GetPoop() > healthLimit.GetPoop() && !poopOnDelegate)
-            {
-                petActionList += PetPoop;
-                poopOnDelegate = true;
-            }
-            if (petHealth.GetPee() > healthLimit.GetPee() && !peeOnDelegate)
-            {
-                petActionList += PetPee;
-                peeOnDelegate = true;
-            }
             if (petHealth.GetHappiness() < healthLimit.GetHappiness() && !sadOnDelegate)
             {
                 petActionList += PetSad;
@@ -286,15 +286,6 @@ public class PetMovement : MonoBehaviour
         if (randomActionCountdown >= maxIdleTime)
         {
             isPetDoingSomething = true;
-            // Pet verifica se "está com sede"
-            if (Random.Range(0f,1f) <= chanceToBeThirsty)
-            {
-                Debug.Log("bebe água " + chanceToBeThirsty);
-            }
-            else
-            {
-                chanceToBeThirsty += increaseChanceToBeThirsty;
-            }
             // Pet verifica se está na ActiveScene
             if (pet.petCurrentLocation.sceneName != SceneManager.GetActiveScene().name)
             {
@@ -522,6 +513,12 @@ public class PetMovement : MonoBehaviour
         double maxActTime = time / pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()];
         maxActTime /= 15f;
         increaseChanceToBeThirsty = (float) maxActTime;
+        increaseChanceToBeThirsty *= Time.deltaTime;
+    }
+
+    public void RestartDrinkCount()
+    {
+        drinkCount = pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()];
     }
 
     #endregion

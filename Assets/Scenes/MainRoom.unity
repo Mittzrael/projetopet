@@ -2916,6 +2916,7 @@ MonoBehaviour:
   petAccessInfo:
   - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
   isPetDoingSomething: 0
+  increaseChanceToBeThirsty: 0
   player:
     slot: -1
     nome: 
@@ -3451,6 +3452,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85, type: 2}
   - {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85, type: 2}
   - {fileID: 11400000, guid: e6008ed881ad0624aa445633f3a75e85, type: 2}
+  drinkTimes: 010000000200000003000000
 --- !u!70 &1782136857
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

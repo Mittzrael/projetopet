@@ -228,6 +228,8 @@ public class GameManager : MonoBehaviour
 
         PopUpWarning.instance.CallAllWarnings(timeManager.GetCurrentPeriod());
         StartCoroutine(PetMovement.instance.CallPeePoop());
+        PetMovement.instance.RestartDrinkCount();
+
         SaveManager.instance.player.health.PutInHungry(true);
         SaveManager.instance.player.health.PutInThirsty(true);
 
