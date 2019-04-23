@@ -337,8 +337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ec7cce050fda14ebcfa35f615c42ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningsList: {fileID: 0}
-  warningPrefab: {fileID: 0}
   warnings: []
 --- !u!1001 &1676743194199763879
 PrefabInstance:
@@ -495,7 +493,7 @@ PrefabInstance:
     - target: {fileID: 3571027838868164423, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
       propertyPath: m_Name
-      value: Thirsty
+      value: CleanWaterPot
       objectReference: {fileID: 0}
     - target: {fileID: 413184085319905698, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
@@ -640,7 +638,12 @@ PrefabInstance:
     - target: {fileID: 3571027838868164423, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
       propertyPath: m_Name
-      value: Hungry
+      value: CleanFoodPot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571027838868164423, guid: 4ace74fdfc651554b94bdfe19b13df13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 413184085319905698, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}

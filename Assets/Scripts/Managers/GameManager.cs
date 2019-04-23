@@ -230,8 +230,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PetBasicAI.instance.CallPeePoop());
         PetBasicAI.instance.RestartDrinkCount();
 
-        SaveManager.instance.player.health.PutInHungry(true);
-        SaveManager.instance.player.health.PutInThirsty(true);
+        SaveManager.instance.player.health.PutInCleanFoodPot(true);
+        SaveManager.instance.player.health.PutInCleanWaterPot(true);
 
         ///Coisas que acontecem no começo do período
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());

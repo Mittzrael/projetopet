@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script anexado ao pote de água para ativar as interações e opções existentes ao clicar no mesmo
+/// </summary>
 public class WaterPotInteractions : MonoBehaviour
 {
-    //private PetMovement petMovement;
-
-    //private void Awake()
-    //{
-    //    petMovement = GameObject.Find("PetFather").GetComponent<PetMovement>();
-    //}
-
+    /// <summary>
+    /// Função que realiza as ações quando o pote de água é selecionado
+    /// </summary>
     private void OnMouseDown()
     {
-        if (SaveManager.instance.player.health.GetThirsty())
+        if (SaveManager.instance.player.health.GetCleanWaterPot())
         {
             Debug.Log("Abriu menu de interação com o pote");
             Debug.Log("Foi para minigame");
@@ -23,6 +22,9 @@ public class WaterPotInteractions : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Função que remove o aviso de necessidade de limpeza do pote de água
+    /// </summary>
     public void FoodPotCleaned()
     {
         PopUpWarning.instance.SolveWarning("Thirsty");

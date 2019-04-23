@@ -30,7 +30,7 @@ public class HealthUpdate : MonoBehaviour
     
     private void Ration()
     {
-        if (saveManager.player.health.GetHungry())
+        if (saveManager.player.health.GetCleanFoodPot())
         {
             transform.GetChild(1).GetComponent<Image>().fillAmount = 0;// saveManager.player.health.GetHungry();
         }
