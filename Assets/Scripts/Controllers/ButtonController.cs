@@ -48,12 +48,12 @@ public class ButtonController : ScriptableObject
 
     public void PetHungry()
     {
-        SaveManager.instance.player.health.PutInHungry(false);
+        SaveManager.instance.player.health.PutInCleanFoodPot(false);
     }
 
     public void PetThirsty()
     {
-        SaveManager.instance.player.health.PutInThirsty(false);
+        SaveManager.instance.player.health.PutInCleanWaterPot(false);
     }
 
     public void PetPee()

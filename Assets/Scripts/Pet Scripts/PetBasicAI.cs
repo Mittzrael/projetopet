@@ -134,7 +134,7 @@ public class PetBasicAI : MonoBehaviour
             // VERIFICAÇÃO DO ESTADO DO PET
             // Verifica se um status específico está fora do limite aceitável para o pet e se a ação já está na lista
             // Se estiver fora do limite e não estiver na lista de ações, adiciona na lista (delegate) e sinaliza como adicionado
-            if (petHealth.GetHungry() && !hungryOnDelegate)
+            if (petHealth.GetCleanFoodPot() && !hungryOnDelegate)
             {
                 petActionList += PetHungry;
                 hungryOnDelegate = true;

@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listName: Dog-Home_Afternoon
   warnings:
-  - itemImage: {fileID: 2800000, guid: e5a441fd6c894c34e86b79f169eefd4a, type: 3}
-    warningName: Hungry
-  - itemImage: {fileID: 2800000, guid: 5de44f70a92f80146aa75d75a96c44ae, type: 3}
-    warningName: Poop
-  - itemImage: {fileID: 2800000, guid: 442937422f7804b4cad0dc7190866d08, type: 3}
-    warningName: Pee
+  - warningName: CleanFoodPot
+  - warningName: Poop
+  - warningName: Pee

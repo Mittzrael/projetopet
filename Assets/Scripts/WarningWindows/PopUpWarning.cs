@@ -5,8 +5,8 @@ using UnityEngine;
 public class PopUpWarning : MonoBehaviour
 {
     public static PopUpWarning instance;
-    [Tooltip("Lista contendo os avisos que devem aparecer")]
-    public WarningsList[] warningsList;
+    // Lista contendo os avisos que devem aparecer - original está no pet
+    private WarningsList[] warningsList;
 
     [Tooltip("Lista contento os objetos da scene que serão controlados (ativados/desativados) - Completada via script")]
     public List<string> warnings;
@@ -27,7 +27,10 @@ public class PopUpWarning : MonoBehaviour
         {
             warnings.Add(transform.GetChild(i).name);
         }
-        
+
+        // Pega as listas de aviso que estão armazenadas no pet
+        warningsList = GameObject.FindGameObjectWithTag("PetFather").GetComponentInChildren<Pet>().warningsLists;
+
         // Chama todos os avisos que estavam ativos quando o jogador parou de jogar na última vez
         CallSavedWarnings();
     }
@@ -93,28 +96,4 @@ public class PopUpWarning : MonoBehaviour
         transform.GetChild(warnings.IndexOf(warningName)).gameObject.SetActive(false);
         SaveManager.instance.player.savedWarnings.Remove(warningName);
     }
-
-    /*
-    private void Start()
-    {
-        StartCoroutine(Teste());
-    }
-
-    private IEnumerator Teste()
-    {
-        yield return new WaitForSeconds(5);
-        SolveAllWarnings(0);
-        yield return new WaitForSeconds(5);
-        CallAllWarnings(0);
-
-        yield return new WaitForSeconds(5);
-
-        SolveWarning("Hungry");
-        SolveWarning("Poop");
-
-        yield return new WaitForSeconds(5);
-
-        CallWarning("Hungry");
-        SolveWarning("Pee");
-    }*/
 }

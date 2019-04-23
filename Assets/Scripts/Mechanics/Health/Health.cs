@@ -7,9 +7,9 @@ using UnityEngine;
 public class Health
 {
     [SerializeField]
-    private bool hungry; //Quanta fome o animal está sentido, quanto mais alto melhor para a saúde
+    private bool cleanFoodPot; // Indica se o pote de comida deve ser limpo
     [SerializeField]
-    private bool thirsty; //Quanta sede o animal está sentido, quanto mais alto melhor para a saúde
+    private bool cleanWaterPot; // Indica se o pote de água deve ser limpo
     [SerializeField]
     private float hygiene; //Qual é a higiene do animal, quanto mais alto melhor para a saúde
 
@@ -26,8 +26,8 @@ public class Health
 
     public Health()
     {
-        hungry = false;
-        thirsty = false;
+        cleanFoodPot = false;
+        cleanWaterPot = false;
         hygiene = 1;
         happiness = 1;
         whatToPlay = 0;
@@ -40,36 +40,36 @@ public class Health
     /// Recebe o valor da fome do animal.
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1 sendo 0, esfomeado, e 1, satisfeito</returns>
-    public bool GetHungry()
+    public bool GetCleanFoodPot()
     {
-        return hungry;
+        return cleanFoodPot;
     }
 
     /// <summary>
     /// Adiciona um valor a fome do animal.
     /// </summary>
     /// <param name="i">Valor de fome que é adicionado, se for positivo, animal comeu algo, se for negativo, animal está ficando faminto</param>
-    public void PutInHungry(bool i)
+    public void PutInCleanFoodPot(bool i)
     {
-        hungry = i;
+        cleanFoodPot = i;
     }
 
     /// <summary>
     /// Recebe o valor da sede do animal.
     /// </summary>
     /// <returns>Recebe um valor entre 0 e 1 sendo 0, com desidratado, e 1, hidratado</returns>
-    public bool GetThirsty()
+    public bool GetCleanWaterPot()
     {
-        return thirsty;
+        return cleanWaterPot;
     }
 
     /// <summary>
     /// Adiciona um valor a sede do animal.
     /// </summary>
     /// <param name="i">Valor de sede que é adicionado, se for positivo, animal bebeu algo, se for negativo, animal está ficando com sede</param>
-    public void PutInThirsty(bool i)
+    public void PutInCleanWaterPot(bool i)
     {
-        thirsty = i;
+        cleanWaterPot = i;
     }
 
     /// <summary>

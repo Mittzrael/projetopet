@@ -68,7 +68,7 @@ public class Pet : MonoBehaviour
     /// <param name="food"></param>
     public void Eat(Food food)
     {
-        SaveManager.instance.player.health.PutInHungry(false);
+        SaveManager.instance.player.health.PutInCleanFoodPot(false);
         SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor() / 2);
         Debug.Log("comi");
     }
@@ -93,7 +93,7 @@ public class Pet : MonoBehaviour
     /// <param name="food"></param>
     public void Drink(Food food)
     {
-        SaveManager.instance.player.health.PutInThirsty(true); // food.GetNutrionalValor());
+        SaveManager.instance.player.health.PutInCleanWaterPot(true); // food.GetNutrionalValor());
         SaveManager.instance.player.health.PutInPee(food.GetNutrionalValor() / 2);
         Debug.Log("bebi");
     }
