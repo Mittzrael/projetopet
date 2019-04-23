@@ -28,7 +28,7 @@ public class PlayableScene : MonoBehaviour
         VerifyPoop();
         VerifyPee();
         VerifyPot();
-        petFather = GameObject.Find("PetFather");
+        petFather = GameObject.FindGameObjectWithTag("PetFather");
         petFather.GetComponent<Invisible>().StatusVerify();
     }
 

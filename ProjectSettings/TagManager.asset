@@ -18,6 +18,7 @@ TagManager:
   - MenuInventory
   - PanelActionsItems
   - InteractableObject
+  - PetFather
   layers:
   - Default
   - TransparentFX

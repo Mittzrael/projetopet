@@ -8,7 +8,7 @@ public class FoodPotInteractions : MonoBehaviour
 
     private void Awake()
     {
-        petMovement = GameObject.Find("PetFather").GetComponent<PetBasicAI>();
+        petMovement = GameObject.FindGameObjectWithTag("PetFather").GetComponent<PetBasicAI>();
     }
 
     private void OnMouseDown()

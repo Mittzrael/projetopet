@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3964328320810763772}
   - component: {fileID: 3964328320810763771}
   m_Layer: 0
-  m_Name: PetFather
-  m_TagString: Untagged
+  m_Name: CachorroLoko
+  m_TagString: PetFather
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,6 +337,7 @@ MonoBehaviour:
   speedWalk: 250
   speedRun: 500
   isWalking: 0
+  isRunning: 0
 --- !u!114 &3964328321029930719
 MonoBehaviour:
   m_ObjectHideFlags: 0
