@@ -9,15 +9,28 @@ using UnityEngine.SceneManagement;
 public class PlayableScene : MonoBehaviour
 {
 
-    List<Vector3> peeList;
-    List<Vector3> poopList;
-    GameObject petFather;
-    string currentScene;
+    private List<Vector3> peeList;
+    private List<Vector3> poopList;
+    private GameObject petFather;
+    private string currentScene;
+    [SerializeField]
+    private PetList petList;
 
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene().name;
+        InstantiatePet();
         VerifyScene();
+    }
+
+    public void InstantiatePet()
+    {
+        if (!GameManager.instance.petAlreadyInstantiate)
+        {
+            Debug.Log("Instancio o pet número: " + SaveManager.instance.player.petSelecionado);
+            Instantiate(petList.pet[SaveManager.instance.player.petSelecionado].petGameObject);
+            GameManager.instance.petAlreadyInstantiate = true;
+        }
     }
 
     /// <summary>

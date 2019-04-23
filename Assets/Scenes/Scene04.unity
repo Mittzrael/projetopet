@@ -940,8 +940,10 @@ MonoBehaviour:
     lastTimePlayed: 
     poopLocation:
       location: []
+      poopCount: 0
     peeLocation:
       location: []
+      peeCount: 0
     foodPotLocation:
       elementName: 
       sceneName: 
@@ -966,7 +968,14 @@ MonoBehaviour:
         image: {fileID: 0}
         nutritionalValor: 0
       potFullness: 0
+    timeHelper:
+      currentPeriod: 0
+      dayCounter: 0
+      lastMeal: 23/04/2019 18:59:17
+      betweenMealAndPeriod: 0
+      betweenMealAndTimeLimit: 0
     flag: []
+    savedWarnings: []
   petList: {fileID: 11400000, guid: 1c535a37bfe6a5042a4ecf38a76c2c6b, type: 2}
 --- !u!1 &2140648211
 GameObject:
@@ -1003,7 +1012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0.000030517578, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213

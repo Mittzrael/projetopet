@@ -10,4 +10,5 @@ using UnityEngine;
 public class PetImage : Item
 {
     public string petInfo;
+    public GameObject petGameObject;
 }

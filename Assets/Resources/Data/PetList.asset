@@ -16,7 +16,13 @@ MonoBehaviour:
   pet:
   - itemImage: {fileID: 2800000, guid: 9d3c0248d59dbb345b386621fbe7c106, type: 3}
     petInfo: Doguinho
-  - itemImage: {fileID: 2800000, guid: 5e36f04a719c2fa429dc4be6cd36e6d4, type: 3}
-    petInfo: Doguito
-  - itemImage: {fileID: 2800000, guid: 398a8a0c27074f5408f0a899d84af01e, type: 3}
-    petInfo: Gattito
+    petGameObject: {fileID: 3964328320810763775, guid: bc051eae07920954297ab150063748c5,
+      type: 3}
+  - itemImage: {fileID: 2800000, guid: 5eabe5d01723e2d41945c4e0e8b208c8, type: 3}
+    petInfo: Wheels
+    petGameObject: {fileID: 3964328320810763775, guid: 2d4038406b1343045945e2fb410a51f9,
+      type: 3}
+  - itemImage: {fileID: 2800000, guid: f80876f63fa5cce45bd303cadccfff74, type: 3}
+    petInfo: Gato
+    petGameObject: {fileID: 3964328320810763775, guid: 4d3d4494bef69e7409fc452ad40b37b0,
+      type: 3}

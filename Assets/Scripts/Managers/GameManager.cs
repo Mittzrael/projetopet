@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public string bathroomScene;
     public float bathroomPosition;
     public string[] petAccessScenes;
+    public bool petAlreadyInstantiate = false;
 
     #region Loader
     private GameManager gameManager;
