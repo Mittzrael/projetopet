@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe responsável pela criação de grafos
+/// </summary>
 [CreateAssetMenu(fileName = "PetAccessGraph", menuName = "My Assets/Grafo dos Locais de Acesso do Pet")]
 public class GraphCreator : ScriptableObject
 {
@@ -9,7 +12,11 @@ public class GraphCreator : ScriptableObject
     public GraphHelperBuilder[] sceneTransitions;
     public Graph<string> petAccessGraph;
     
-    // Start is called before the first frame update
+    /// <summary>
+    /// Função que cria um grafo do tipo STRING com as informações passadas via INSPECTOR.
+    /// Criada para facilitar a criação dos grafos utilizados
+    /// </summary>
+    /// <returns></returns>
     public Graph<string> CreateGraph()
     {
         petAccessGraph = new Graph<string>();
@@ -28,6 +35,9 @@ public class GraphCreator : ScriptableObject
     }
 }
 
+/// <summary>
+/// Struct utilizada para facilitar a entrada dos dados dos nós do grafo e dos pesos das arestas
+/// </summary>
 [System.Serializable]
 public struct GraphHelperBuilder
 {

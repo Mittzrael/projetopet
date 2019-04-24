@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe responsável por gerenciar a lista de avisos que o jogador deve resolver
+/// </summary>
 public class PopUpWarning : MonoBehaviour
 {
     public static PopUpWarning instance;
