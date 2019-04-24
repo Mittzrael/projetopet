@@ -44,19 +44,13 @@ public class GameManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitializeManagers()
     {
-        GameObject videoManager, gameManager, animManager, soundManager, saveManager, timeManager;
+        GameObject gameManager, animManager, soundManager, saveManager, timeManager;
         
-        videoManager = Resources.Load("Prefabs/VideoManager") as GameObject;
         gameManager = Resources.Load("Prefabs/GameManager") as GameObject;
         animManager = Resources.Load("Prefabs/AnimationManager") as GameObject;
         soundManager = Resources.Load("Prefabs/SoundManager") as GameObject;
         saveManager = Resources.Load("Prefabs/SaveManager") as GameObject;
         timeManager = Resources.Load("Prefabs/TimeManager") as GameObject;
-
-        if (VideoManager.instance == null)
-        {
-            Instantiate(videoManager);
-        }
 
         if (GameManager.instance == null)
         {
