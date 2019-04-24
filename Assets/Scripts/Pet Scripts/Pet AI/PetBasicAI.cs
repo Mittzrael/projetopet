@@ -33,7 +33,7 @@ public class PetBasicAI : MonoBehaviour
     public float moveRangeMultiplier = 50;
 
     // Nome do script com as animações do pet - para poder acessar as animações
-    private PetMovement petAnimationScript;
+    protected PetMovement petAnimationScript;
 
     // Valores minimo e máximo para o tempo aleatório de verificação das necessidades do pet
     readonly private float actionMinRandom = 1;
@@ -49,39 +49,31 @@ public class PetBasicAI : MonoBehaviour
     // Vetor de delegates (utilizado para chamar uma delegate de cada vez no pacote de delegates)
     private System.Delegate[] petDelegateList;
 
-    //#region Variáveis utilizadas para bloquear uma ação que já está armazenada na delegate e ainda não foi chamada
+    #region Variáveis utilizadas para bloquear uma ação que já está armazenada na delegate e ainda não foi chamada
     private bool hungryOnDelegate = false;
-    //private bool hungryWarningOnDelegate = false;
     private bool thirstyOnDelegate = false;
-    //private bool thirstyWarningOnDelegate = false;
-    //private bool sadOnDelegate = false;
-    //private bool peeOnDelegate = false;
-    //private bool poopOnDelegate = false;
-    //#endregion
+    #endregion
 
     #region Variáveis para o grafo de locais de acesso do pet
     [SerializeField]
     public GraphCreator[] petAccessInfo;
-    private int petAccessInfoIndex;
+    protected int petAccessInfoIndex;
     [SerializeField]
-    private Graph<string> petAccessGraph;
+    protected Graph<string> petAccessGraph;
     #endregion
 
     // Variável que indica se o pet já está realizando alguma ação (não permite que várias ações sejam execurtadas em paralelo)
     public bool isPetDoingSomething = false;
     private bool waitForActionEnd;
 
-    private Pet pet;
-    private float chanceToGoToActiveScene = 0.5f;
+    protected Pet pet;
+    protected float chanceToGoToActiveScene = 0.5f;
     private float chanceToBeThirsty = 0f;
     [SerializeField]
     private float increaseChanceToBeThirsty;
     private int drinkCount = 0;
 
-    #region Para testes
-    private Food food;
-    public Player player;
-    #endregion
+    protected Player player;
 
     #endregion
 
@@ -99,17 +91,8 @@ public class PetBasicAI : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         pet = gameObject.GetComponentInChildren<Pet>();
-
-        #region Para testes
         player = SaveManager.instance.player;
-        pet.SetPetLocation(new ElementLocation("Pet", SceneManager.GetActiveScene().name, gameObject.transform.position));
-        player.foodPotLocation = new ElementLocation("Pote de Comida", "MainRoom", new Vector3(1500, -410, 5));
-        player.waterPotLocation = new ElementLocation("Pote de Água", "Yard(1)", new Vector3(-300, -356, 5));
-        player.wasteLocation = new ElementLocation("Jornal", "Yard(1)", new Vector3(500, -356, 0));
-        player.foodPot = new PotStatus(new Food("Ração", 1f));
-        player.waterPot = new PotStatus(new Food("Água", 1f));
-        #endregion
-
+        
         petAnimationScript = gameObject.GetComponentInChildren<PetMovement>();
         petHealth = SaveManager.instance.player.health;
 
@@ -348,6 +331,10 @@ public class PetBasicAI : MonoBehaviour
                         petAnimationScript.MoveAnimalAndando(move);
                         yield return new WaitUntil(() => !petAnimationScript.isWalking);
                         break;
+                    case 2: // Pet se espriguiça
+                        petAnimationScript.Espriguicar();
+                        yield return new WaitForSeconds(1);
+                        break;
                 }
             }
             isPetDoingSomething = false;
@@ -376,7 +363,7 @@ public class PetBasicAI : MonoBehaviour
     /// <param name="max">Limite superior do atributo</param>
     /// <param name="value">Valor do atributo para verificar a chance</param>
     /// <returns>Retorna a chance em porcentagem, entre 0 e 1</returns>
-    private float ChanceToHappen(float min, float max, float value)
+    protected float ChanceToHappen(float min, float max, float value)
     {
         return Mathf.Clamp01((max - value) / (max - min));
     }
@@ -386,7 +373,7 @@ public class PetBasicAI : MonoBehaviour
     /// </summary>
     /// <param name="hashSet"></param>
     /// <returns></returns>
-    private string HasHSetToString(HashSet<string> hashSet)
+    protected string HasHSetToString(HashSet<string> hashSet)
     {
         return string.Join(",", hashSet);
     }
@@ -506,7 +493,7 @@ public class PetBasicAI : MonoBehaviour
         yield return new WaitUntil(() => !isPetDoingSomething);
     }
 
-    private void IncreaseChanceCalculate()
+    protected void IncreaseChanceCalculate()
     {
         double time = TimeManager.instance.GetTimeBetweenPeriods(TimeManager.instance.GetCurrentPeriod());
         time *= 0.8f;

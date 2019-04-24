@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3964328320810763774}
   - component: {fileID: 3964328320810763773}
-  - component: {fileID: 3964328320810763771}
+  - component: {fileID: 1035062805833843344}
   m_Layer: 0
   m_Name: GatoCrazy
   m_TagString: PetFather
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74115ea822213c14088e189ffc8385c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3964328320810763771
+--- !u!114 &1035062805833843344
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,13 +54,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964328320810763775}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a1f8a5b5ef0d24e997501ad5adb4d8, type: 3}
+  m_Script: {fileID: 11500000, guid: fb90207040e954746a9e4a619a14f245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAction: 1
   healthLimit:
-    hungry: 0
-    thirsty: 0
+    cleanFoodPot: 0
+    cleanWaterPot: 0
     hygiene: 1
     happiness: 1
     whatToPlay: 0
@@ -73,65 +73,9 @@ MonoBehaviour:
   moveRangeMin: -20
   moveRangeMax: 20
   moveRangeMultiplier: 50
-  petAccessInfo:
-  - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
+  petAccessInfo: []
   isPetDoingSomething: 0
   increaseChanceToBeThirsty: 0
-  player:
-    slot: -1
-    nome: 
-    health:
-      hungry: 0
-      thirsty: 1
-      hygiene: 1
-      happiness: 1
-      whatToPlay: 0
-      pee: 0
-      poop: 0
-      whereToPP: 0
-    avatarSelecionado: -1
-    residenciaSelecionada: -1
-    petSelecionado: -1
-    graphNumber: -1
-    lastTimePlayed: 
-    poopLocation:
-      location: []
-      poopCount: 0
-    peeLocation:
-      location: []
-      peeCount: 0
-    foodPotLocation:
-      elementName: 
-      sceneName: 
-      elementPosition: {x: 0, y: 0, z: 0}
-    waterPotLocation:
-      elementName: 
-      sceneName: 
-      elementPosition: {x: 0, y: 0, z: 0}
-    wasteLocation:
-      elementName: 
-      sceneName: 
-      elementPosition: {x: 0, y: 0, z: 0}
-    foodPot:
-      content:
-        nome: 
-        image: {fileID: 0}
-        nutritionalValor: 0
-      potFullness: 0
-    waterPot:
-      content:
-        nome: 
-        image: {fileID: 0}
-        nutritionalValor: 0
-      potFullness: 0
-    timeHelper:
-      currentPeriod: 0
-      dayCounter: 0
-      lastMeal: 
-      betweenMealAndPeriod: 0
-      betweenMealAndTimeLimit: 0
-    flag: []
-    savedWarnings: []
 --- !u!1 &3964328321029930710
 GameObject:
   m_ObjectHideFlags: 0
