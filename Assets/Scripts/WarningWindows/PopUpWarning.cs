@@ -28,6 +28,13 @@ public class PopUpWarning : MonoBehaviour
             warnings.Add(transform.GetChild(i).name);
         }
 
+        StartCoroutine(AfterStart());
+    }
+
+    private IEnumerator AfterStart()
+    {
+        yield return new WaitUntil(() => GameManager.instance.petAlreadyInstantiate);
+
         // Pega as listas de aviso que estão armazenadas no pet
         warningsList = GameObject.FindGameObjectWithTag("PetFather").GetComponentInChildren<Pet>().warningsLists;
 

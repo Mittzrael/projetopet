@@ -73,7 +73,8 @@ MonoBehaviour:
   moveRangeMin: -20
   moveRangeMax: 20
   moveRangeMultiplier: 50
-  petAccessInfo: []
+  petAccessInfo:
+  - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
   isPetDoingSomething: 0
   increaseChanceToBeThirsty: 0
 --- !u!1 &3964328321029930710

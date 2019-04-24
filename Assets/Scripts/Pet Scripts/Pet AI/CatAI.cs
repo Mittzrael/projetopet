@@ -12,7 +12,7 @@ public class CatAI : PetBasicAI
     /// Função que controla os movimentos aleatórios do pet
     /// Movimentos que ocorrem quando o pet não possui nenhuma outra necessidade
     /// </summary>
-    public IEnumerator PetRandomMove()
+    public override IEnumerator PetRandomMove()
     {
         // Verifica se o limite de vezes que a função deve ser chamada foi atingido
         if (randomActionCountdown >= maxIdleTime)
