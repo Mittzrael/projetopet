@@ -86,9 +86,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SaveManager.instance.Load(0);
-        if (saveManager.player.flag[0].state)
+        if (SaveManager.instance.player.flag[0].state)
         {
-            timeManager.PeriodProcess();
+            TimeManager.instance.PeriodProcess();
         }
         StartCoroutine(StartProcess());
     }
