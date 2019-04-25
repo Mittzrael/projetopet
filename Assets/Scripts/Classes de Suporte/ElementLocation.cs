@@ -16,4 +16,9 @@ public class ElementLocation
         sceneName = scene;
         elementPosition = pos;
     }
+
+    public override string ToString()
+    {
+        return ("Element name: " + elementName + " sceneName: " + sceneName + " elementPosition: " + elementPosition.ToString());
+    }
 }

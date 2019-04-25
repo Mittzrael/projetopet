@@ -29,15 +29,15 @@ public class Player
     /// <summary>
     /// Lugar do pote de comida
     /// </summary>
-    public ElementLocation foodPotLocation;
+    public ElementLocation foodPotLocation = new ElementLocation();
     /// <summary>
     /// Lugar do pote de água
     /// </summary>
-    public ElementLocation waterPotLocation;
+    public ElementLocation waterPotLocation = new ElementLocation();
     /// <summary>
     /// Lugar onde o cachoro irá fazer suas necessidades fisiológicas.
     /// </summary>
-    public ElementLocation wasteLocation;
+    public ElementLocation wasteLocation = new ElementLocation();
     /// <summary>
     /// Status do pot de comida
     /// </summary>
