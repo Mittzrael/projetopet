@@ -53,7 +53,7 @@ public class Pet : MonoBehaviour
         StartCoroutine(petMovement.IsPetDoingSometingSetFalse());
         petMovement.SetHungryOnDelegateBool(false);
 
-        PopUpWarning.instance.SolveWarning("Hungry");
+        PopUpWarning.instance.SolveWarning("CleanFoodPot");
         saveManager.player.SetFlagsTimeHelper();
         saveManager.player.SetTimeLastMeal();
         yield return new WaitUntil(() => (saveManager.player.timeHelper.betweenMealAndPeriod && saveManager.player.timeHelper.betweenMealAndTimeLimit));
@@ -69,7 +69,7 @@ public class Pet : MonoBehaviour
     public void Eat(Food food)
     {
         SaveManager.instance.player.health.PutInCleanFoodPot(false);
-        SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor() / 2);
+        //SaveManager.instance.player.health.PutInPoop(food.GetNutrionalValor() / 2);
         Debug.Log("comi");
     }
 
@@ -94,7 +94,7 @@ public class Pet : MonoBehaviour
     public void Drink(Food food)
     {
         SaveManager.instance.player.health.PutInCleanWaterPot(true); // food.GetNutrionalValor());
-        SaveManager.instance.player.health.PutInPee(food.GetNutrionalValor() / 2);
+        //SaveManager.instance.player.health.PutInPee(food.GetNutrionalValor() / 2);
         Debug.Log("bebi");
     }
 
@@ -121,7 +121,7 @@ public class Pet : MonoBehaviour
         SaveManager.instance.player.health.PutInPee(-0.5f); //Esvazia pela metade a vontade do animal de fazer xixi
         SaveManager.instance.player.peeLocation.Add(petCurrentLocation.sceneName, position);
         // Informa que o pet acabou de fazer sua ação
-        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
+        StartCoroutine(gameObject.GetComponentInParent<PetBasicAI>().IsPetDoingSometingSetFalse());
         yield return new WaitForSeconds(0);
     }
 
@@ -140,7 +140,7 @@ public class Pet : MonoBehaviour
         SaveManager.instance.player.health.PutInPoop(-0.5f); //Esvazia pela metade a vontade do animal de fazer cocô
         SaveManager.instance.player.poopLocation.Add(petCurrentLocation.sceneName, position);
         // Informa que o pet acabou de fazer sua ação
-        StartCoroutine(gameObject.GetComponentInParent<BasicPetAI>().IsPetDoingSometingSetFalse());
+        StartCoroutine(gameObject.GetComponentInParent<PetBasicAI>().IsPetDoingSometingSetFalse());
         yield return new WaitForSeconds(0);
     }
 

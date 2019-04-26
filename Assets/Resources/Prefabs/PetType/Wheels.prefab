@@ -58,15 +58,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAction: 1
-  healthLimit:
-    cleanFoodPot: 0
-    cleanWaterPot: 0
-    hygiene: 1
-    happiness: 1
-    whatToPlay: 0
-    pee: 0
-    poop: 0
-    whereToPP: 0
   hungryWarning: 0
   thirstyWarning: 0
   maxIdleTime: 3
@@ -74,6 +65,8 @@ MonoBehaviour:
   moveRangeMax: 20
   moveRangeMultiplier: 50
   petAccessInfo:
+  - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
+  - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
   - {fileID: 11400000, guid: 6a71fbf8c5171084dbd6b4713f993a35, type: 2}
   isPetDoingSomething: 0
   increaseChanceToBeThirsty: 0

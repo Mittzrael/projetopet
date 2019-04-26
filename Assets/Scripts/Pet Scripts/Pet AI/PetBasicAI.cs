@@ -8,9 +8,7 @@ public class PetBasicAI : MonoBehaviour
     #region Declaração das Variáveis
     [Tooltip("Tempo entre as verificações de ações do Pet (em segundos)")]
     public float timeBetweenAction = 1;
-
-    [Tooltip("Valores limitantes para os atributos do pet")]
-    public Health healthLimit;
+    
     [Tooltip("Valor para aviso de fome")]
     public float hungryWarning;
     [Tooltip("Valor para aviso de sede")]
@@ -71,7 +69,7 @@ public class PetBasicAI : MonoBehaviour
     private float chanceToBeThirsty = 0f;
     [SerializeField]
     private float increaseChanceToBeThirsty;
-    private int drinkCount = 0;
+    private int drinkCount = 0; // Quantidade de vezes que o pet bebeu água no período
 
     protected Player player;
 
@@ -108,7 +106,7 @@ public class PetBasicAI : MonoBehaviour
     /// Função que verifica que ação o pet irá realizar baseado no estado atual do pet e no que ele já realizou anteriormente
     /// </summary>
     /// <returns></returns>
-    private IEnumerator PetActionVerifier()
+    public virtual IEnumerator PetActionVerifier()
     {
         // Número aleatório gerado para definir quando ocorrerá a próxima verificação
         actionRandom = Random.Range(actionMinRandom, actionMaxRandom);
@@ -117,12 +115,12 @@ public class PetBasicAI : MonoBehaviour
             // VERIFICAÇÃO DO ESTADO DO PET
             // Verifica se um status específico está fora do limite aceitável para o pet e se a ação já está na lista
             // Se estiver fora do limite e não estiver na lista de ações, adiciona na lista (delegate) e sinaliza como adicionado
-            if (petHealth.GetCleanFoodPot() && !hungryOnDelegate)
-            {
-                petActionList += PetHungry;
-                hungryOnDelegate = true;
-            }
-            if (drinkCount < pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()] && !thirstyOnDelegate)
+            //if (petHealth.GetCleanFoodPot() && !hungryOnDelegate)
+            //{
+            //    petActionList += PetHungry;
+            //    hungryOnDelegate = true;
+            //}
+            if (drinkCount < pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()] && !thirstyOnDelegate && !player.health.GetCleanWaterPot())
             {
                 if (Random.Range(0f, 1f) <= chanceToBeThirsty)
                 {
@@ -130,6 +128,7 @@ public class PetBasicAI : MonoBehaviour
                     drinkCount++;
                     petActionList += PetThisty;
                     thirstyOnDelegate = true;
+                    chanceToBeThirsty = 0;
                 }
                 else
                 {
@@ -171,14 +170,14 @@ public class PetBasicAI : MonoBehaviour
     /// <summary>
     /// Função que comanda o pet quando ele está com fome
     /// </summary>
-    public IEnumerator PetHungry()
-    {
-        isPetDoingSomething = true;
-        Debug.Log("Fome");
+    //public IEnumerator PetHungry()
+    //{
+    //    isPetDoingSomething = true;
+    //    Debug.Log("Fome");
 
-        StartCoroutine(MoveToPosition(player.foodPotLocation, IsPetDoingSometingSetFalse));
-        yield return new WaitForEndOfFrame();
-    }
+    //    StartCoroutine(MoveToPosition(player.foodPotLocation, IsPetDoingSometingSetFalse));
+    //    yield return new WaitForEndOfFrame();
+    //}
     
     public IEnumerator PetGoEat()
     {
@@ -255,6 +254,7 @@ public class PetBasicAI : MonoBehaviour
     {
         StartCoroutine(PetPee());
         yield return new WaitWhile(() => waitForActionEnd);
+        // Dar um tempo e mudar a posição levemente
         StartCoroutine(PetPoop());
         yield return new WaitWhile(() => waitForActionEnd);
     }
@@ -331,10 +331,6 @@ public class PetBasicAI : MonoBehaviour
                         petAnimationScript.MoveAnimalAndando(move);
                         yield return new WaitUntil(() => !petAnimationScript.isWalking);
                         break;
-                    case 2: // Pet se espriguiça
-                        petAnimationScript.Espriguicar();
-                        yield return new WaitForSeconds(1);
-                        break;
                 }
             }
             isPetDoingSomething = false;
@@ -379,13 +375,12 @@ public class PetBasicAI : MonoBehaviour
     }
 
     /// <summary>
-    /// EM CONSTRUÇÃO
     /// Função que retorna o indice de qual grafo de acesso deve ser utilizado
     /// </summary>
     /// <returns></returns>
     public int PetAccessListSelection()
     {
-        return 0;
+        return SaveManager.instance.player.graphNumber;
     }
 
     /// <summary>
@@ -444,7 +439,7 @@ public class PetBasicAI : MonoBehaviour
             temp_name = name[name.Length - 2];
             // Informa que ele deve continuar procurando pois ainda não está na scene correta
             keepSearching = true;
-            // Pega  aposição da porta por qual o pet deve entrar para a scene que ele quer ir
+            // Pega a posição da porta por qual o pet deve entrar para a scene que ele quer ir
             movePosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 1], name[name.Length - 2]);
             // Pega a posição da porta por qual ele irá sair na nova scene
             newStartPosition = petAccessInfo[petAccessInfoIndex].petAccessGraph.GetGraphCost(name[name.Length - 2], name[name.Length - 1]);
@@ -488,11 +483,6 @@ public class PetBasicAI : MonoBehaviour
         thirstyOnDelegate = value;
     }
     
-    public IEnumerator WaitForPetEndAction()
-    {
-        yield return new WaitUntil(() => !isPetDoingSomething);
-    }
-
     protected void IncreaseChanceCalculate()
     {
         double time = TimeManager.instance.GetTimeBetweenPeriods(TimeManager.instance.GetCurrentPeriod());
@@ -505,7 +495,7 @@ public class PetBasicAI : MonoBehaviour
 
     public void RestartDrinkCount()
     {
-        drinkCount = pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()];
+        drinkCount = 0;
     }
 
     #endregion

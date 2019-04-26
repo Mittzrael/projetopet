@@ -27,6 +27,7 @@ public class WaterPotInteractions : MonoBehaviour
     /// </summary>
     public void FoodPotCleaned()
     {
-        PopUpWarning.instance.SolveWarning("Thirsty");
+        SaveManager.instance.player.health.PutInCleanWaterPot(false);
+        PopUpWarning.instance.SolveWarning("CleanWaterPot");
     }
 }

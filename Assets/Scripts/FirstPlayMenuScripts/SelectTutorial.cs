@@ -28,6 +28,8 @@ public class SelectTutorial : MonoBehaviour
         listOfTutorials[0, 1] = "Instrucoes1"; ///Cão de rodas e casa
         listOfTutorials[0, 2] = "Instrucoes1"; ///Gato e casa
         listOfGraphs[0, 0] = 0;
+        listOfGraphs[0, 1] = 0;
+        listOfGraphs[0, 2] = 0;
     }
 
     /// <summary>
