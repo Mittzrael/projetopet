@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
     {
         SaveManager.instance.Load(0);
         StartCoroutine(StartProcess());
+        OnApplicationQuit();
     }
 
     /// <summary>
@@ -137,7 +138,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Está começando o período: " + timeManager.GetCurrentPeriod().ToString());
     }
 
-    private void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
+    public void OnApplicationQuit() //Usando para salvar a data em que o jogador fecha o aplicativo
     {
         if (SaveManager.instance.player.flag[0].state)
         {
