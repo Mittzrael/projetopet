@@ -46,8 +46,10 @@ public class Player
     /// Status do pot de água
     /// </summary>
     public PotStatus waterPot;
-    public TimeHelper timeHelper;
-
+    public TimeHelper timeHelper = new TimeHelper();
+    /// <summary>
+    /// Utilizado para colocar flags em acontecimentos com o jogador.
+    /// </summary>
     public List<Flag> flag = new List<Flag>();
 
     public List<string> savedWarnings = new List<string>();

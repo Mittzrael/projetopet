@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class TimeHelper
 {
-    public int currentPeriod;
-    public int dayCounter;
+    public int currentPeriod = 0;
+    public int dayCounter = 0;
     public string lastMeal = System.DateTime.UtcNow.ToString();
     public bool betweenMealAndPeriod = false;
     public bool betweenMealAndTimeLimit = false;

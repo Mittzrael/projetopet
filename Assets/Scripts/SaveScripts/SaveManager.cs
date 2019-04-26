@@ -68,8 +68,8 @@ public class SaveManager : MonoBehaviour {
 
     public void ResetSave()
     {
-        player = new Player();
         DeletePlayer(0);
+        player = new Player();
     }
 
     /// <summary>

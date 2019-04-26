@@ -5,21 +5,8 @@ using UnityEngine.UI;
 
 public class ButtonTest : MonoBehaviour
 {
-    bool salvar = true;
-
-    public void SalvarCarregar()
+    public void PermitirComida()
     {
-        if (salvar)
-        {
-            SaveManager.instance.Save();
-            GetComponentInChildren<Text>().text = "Carregar";
-            salvar = false;
-        }
-        else
-        {
-            SaveManager.instance.Load(0);
-            GetComponentInChildren<Text>().text = "Salvar";
-            salvar = true;
-        }
+        SaveManager.instance.player.health.PutInCleanFoodPot(true);
     }
 }

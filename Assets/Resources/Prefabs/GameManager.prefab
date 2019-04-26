@@ -43,3 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6ccce338f2ea04b8f6c555822eb13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  petDoingAction: 0
+  doorKitchenToYard: -2700
+  doorYardToKitchen: 2400
+  foodScene: 
+  foodPosition: 0
+  waterScene: 
+  waterPosition: 0
+  bathroomScene: 
+  bathroomPosition: 0
+  petAccessScenes: []
+  petAlreadyInstantiate: 0
+  petList: {fileID: 11400000, guid: 1c535a37bfe6a5042a4ecf38a76c2c6b, type: 2}

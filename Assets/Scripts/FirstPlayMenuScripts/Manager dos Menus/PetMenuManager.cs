@@ -8,12 +8,14 @@ using UnityEngine.UI;
 /// </summary>
 public class PetMenuManager : MenuManager
 {
-    public PetList petList;
+    private PetList petList;
 
     private void Awake()
     {
+        petList = GameManager.instance.petList;
         // Informa o tamanho da lista de pets ao MenuManager
         listSize = petList.pet.Length;
+
     }
 
     /// <summary>

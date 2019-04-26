@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public float bathroomPosition;
     public string[] petAccessScenes;
     public bool petAlreadyInstantiate = false;
+    public PetList petList;
 
     #region Loader
     private GameManager gameManager;
@@ -86,13 +87,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SaveManager.instance.Load(0);
-        if (SaveManager.instance.player.flag[0].state)
-        {
-            TimeManager.instance.PeriodProcess();
-        }
         StartCoroutine(StartProcess());
     }
 
+    /// <summary>
+    /// Função que inicia a contagem de tempo no jogo.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator StartProcess()
     {
         yield return new WaitUntil(() => (TimeManager.instance != null));
