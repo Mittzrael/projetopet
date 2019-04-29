@@ -473,26 +473,47 @@ public class PetBasicAI : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Função que coloca um valor booleano em hungryOnDelegate
+    /// </summary>
+    /// <param name="value"></param>
     public void SetHungryOnDelegateBool(bool value)
     {
         hungryOnDelegate = value;
     }
 
+    /// <summary>
+    /// Função que coloca um valor booleano em thirstyOnDelegate
+    /// </summary>
+    /// <param name="value"></param>
     public void SetThirstyOnDelegateBool(bool value)
     {
         thirstyOnDelegate = value;
     }
     
+    /// <summary>
+    /// Função que calcula o incremento na chance do pet beber água.
+    /// O valor depende do número de vezes queo pet deve beber água no período.
+    /// </summary>
     protected void IncreaseChanceCalculate()
     {
+        // Pega o tempo total do período atual
         double time = TimeManager.instance.GetTimeBetweenPeriods(TimeManager.instance.GetCurrentPeriod());
+        // Pega 80% deste valor para garantir que, no pior caso, todas as ações serão realizadas antes da mudança de período
         time *= 0.8f;
+        // Calcula o tempo máximo que cada ação deve demorar para ocorrer
         double maxActTime = time / pet.drinkTimes[TimeManager.instance.GetCurrentPeriod()];
-        maxActTime /= 15f;
+        // Divide pelo tempo médio de execução da função (tempo até a função ser chamada novamente)
+        maxActTime /= 5f;
+        // Passa para float
         increaseChanceToBeThirsty = (float) maxActTime;
+        // Ajusta o valor com o tempo decorrido entre os frames
         increaseChanceToBeThirsty *= Time.deltaTime;
     }
 
+    /// <summary>
+    /// Coloca o valor 0 no contador de vezes que o pet bebeu água
+    /// </summary>
     public void RestartDrinkCount()
     {
         drinkCount = 0;
