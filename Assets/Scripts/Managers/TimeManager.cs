@@ -5,10 +5,25 @@ using UnityEngine;
 [System.Serializable]
 public class TimeHelper
 {
+    /// <summary>
+    /// Período atual
+    /// </summary>
     public int currentPeriod = 0;
+    /// <summary>
+    /// Quantidades de dias corridos
+    /// </summary>
     public int dayCounter = 0;
+    /// <summary>
+    /// Horário da última vez que comeu (UTC)
+    /// </summary>
     public string lastMeal = System.DateTime.UtcNow.ToString();
+    /// <summary>
+    /// Indica se o momento atual está entre uma refeição e a mudança de período.
+    /// </summary>
     public bool betweenMealAndPeriod = false;
+    /// <summary>
+    /// Indica se o momento atual está estre uma refeição e tempo limite.
+    /// </summary>
     public bool betweenMealAndTimeLimit = false;
 }
 

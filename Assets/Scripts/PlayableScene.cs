@@ -86,9 +86,4 @@ public class PlayableScene : MonoBehaviour
             Instantiate(pee, position, Quaternion.identity);
         }
     }
-
-    private void StartCounters()
-    {
-
-    }
 }
