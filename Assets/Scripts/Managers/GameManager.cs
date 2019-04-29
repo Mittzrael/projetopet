@@ -37,11 +37,11 @@ public class GameManager : MonoBehaviour
     {
         GameObject gameManager, animManager, soundManager, saveManager, timeManager;
         
-        gameManager = Resources.Load("Prefabs/GameManager") as GameObject;
-        animManager = Resources.Load("Prefabs/AnimationManager") as GameObject;
-        soundManager = Resources.Load("Prefabs/SoundManager") as GameObject;
-        saveManager = Resources.Load("Prefabs/SaveManager") as GameObject;
-        timeManager = Resources.Load("Prefabs/TimeManager") as GameObject;
+        gameManager = Resources.Load("Prefabs/Managers/GameManager") as GameObject;
+        animManager = Resources.Load("Prefabs/Managers/AnimationManager") as GameObject;
+        soundManager = Resources.Load("Prefabs/Managers/SoundManager") as GameObject;
+        saveManager = Resources.Load("Prefabs/Managers/SaveManager") as GameObject;
+        timeManager = Resources.Load("Prefabs/Managers/TimeManager") as GameObject;
 
         if (GameManager.instance == null)
         {
