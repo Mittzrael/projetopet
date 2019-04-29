@@ -35,7 +35,7 @@ public class DebuggerText : MonoBehaviour
 
     private string MakeDebugString()
     {
-        string text = ("Hungry Status: " + food + " PetPosition:" + petLocation.ToString() + " foodPotLocation" + foodPotLocation.ToString() + " waterPotLocation" + waterPotLocation.ToString());
+        string text = ("Hungry Status: " + food + " CurrentPeriod: " + currentPeriod.ToString() + " PetPosition:" + petLocation.ToString() + " foodPotLocation" + foodPotLocation.ToString() + " waterPotLocation" + waterPotLocation.ToString());
         return text;
     }
 
