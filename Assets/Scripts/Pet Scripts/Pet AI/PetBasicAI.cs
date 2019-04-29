@@ -250,11 +250,18 @@ public class PetBasicAI : MonoBehaviour
         yield return new WaitForEndOfFrame();
     }
 
+    /// <summary>
+    /// Função que faz o pet fazer xixi e coco
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator CallPeePoop()
     {
         StartCoroutine(PetPee());
         yield return new WaitWhile(() => waitForActionEnd);
-        // Dar um tempo e mudar a posição levemente
+        // Move para um lugar proximo e faz a outra necessidade
+        //ElementLocation temp = pet.petCurrentLocation;
+        //temp.elementPosition.x += Random.Range(-50, +50);
+        //StartCoroutine(MoveToPosition(temp, null));
         StartCoroutine(PetPoop());
         yield return new WaitWhile(() => waitForActionEnd);
     }

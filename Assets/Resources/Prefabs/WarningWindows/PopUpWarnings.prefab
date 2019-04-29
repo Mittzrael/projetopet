@@ -350,6 +350,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Poop
       objectReference: {fileID: 0}
+    - target: {fileID: 3571027838868164423, guid: 4ace74fdfc651554b94bdfe19b13df13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 413184085319905698, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -494,6 +499,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CleanWaterPot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571027838868164423, guid: 4ace74fdfc651554b94bdfe19b13df13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 413184085319905698, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
@@ -643,7 +653,7 @@ PrefabInstance:
     - target: {fileID: 3571027838868164423, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 413184085319905698, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
@@ -769,6 +779,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pee
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571027838868164423, guid: 4ace74fdfc651554b94bdfe19b13df13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 413184085319905698, guid: 4ace74fdfc651554b94bdfe19b13df13,
         type: 3}
