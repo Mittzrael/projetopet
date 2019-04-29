@@ -44,19 +44,22 @@ public class SaveManager : MonoBehaviour {
 
     public void CreateNewPlayer()///Modificar de acordo com sua primeira tela de save
     {
-        List<Flag> flagTemp = this.player.flag;
+        //List<Flag> flagTemp = this.player.flag;
         Player newPlayer = new Player();
         player = newPlayer;
-        SpecificFromGame(flagTemp);
+        SpecificFromGame();
         player.slot = SlotsListManager.SlotGiver(list);
     }
 
     /// <summary>
     /// Detalhes do create new player especificas do jogos
     /// </summary>
-    public void SpecificFromGame(List<Flag> flag)
+    public void SpecificFromGame()
     {
-        player.flag = flag;
+        Flag temp = new Flag();
+        temp.name = "Concluiu Tutorial";
+        temp.state = false;
+        player.flag.Add(temp);
     }
 
     public void Save()

@@ -30,12 +30,24 @@ public class TimeHelper
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager instance = null;
+    /// <summary>
+    /// Período atual
+    /// </summary>
     [SerializeField]
     private int currentPeriod;
+    /// <summary>
+    /// Tempo entre os períodos. No array[0] está o tempo entre 0 (manhã) e 1 (tarde). No array[2] está o tempo entre 2 (noite) e 0 (dia seguinte).
+    /// </summary>
     [SerializeField]
     private double[] timeBetweenPeriods;
+    /// <summary>
+    /// Quantidade total de períodos
+    /// </summary>
     [SerializeField]
     private int numberOfPeriods;
+    /// <summary>
+    /// Tempo limite sem alimentar o pet. Reseta o jogo após o tempo passar.
+    /// </summary>
     [SerializeField]
     private double limitTime;
     private SaveManager saveManager;
