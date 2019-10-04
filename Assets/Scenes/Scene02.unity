@@ -1169,8 +1169,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -790}
-  m_SizeDelta: {x: 700, y: 800}
+  m_AnchoredPosition: {x: 0, y: -754.17}
+  m_SizeDelta: {x: 700, y: 728.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2012701009
 MonoBehaviour:
@@ -1223,8 +1223,8 @@ MonoBehaviour:
     slot: 0
     nome: 
     health:
-      hungry: 1
-      thirsty: 1
+      cleanFoodPot: 0
+      cleanWaterPot: 0
       hygiene: 1
       happiness: 1
       whatToPlay: 0
@@ -1234,12 +1234,14 @@ MonoBehaviour:
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
-    petElementsLocations: []
+    graphNumber: -1
     lastTimePlayed: 
     poopLocation:
       location: []
+      poopCount: 0
     peeLocation:
       location: []
+      peeCount: 0
     foodPotLocation:
       elementName: 
       sceneName: 
@@ -1264,7 +1266,14 @@ MonoBehaviour:
         image: {fileID: 0}
         nutritionalValor: 0
       potFullness: 0
+    timeHelper:
+      currentPeriod: 0
+      dayCounter: 0
+      lastMeal: 04/10/2019 14:24:17
+      betweenMealAndPeriod: 0
+      betweenMealAndTimeLimit: 0
     flag: []
+    savedWarnings: []
   avatarList: {fileID: 11400000, guid: 65c91df62b6e138438f013f30b2b9f26, type: 2}
 --- !u!1 &2140648211
 GameObject:
@@ -1301,7 +1310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213

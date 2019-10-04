@@ -845,8 +845,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -750}
-  m_SizeDelta: {x: 700, y: 900}
+  m_AnchoredPosition: {x: 0, y: -709.17}
+  m_SizeDelta: {x: 700, y: 818.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2012701009
 MonoBehaviour:
@@ -899,8 +899,8 @@ MonoBehaviour:
     slot: -1
     nome: 
     health:
-      hungry: 1
-      thirsty: 1
+      cleanFoodPot: 0
+      cleanWaterPot: 0
       hygiene: 1
       happiness: 1
       whatToPlay: 0
@@ -910,13 +910,46 @@ MonoBehaviour:
     avatarSelecionado: -1
     residenciaSelecionada: -1
     petSelecionado: -1
-    petAccessScenes: {fileID: 0}
+    graphNumber: -1
     lastTimePlayed: 
     poopLocation:
       location: []
+      poopCount: 0
     peeLocation:
       location: []
+      peeCount: 0
+    foodPotLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    waterPotLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    wasteLocation:
+      elementName: 
+      sceneName: 
+      elementPosition: {x: 0, y: 0, z: 0}
+    foodPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
+    waterPot:
+      content:
+        nome: 
+        image: {fileID: 0}
+        nutritionalValor: 0
+      potFullness: 0
+    timeHelper:
+      currentPeriod: 0
+      dayCounter: 0
+      lastMeal: 04/10/2019 14:25:54
+      betweenMealAndPeriod: 0
+      betweenMealAndTimeLimit: 0
     flag: []
+    savedWarnings: []
   residenciaList: {fileID: 11400000, guid: 82893ce40e454bb4a9128d5eccfca475, type: 2}
 --- !u!1 &2140648211
 GameObject:
@@ -953,7 +986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2140648213
